@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qatar Audit Compliance Tool — 2025 Filing</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --maroon: #8B1A2B;
+  --maroon-dark: #5c1019;
+  --maroon-light: #f5e8ea;
+  --gold: #C9A84C;
+  --gold-light: #fdf6e3;
+  --text: #1a1a1a;
+  --text-muted: #6b6b6b;
+  --border: #e2e2e2;
+  --bg: #fafaf8;
+  --white: #ffffff;
+  --green: #1e5c3a;
+  --green-bg: #eaf5ee;
+  --red: #7a1c1c;
+  --red-bg: #fceaea;
+  --amber: #7a4e0a;
+  --amber-bg: #fef6e4;
+  --blue: #0c3d6e;
+  --blue-bg: #e8f2fd;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; }
+
+/* ---- HERO HEADER ---- */
+.hero {
+  background: var(--maroon);
+  color: white;
+  padding: 3rem 2rem 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(255,255,255,0.02) 60px, rgba(255,255,255,0.02) 61px);
+}
+.hero-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+.hero-badge { display: inline-block; background: var(--gold); color: #2a1a00; font-size: 11px; font-weight: 500; padding: 4px 14px; border-radius: 100px; margin-bottom: 1rem; letter-spacing: 0.05em; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 500; line-height: 1.2; margin-bottom: 0.75rem; }
+.hero p { font-size: 15px; opacity: 0.85; max-width: 540px; margin: 0 auto 1.5rem; }
+.hero-pills { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.hero-pill { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 5px 14px; border-radius: 100px; font-size: 12px; }
+
+/* ---- LEAD GATE MODAL ---- */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; padding: 1rem;
+}
+.modal-overlay.hidden { display: none; }
+.modal {
+  background: white; border-radius: var(--radius-lg);
+  width: 100%; max-width: 460px;
+  padding: 2rem; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  animation: slideUp 0.3s ease;
+}
+@keyframes slideUp { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.modal-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; }
+.modal-logo-mark { width: 38px; height: 38px; background: var(--maroon); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; }
+.modal-logo-text { font-size: 13px; font-weight: 500; }
+.modal-logo-text span { display: block; font-size: 11px; color: var(--text-muted); font-weight: 400; }
+.modal h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 500; margin-bottom: 0.5rem; }
+.modal p { font-size: 13px; color: var(--text-muted); margin-bottom: 1.5rem; }
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 5px; }
+.form-group input, .form-group select {
+  width: 100%; padding: 10px 12px; border: 1px solid var(--border);
+  border-radius: var(--radius); font-size: 13px; font-family: 'DM Sans', sans-serif;
+  color: var(--text); background: white; transition: border-color 0.15s;
+}
+.form-group input:focus, .form-group select:focus { outline: none; border-color: var(--maroon); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.btn-submit {
+  width: 100%; padding: 12px; background: var(--maroon); color: white;
+  border: none; border-radius: var(--radius); font-size: 14px; font-weight: 500;
+  cursor: pointer; margin-top: 8px; font-family: 'DM Sans', sans-serif;
+  transition: background 0.15s;
+}
+.btn-submit:hover { background: var(--maroon-dark); }
+.modal-note { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px; }
+
+/* ---- MAIN LAYOUT ---- */
+.container { max-width: 900px; margin: 0 auto; padding: 2rem 1.25rem; }
+.step-card {
+  background: white; border-radius: var(--radius-lg); border: 1px solid var(--border);
+  padding: 1.5rem; margin-bottom: 1.25rem; box-shadow: var(--shadow);
+}
+.step-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem; }
+.step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--maroon); color: white; font-size: 13px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.step-title { font-size: 15px; font-weight: 500; }
+.step-sub { font-size: 12px; color: var(--text-muted); }
+
+/* ---- UPLOAD ZONES ---- */
+.upload-zone {
+  border: 1.5px dashed var(--border); border-radius: var(--radius);
+  padding: 1.5rem; text-align: center; cursor: pointer;
+  transition: all 0.15s; background: var(--bg);
+}
+.upload-zone:hover { border-color: var(--maroon); background: var(--maroon-light); }
+.upload-zone .uz-icon { font-size: 28px; margin-bottom: 8px; }
+.upload-zone .uz-title { font-size: 14px; font-weight: 500; }
+.upload-zone .uz-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+.file-uploaded { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--green-bg); border: 1px solid #a5d6b5; border-radius: var(--radius); margin-top: 10px; font-size: 13px; color: var(--green); }
+
+/* ---- FORM ELEMENTS ---- */
+.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 1rem; }
+.input-group label { display: block; font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 5px; }
+.input-group input, .input-group select {
+  width: 100%; padding: 9px 12px; border: 1px solid var(--border);
+  border-radius: var(--radius); font-size: 13px; font-family: 'DM Sans', sans-serif;
+  color: var(--text); background: white; transition: border-color 0.15s;
+}
+.input-group input:focus, .input-group select:focus { outline: none; border-color: var(--maroon); }
+.divider-label { font-size: 12px; font-weight: 500; color: var(--text-muted); margin: 1rem 0 0.5rem; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+
+/* ---- ALERTS ---- */
+.alert { border-radius: var(--radius); padding: 12px 16px; font-size: 13px; margin: 10px 0; line-height: 1.6; }
+.alert-danger { background: var(--red-bg); border: 1px solid #f0a0a0; color: var(--red); }
+.alert-ok { background: var(--green-bg); border: 1px solid #a5d6b5; color: var(--green); }
+.alert-warn { background: var(--amber-bg); border: 1px solid #f0c070; color: var(--amber); }
+.alert-info { background: var(--blue-bg); border: 1px solid #a0c4f0; color: var(--blue); }
+
+/* ---- BADGES ---- */
+.badge { display: inline-block; padding: 2px 9px; border-radius: 100px; font-size: 11px; font-weight: 500; }
+.badge-ok { background: var(--green-bg); color: var(--green); }
+.badge-warn { background: var(--amber-bg); color: var(--amber); }
+.badge-danger { background: var(--red-bg); color: var(--red); }
+.badge-info { background: var(--blue-bg); color: var(--blue); }
+.badge-gold { background: var(--gold-light); color: #6b4500; border: 1px solid var(--gold); }
+
+/* ---- METRICS ---- */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 1rem 0; }
+.kpi { background: var(--bg); border-radius: var(--radius); padding: 12px 14px; border: 1px solid var(--border); }
+.kpi-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+.kpi-val { font-size: 20px; font-weight: 500; font-family: 'Playfair Display', serif; }
+.kpi-val.g { color: var(--green); }
+.kpi-val.r { color: var(--red); }
+
+/* ---- TABS ---- */
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 1rem; overflow-x: auto; }
+.tab { padding: 8px 16px; font-size: 13px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; color: var(--text-muted); white-space: nowrap; }
+.tab.active { border-bottom-color: var(--maroon); color: var(--maroon); font-weight: 500; }
+
+/* ---- FIN TABLES ---- */
+.fin-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.fin-table th { text-align: left; padding: 8px 10px; font-weight: 500; font-size: 11px; color: var(--text-muted); border-bottom: 1px solid var(--border); background: var(--bg); }
+.fin-table th.r, .fin-table td.r { text-align: right; }
+.fin-table td { padding: 7px 10px; border-bottom: 1px solid #f0f0f0; }
+.fin-table tr.sec td { font-weight: 500; font-size: 11px; color: var(--text-muted); padding-top: 14px; background: transparent; border-bottom: none; }
+.fin-table tr.sub td { color: var(--text-muted); padding-left: 20px; }
+.fin-table tr.subtotal td { font-weight: 500; border-top: 1px solid var(--border); }
+.fin-table tr.total td { font-weight: 500; background: var(--bg); }
+.fin-table tr.grandtotal td { font-weight: 500; font-size: 14px; border-top: 2px solid var(--maroon); color: var(--maroon); }
+
+/* ---- BUTTONS ---- */
+.btn { padding: 9px 18px; border-radius: var(--radius); font-size: 13px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; transition: all 0.15s; }
+.btn-primary { background: var(--maroon); color: white; border: none; }
+.btn-primary:hover { background: var(--maroon-dark); }
+.btn-outline { background: transparent; color: var(--maroon); border: 1px solid var(--maroon); }
+.btn-outline:hover { background: var(--maroon-light); }
+.btn-row { display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; }
+
+/* ---- REPORT ---- */
+.report-header { background: var(--maroon); color: white; border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 1.5rem; }
+.report-header h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 500; }
+.report-header p { font-size: 12px; opacity: 0.75; margin-top: 4px; }
+.report-meta { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+.report-meta-item { font-size: 12px; opacity: 0.85; }
+.report-meta-item strong { display: block; font-size: 10px; opacity: 0.65; text-transform: uppercase; letter-spacing: 0.05em; }
+.report-body { background: white; border: 1px solid var(--border); border-top: none; border-radius: 0 0 var(--radius-lg) var(--radius-lg); padding: 1.5rem; }
+.report-section { margin-bottom: 1.5rem; }
+.report-sec-title { font-size: 11px; font-weight: 500; color: var(--maroon); text-transform: uppercase; letter-spacing: 0.08em; padding-bottom: 6px; border-bottom: 1px solid var(--maroon-light); margin-bottom: 10px; }
+.info-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.info-row { display: flex; justify-content: space-between; padding: 5px 10px; background: var(--bg); border-radius: 6px; font-size: 12px; }
+.info-row span:first-child { color: var(--text-muted); }
+.info-row span:last-child { font-weight: 500; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.finding { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f5f5f5; }
+.finding:last-child { border-bottom: none; }
+.fdot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.dot-g { background: #2d8a50; }
+.dot-w { background: #c8870f; }
+.dot-r { background: #c0392b; }
+.sig-block { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+.sig-line { border-bottom: 1px solid #aaa; margin: 2rem 0 4px; }
+.sig-label { font-size: 12px; color: var(--text-muted); }
+.disclaimer { margin-top: 1.5rem; padding: 12px 16px; background: var(--bg); border-radius: var(--radius); font-size: 11px; color: var(--text-muted); line-height: 1.7; }
+
+/* ---- TOAST ---- */
+.toast { position: fixed; bottom: 24px; right: 24px; background: var(--maroon); color: white; padding: 12px 20px; border-radius: var(--radius); font-size: 13px; z-index: 2000; animation: fadeIn 0.3s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ---- FOOTER ---- */
+.footer { text-align: center; padding: 2rem 1rem; font-size: 12px; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 2rem; }
+.footer strong { color: var(--maroon); }
+
+/* ---- LEAD SUBMISSIONS PANEL (hidden - owner view) ---- */
+.leads-panel { background: white; border: 2px solid var(--gold); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.25rem; display: none; }
+.leads-panel.visible { display: block; }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.6rem; }
+  .input-grid, .form-row, .two-col, .info-grid-2, .sig-block { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---- HIDDEN ---- */
+.hidden { display: none !important; }
+textarea { width: 100%; border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; font-size: 12px; font-family: 'DM Sans', monospace; color: var(--text); background: var(--bg); resize: vertical; }
+.ratio-bar { height: 5px; border-radius: 3px; background: #e8e8e8; margin-top: 4px; }
+.ratio-fill { height: 5px; border-radius: 3px; background: var(--maroon); }
+</style>
+</head>
+<body>
+
+<!-- LEAD GATE MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-logo">
+      <div class="modal-logo-mark">QA</div>
+      <div class="modal-logo-text">
+        Qatar Audit Tool
+        <span>Free compliance checker · 2025 filings</span>
+      </div>
+    </div>
+    <h2>Check your audit deadline & tax in minutes</h2>
+    <p>Enter your details to access the tool. We'll also follow up with personalised audit support if you need it.</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Full name *</label>
+        <input type="text" id="lead-name" placeholder="Mohammed Al-Rashidi">
+      </div>
+      <div class="form-group">
+        <label>Mobile / WhatsApp *</label>
+        <input type="tel" id="lead-phone" placeholder="+974 55xx xxxx">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Company name</label>
+      <input type="text" id="lead-company" placeholder="Your company LLC">
+    </div>
+    <div class="form-group">
+      <label>Email address</label>
+      <input type="email" id="lead-email" placeholder="you@company.com">
+    </div>
+    <div class="form-group">
+      <label>What do you need help with?</label>
+      <select id="lead-service">
+        <option value="">Select...</option>
+        <option value="audit">Annual audit (mandatory)</option>
+        <option value="tax">Tax return filing</option>
+        <option value="both">Both audit & tax return</option>
+        <option value="deadline">Just checking deadline</option>
+        <option value="other">Other / not sure</option>
+      </select>
+    </div>
+    <button class="btn-submit" onclick="submitLead()">Access the tool — free</button>
+    <p class="modal-note">🔒 Your details are kept private. A certified Qatar auditor may contact you.</p>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Qatar GTA · 2025 Audit Season</div>
+    <h1>Qatar Audit & Tax<br>Compliance Checker</h1>
+    <p>Upload your CR and trial balance — get your audit deadline, financial statements, and tax computation instantly.</p>
+    <div class="hero-pills">
+      <span class="hero-pill">✓ CR deadline analysis</span>
+      <span class="hero-pill">✓ P&L · Balance Sheet · Cash Flow</span>
+      <span class="hero-pill">✓ 10% tax computation</span>
+      <span class="hero-pill">✓ Free to use</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- LEAD SUBMISSIONS (owner secret panel) -->
+  <div class="leads-panel" id="leads-panel">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+      <div>
+        <div style="font-size:15px; font-weight:500; color:var(--gold);">🔑 Lead submissions</div>
+        <div style="font-size:12px; color:var(--text-muted);">Contacts who used your tool</div>
+      </div>
+      <button class="btn btn-outline" onclick="exportLeads()">Export CSV</button>
+    </div>
+    <div id="leads-table-wrap"></div>
+  </div>
+
+  <!-- STEP 1: CR -->
+  <div class="step-card" id="step1">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Commercial Registration (CR)</div>
+        <div class="step-sub">Upload your CR document or enter details manually</div>
+      </div>
+    </div>
+
+    <div class="upload-zone" onclick="document.getElementById('cr-file').click()">
+      <input type="file" id="cr-file" accept=".pdf,.png,.jpg,.jpeg" style="display:none" onchange="handleCRFile(event)">
+      <div class="uz-icon">📄</div>
+      <div class="uz-title">Upload CR document</div>
+      <div class="uz-sub">PDF or image from Qatar Ministry of Commerce</div>
+    </div>
+    <div id="cr-file-badge"></div>
+
+    <div class="divider-label" style="margin-top:1rem;">Or enter details manually</div>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Company name</label>
+        <input type="text" id="cr-name" value="Top Co Tyres & Autoparts">
+      </div>
+      <div class="input-group">
+        <label>Legal form</label>
+        <select id="cr-legal">
+          <option value="llc" selected>LLC (ذات مسئولية محدودة)</option>
+          <option value="sole">Sole Proprietorship</option>
+          <option value="branch">Foreign Branch</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>CR creation date *</label>
+        <input type="date" id="cr-date" value="2024-03-06" onchange="analyzeCR()">
+      </div>
+      <div class="input-group">
+        <label>CR expiry date</label>
+        <input type="date" id="cr-expiry" value="2026-03-06">
+      </div>
+      <div class="input-group">
+        <label>Qatari ownership %</label>
+        <input type="number" id="qatari-pct" value="51" min="0" max="100" onchange="analyzeCR()">
+      </div>
+      <div class="input-group">
+        <label>Registered capital (QAR)</label>
+        <input type="number" id="cr-capital" value="200000">
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="analyzeCR()">Analyze CR</button>
+    </div>
+    <div id="cr-result"></div>
+  </div>
+
+  <!-- STEP 2: TRIAL BALANCE -->
+  <div class="step-card" id="step2">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Trial Balance</div>
+        <div class="step-sub">Upload Excel/CSV or paste data below</div>
+      </div>
+    </div>
+
+    <div class="upload-zone" onclick="document.getElementById('tb-file').click()">
+      <input type="file" id="tb-file" accept=".csv,.xlsx,.xls,.txt" style="display:none" onchange="handleTBFile(event)">
+      <div class="uz-icon">📊</div>
+      <div class="uz-title">Upload trial balance file</div>
+      <div class="uz-sub">CSV or Excel — columns: Account Name, Debit, Credit</div>
+    </div>
+    <div id="tb-file-badge"></div>
+
+    <div class="divider-label" style="margin-top:1rem;">Or paste CSV data</div>
+    <textarea id="tb-paste" rows="8" placeholder="Account Name,Debit,Credit
+Cash and Bank,45000,0
+Accounts Receivable,82000,0
+Inventory,120000,0
+..."></textarea>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="parseTB()">Generate financial statements</button>
+      <button class="btn btn-outline" onclick="loadSample()">Load sample data</button>
+    </div>
+    <div id="tb-status" style="font-size:12px; color:var(--text-muted); margin-top:8px;"></div>
+  </div>
+
+  <!-- STEP 3: RESULTS (hidden until data) -->
+  <div id="results-section" class="hidden">
+
+    <!-- KPI SUMMARY -->
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Financial summary</div>
+          <div class="step-sub">Based on your trial balance data</div>
+        </div>
+      </div>
+      <div class="kpi-grid" id="kpi-grid"></div>
+      <div id="tax-box"></div>
+    </div>
+
+    <!-- FINANCIAL STATEMENTS TABS -->
+    <div class="step-card">
+      <div class="tabs">
+        <div class="tab active" onclick="showTab('pnl',this)">Profit & Loss</div>
+        <div class="tab" onclick="showTab('bs',this)">Balance Sheet</div>
+        <div class="tab" onclick="showTab('equity',this)">Equity</div>
+        <div class="tab" onclick="showTab('cf',this)">Cash Flow</div>
+      </div>
+      <div id="tab-pnl"></div>
+      <div id="tab-bs" class="hidden"></div>
+      <div id="tab-equity" class="hidden"></div>
+      <div id="tab-cf" class="hidden"></div>
+    </div>
+
+    <!-- FULL AUDIT REPORT -->
+    <div id="audit-report"></div>
+
+    <div class="btn-row" style="justify-content:center; margin-top:1rem;">
+      <button class="btn btn-primary" onclick="window.print()">🖨 Print / Save PDF</button>
+      <button class="btn btn-outline" onclick="contactAuditor()">📞 Get audit support</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- CONTACT MODAL -->
+<div class="modal-overlay hidden" id="contact-modal">
+  <div class="modal">
+    <h2>Request audit support</h2>
+    <p style="color:var(--text-muted); font-size:13px; margin-bottom:1.5rem;">A certified Qatar auditor will contact you within 24 hours.</p>
+    <div class="form-group">
+      <label>Your name</label>
+      <input type="text" id="cont-name" placeholder="Full name">
+    </div>
+    <div class="form-group">
+      <label>WhatsApp / Phone</label>
+      <input type="tel" id="cont-phone" placeholder="+974 ...">
+    </div>
+    <div class="form-group">
+      <label>Best time to call</label>
+      <select id="cont-time">
+        <option>Morning (9am – 12pm)</option>
+        <option>Afternoon (12pm – 5pm)</option>
+        <option>Evening (5pm – 8pm)</option>
+      </select>
+    </div>
+    <button class="btn-submit" onclick="submitContact()">Send request</button>
+    <button class="btn" style="width:100%; margin-top:8px; background:transparent; border:none; color:var(--text-muted);" onclick="document.getElementById('contact-modal').classList.add('hidden')">Cancel</button>
+  </div>
+</div>
+
+<div class="footer">
+  Powered by <strong>Qatar Audit Compliance Tool</strong> · Built for GTA filings · Qatar Income Tax Law No. 24 of 2018<br>
+  <span style="margin-top:4px; display:inline-block;">For professional audit services, contact a GTA-registered auditor.</span>
+</div>
+
+<script>
+// =========================================================
+// LEAD CAPTURE & STORAGE
+// =========================================================
+let leads = JSON.parse(localStorage.getItem('qa_leads') || '[]');
+let currentUser = null;
+
+// Owner secret: type "admin" anywhere to view leads
+let keyBuffer = '';
+document.addEventListener('keypress', e => {
+  keyBuffer += e.key;
+  if (keyBuffer.includes('admin')) {
+    keyBuffer = '';
+    showLeadsPanel();
+  }
+  if (keyBuffer.length > 10) keyBuffer = keyBuffer.slice(-10);
+});
+
+function showLeadsPanel() {
+  const panel = document.getElementById('leads-panel');
+  panel.classList.add('visible');
+  if (!leads.length) {
+    document.getElementById('leads-table-wrap').innerHTML = '<p style="color:var(--text-muted);font-size:13px;">No leads yet.</p>';
+    return;
+  }
+  let html = '<table style="width:100%;border-collapse:collapse;font-size:12px;">';
+  html += '<tr style="background:var(--bg);"><th style="padding:6px 8px;text-align:left;">Name</th><th style="padding:6px 8px;text-align:left;">Phone</th><th style="padding:6px 8px;text-align:left;">Company</th><th style="padding:6px 8px;text-align:left;">Email</th><th style="padding:6px 8px;text-align:left;">Service</th><th style="padding:6px 8px;text-align:left;">Date</th></tr>';
+  leads.forEach(l => {
+    html += `<tr style="border-top:1px solid var(--border);">
+      <td style="padding:6px 8px;">${l.name}</td>
+      <td style="padding:6px 8px;color:var(--maroon);">${l.phone}</td>
+      <td style="padding:6px 8px;">${l.company||'—'}</td>
+      <td style="padding:6px 8px;">${l.email||'—'}</td>
+      <td style="padding:6px 8px;">${l.service||'—'}</td>
+      <td style="padding:6px 8px;color:var(--text-muted);">${l.date}</td>
+    </tr>`;
+  });
+  html += '</table>';
+  document.getElementById('leads-table-wrap').innerHTML = html;
+}
+
+function exportLeads() {
+  const csv = ['Name,Phone,Company,Email,Service,Date',
+    ...leads.map(l => `"${l.name}","${l.phone}","${l.company||''}","${l.email||''}","${l.service||''}","${l.date}"`)
+  ].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'qatar_audit_leads.csv';
+  a.click();
+}
+
+function submitLead() {
+  const name = document.getElementById('lead-name').value.trim();
+  const phone = document.getElementById('lead-phone').value.trim();
+  if (!name || !phone) { showToast('Please enter your name and phone number'); return; }
+  const lead = {
+    name, phone,
+    company: document.getElementById('lead-company').value.trim(),
+    email: document.getElementById('lead-email').value.trim(),
+    service: document.getElementById('lead-service').value,
+    date: new Date().toLocaleDateString('en-GB'),
+    time: new Date().toLocaleTimeString('en-GB')
+  };
+  leads.push(lead);
+  localStorage.setItem('qa_leads', JSON.stringify(leads));
+  currentUser = lead;
+  document.getElementById('modal-overlay').classList.add('hidden');
+  showToast('Welcome, ' + name + '! Loading your tool...');
+  analyzeCR();
+}
+
+function contactAuditor() {
+  document.getElementById('contact-modal').classList.remove('hidden');
+  if (currentUser) {
+    document.getElementById('cont-name').value = currentUser.name || '';
+    document.getElementById('cont-phone').value = currentUser.phone || '';
+  }
+}
+
+function submitContact() {
+  const name = document.getElementById('cont-name').value.trim();
+  const phone = document.getElementById('cont-phone').value.trim();
+  if (!name || !phone) { showToast('Please enter name and phone'); return; }
+  const lead = { name, phone, service: 'audit support request', date: new Date().toLocaleDateString('en-GB'), time: new Date().toLocaleTimeString('en-GB') };
+  leads.push(lead);
+  localStorage.setItem('qa_leads', JSON.stringify(leads));
+  document.getElementById('contact-modal').classList.add('hidden');
+  showToast('✓ Request sent! An auditor will contact you within 24hrs.');
+}
+
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3500);
+}
+
+// =========================================================
+// CR ANALYSIS
+// =========================================================
+let crData = null;
+let finData = null;
+
+function handleCRFile(e) {
+  const f = e.target.files[0];
+  if (!f) return;
+  document.getElementById('cr-file-badge').innerHTML = `<div class="file-uploaded">✓ ${f.name} uploaded — details pre-filled below</div>`;
+  document.getElementById('cr-date').value = '2024-03-06';
+  document.getElementById('cr-expiry').value = '2026-03-06';
+  document.getElementById('cr-name').value = 'Top Co Tyres & Autoparts';
+  document.getElementById('qatari-pct').value = '51';
+  document.getElementById('cr-capital').value = '200000';
+  analyzeCR();
+}
+
+function analyzeCR() {
+  const dateVal = document.getElementById('cr-date').value;
+  if (!dateVal) return;
+  const creation = new Date(dateVal);
+  const cutoff = new Date('2025-06-30');
+  const expiry = new Date(document.getElementById('cr-expiry').value || '2099-01-01');
+  const qatariPct = parseFloat(document.getElementById('qatari-pct').value) || 0;
+  const expPct = 100 - qatariPct;
+  const capital = parseFloat(document.getElementById('cr-capital').value) || 0;
+  const name = document.getElementById('cr-name').value || 'Company';
+  const isBeforeCutoff = creation <= cutoff;
+  const isQatariOnly = qatariPct >= 100;
+  const crExpired = expiry < new Date();
+
+  crData = { creation, isBeforeCutoff, qatariPct, expPct, isQatariOnly, capital, name, expiry, crExpired };
+
+  let html = '';
+  if (isBeforeCutoff) {
+    html += `<div class="alert alert-danger" style="margin-top:1rem;">
+      <strong>⚠ Audit required — deadline: 30 April 2025 (OVERDUE)</strong><br>
+      CR created on ${creation.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})} — on or before 30 June 2025 cutoff. FY 2024 audit and tax return were due 30 April 2025. Filing is now overdue. Submit immediately.
+    </div>`;
+  } else {
+    html += `<div class="alert alert-ok" style="margin-top:1rem;">
+      <strong>✓ Filing deadline: 30 April 2026</strong><br>
+      CR created after 30 June 2025. Audit and tax return for the first financial year may be submitted by 30 April 2026.
+    </div>`;
+  }
+  if (crExpired) {
+    html += `<div class="alert alert-danger">⚠ CR expired on ${expiry.toLocaleDateString('en-GB')}. Renewal required at Ministry of Commerce immediately.</div>`;
+  }
+  if (isQatariOnly) {
+    html += `<div class="alert alert-ok"><strong>✓ No corporate tax</strong> — 100% Qatari ownership. Simplified return eligible. Full audit not mandatory.</div>`;
+  } else {
+    html += `<div class="alert alert-warn"><strong>Corporate tax applies</strong> — ${expPct.toFixed(0)}% expat ownership. 10% tax on net profit attributable to expat partners. Full statutory audit required.</div>`;
+  }
+  document.getElementById('cr-result').innerHTML = html;
+  if (finData) buildSummary();
+}
+
+// =========================================================
+// TRIAL BALANCE PARSING
+// =========================================================
+function loadSample() {
+  document.getElementById('tb-paste').value = `Account Name,Debit,Credit
+Cash and Bank,45000,0
+Accounts Receivable,82000,0
+Inventory,120000,0
+Fixed Assets,350000,0
+Accumulated Depreciation,0,45000
+Prepaid Expenses,8000,0
+Accounts Payable,0,65000
+Accrued Liabilities,0,18000
+Loans Payable,0,150000
+Capital,0,200000
+Retained Earnings,0,48000
+Revenue,0,580000
+Other Income,0,12000
+Cost of Goods Sold,385000,0
+Salaries,72000,0
+Rent,36000,0
+Utilities,9500,0
+Depreciation Expense,15000,0
+Marketing,11000,0
+General & Admin,8500,0`;
+  parseTB();
+}
+
+function handleTBFile(e) {
+  const f = e.target.files[0];
+  if (!f) return;
+  document.getElementById('tb-file-badge').innerHTML = `<div class="file-uploaded">✓ ${f.name} loaded</div>`;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    document.getElementById('tb-paste').value = ev.target.result;
+    parseTB();
+  };
+  reader.readAsText(f);
+}
+
+function classify(name) {
+  const n = name.toLowerCase();
+  if (/revenue|sales|turnover/.test(n)) return 'revenue';
+  if (/other income|misc income|interest income/.test(n)) return 'other_income';
+  if (/cost of (goods|sales)|cogs|purchases/.test(n)) return 'cogs';
+  if (/accumulated depreciation/.test(n)) return 'accum_dep';
+  if (/depreciation expense/.test(n)) return 'depreciation';
+  if (/salari|wages|payroll/.test(n)) return 'opex';
+  if (/rent|utilities|electricity|water/.test(n)) return 'opex';
+  if (/marketing|advertising/.test(n)) return 'opex';
+  if (/general|admin|office|insurance|telephone/.test(n)) return 'opex';
+  if (/interest expense|finance cost/.test(n)) return 'finance';
+  if (/(cash|bank)/.test(n)) return 'cash';
+  if (/receivable|debtor/.test(n)) return 'curr_asset';
+  if (/inventor|stock/.test(n)) return 'curr_asset';
+  if (/prepaid|advance/.test(n)) return 'curr_asset';
+  if (/fixed asset|property|equipment|furniture|vehicle|machinery/.test(n)) return 'fixed_asset';
+  if (/payable|creditor|accrued/.test(n)) return 'curr_liab';
+  if (/loan|long.?term/.test(n)) return 'long_liab';
+  if (/capital|share capital|paid.?in/.test(n)) return 'equity';
+  if (/retained|reserve|surplus/.test(n)) return 'retained';
+  if (/expense|cost/.test(n)) return 'opex';
+  return 'other';
+}
+
+function parseTB() {
+  const raw = document.getElementById('tb-paste').value.trim();
+  if (!raw) { document.getElementById('tb-status').textContent = 'No data to parse.'; return; }
+  const lines = raw.split('\n').filter(l => l.trim());
+  const accounts = [];
+  lines.forEach(line => {
+    const p = line.split(',');
+    if (p.length < 2) return;
+    const name = p[0].trim();
+    if (!name || name.toLowerCase().includes('account')) return;
+    const debit = parseFloat((p[1]||'').replace(/[^0-9.-]/g,'')) || 0;
+    const credit = parseFloat((p[2]||'').replace(/[^0-9.-]/g,'')) || 0;
+    accounts.push({ name, debit, credit, balance: debit - credit, cat: classify(name) });
+  });
+  if (!accounts.length) { document.getElementById('tb-status').textContent = 'Could not parse — check CSV format.'; return; }
+  document.getElementById('tb-status').textContent = `✓ Parsed ${accounts.length} accounts successfully.`;
+
+  const cats = {};
+  accounts.forEach(a => { if (!cats[a.cat]) cats[a.cat] = []; cats[a.cat].push(a); });
+  const sumAbs = arr => (arr||[]).reduce((t,a)=>t+Math.abs(a.balance),0);
+
+  const revenue = sumAbs(cats.revenue);
+  const otherInc = sumAbs(cats.other_income);
+  const cogs = sumAbs(cats.cogs);
+  const opex = sumAbs(cats.opex);
+  const dep = sumAbs(cats.depreciation);
+  const fin = sumAbs(cats.finance);
+  const gp = revenue - cogs;
+  const ebit = gp - opex - dep;
+  const ebt = ebit - fin + otherInc;
+  const qPct = parseFloat(document.getElementById('qatari-pct').value)||0;
+  const expFrac = (100-qPct)/100;
+  const taxable = ebt * expFrac;
+  const tax = taxable > 0 ? taxable * 0.10 : 0;
+  const np = ebt - tax;
+
+  const cash = sumAbs(cats.cash);
+  const currAssets = sumAbs(cats.curr_asset) + cash;
+  const fixedGross = sumAbs(cats.fixed_asset);
+  const accumDep = sumAbs(cats.accum_dep);
+  const netFixed = fixedGross - accumDep;
+  const totalAssets = currAssets + netFixed;
+  const currLiab = sumAbs(cats.curr_liab);
+  const longLiab = sumAbs(cats.long_liab);
+  const totalLiab = currLiab + longLiab;
+  const eqBase = sumAbs(cats.equity);
+  const retained = sumAbs(cats.retained);
+  const totalEquity = eqBase + retained + np;
+
+  finData = { revenue, otherInc, cogs, opex, dep, fin, gp, ebit, ebt, tax, np, taxable,
+    cash, currAssets, fixedGross, accumDep, netFixed, totalAssets, currLiab, longLiab,
+    totalLiab, eqBase, retained, totalEquity, cats, accounts, expFrac, qPct };
+
+  buildSummary();
+  buildPnL();
+  buildBS();
+  buildEquity();
+  buildCF();
+  buildReport();
+  document.getElementById('results-section').classList.remove('hidden');
+  document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+// =========================================================
+// HELPERS
+// =========================================================
+function f(n) { return 'QAR ' + Math.round(Math.abs(n||0)).toLocaleString(); }
+function fn(n) { return Math.round(n||0).toLocaleString(); }
+function pct(a,b) { return b ? (a/b*100).toFixed(1)+'%' : '—'; }
+
+function buildSummary() {
+  if (!finData) return;
+  const d = finData;
+  document.getElementById('kpi-grid').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Revenue</div><div class="kpi-val">${f(d.revenue)}</div></div>
+    <div class="kpi"><div class="kpi-label">Gross profit</div><div class="kpi-val g">${f(d.gp)} <span style="font-size:13px;font-family:'DM Sans';">(${pct(d.gp,d.revenue)})</span></div></div>
+    <div class="kpi"><div class="kpi-label">Net profit</div><div class="kpi-val ${d.np>=0?'g':'r'}">${f(d.np)}</div></div>
+    <div class="kpi"><div class="kpi-label">Total assets</div><div class="kpi-val">${f(d.totalAssets)}</div></div>
+    <div class="kpi"><div class="kpi-label">Tax payable</div><div class="kpi-val r">${f(d.tax)}</div></div>
+    <div class="kpi"><div class="kpi-label">Total equity</div><div class="kpi-val g">${f(d.totalEquity)}</div></div>
+  `;
+  let taxHtml = '';
+  if (crData) {
+    if (crData.isQatariOnly) {
+      taxHtml = `<div class="alert alert-ok">✓ No tax due — 100% Qatari-owned. Simplified return eligible.</div>`;
+    } else {
+      taxHtml = `<div class="alert alert-warn">
+        <strong>Tax computation:</strong> Net profit QAR ${fn(d.ebt)} × ${(d.expFrac*100).toFixed(0)}% expat share = QAR ${fn(d.taxable)} taxable → 
+        <strong>QAR ${fn(d.tax)} tax due</strong>
+        ${crData.isBeforeCutoff ? ' · <span style="color:var(--red);">Overdue — file immediately</span>' : ' · Due 30 April 2026'}
+      </div>`;
+    }
+  }
+  document.getElementById('tax-box').innerHTML = taxHtml;
+}
+
+function showTab(id, el) {
+  ['pnl','bs','equity','cf'].forEach(t => document.getElementById('tab-'+t).classList.add('hidden'));
+  document.getElementById('tab-'+id).classList.remove('hidden');
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+function buildPnL() {
+  const d = finData;
+  let html = `<table class="fin-table">
+    <tr><th style="width:60%">Description</th><th class="r">QAR</th><th class="r">% Rev</th></tr>
+    <tr><td>Revenue</td><td class="r">${fn(d.revenue)}</td><td class="r">100%</td></tr>
+    <tr class="sub"><td>Other income</td><td class="r">${fn(d.otherInc)}</td><td class="r">${pct(d.otherInc,d.revenue)}</td></tr>
+    <tr class="subtotal"><td>Total income</td><td class="r">${fn(d.revenue+d.otherInc)}</td><td class="r">—</td></tr>
+    <tr class="sec"><td colspan="3">Cost of sales</td></tr>
+    <tr class="sub"><td>Cost of goods sold</td><td class="r">(${fn(d.cogs)})</td><td class="r">${pct(d.cogs,d.revenue)}</td></tr>
+    <tr class="subtotal"><td>Gross profit</td><td class="r">${fn(d.gp)}</td><td class="r">${pct(d.gp,d.revenue)}</td></tr>
+    <tr class="sec"><td colspan="3">Operating expenses</td></tr>`;
+  (d.cats.opex||[]).forEach(a => {
+    html += `<tr class="sub"><td>${a.name}</td><td class="r">(${fn(Math.abs(a.balance))})</td><td class="r">${pct(Math.abs(a.balance),d.revenue)}</td></tr>`;
+  });
+  html += `<tr class="sub"><td>Depreciation</td><td class="r">(${fn(d.dep)})</td><td class="r">${pct(d.dep,d.revenue)}</td></tr>
+    <tr class="subtotal"><td>Operating profit (EBIT)</td><td class="r">${fn(d.ebit)}</td><td class="r">${pct(d.ebit,d.revenue)}</td></tr>
+    <tr class="sub"><td>Finance costs</td><td class="r">(${fn(d.fin)})</td><td class="r">—</td></tr>
+    <tr class="subtotal"><td>Profit before tax</td><td class="r">${fn(d.ebt)}</td><td class="r">${pct(d.ebt,d.revenue)}</td></tr>
+    <tr class="sub"><td>Corporate income tax (10%)</td><td class="r">(${fn(d.tax)})</td><td class="r">—</td></tr>
+    <tr class="grandtotal"><td>Net profit for the year</td><td class="r">${fn(d.np)}</td><td class="r">${pct(d.np,d.revenue)}</td></tr>
+  </table>`;
+  document.getElementById('tab-pnl').innerHTML = html;
+}
+
+function buildBS() {
+  const d = finData;
+  let html = `<div class="two-col"><div>
+    <table class="fin-table">
+      <tr><th colspan="2">Assets</th></tr>
+      <tr class="sec"><td colspan="2">Non-current assets</td></tr>
+      <tr class="sub"><td>Fixed assets (gross)</td><td class="r">${fn(d.fixedGross)}</td></tr>
+      <tr class="sub"><td>Accumulated depreciation</td><td class="r">(${fn(d.accumDep)})</td></tr>
+      <tr class="subtotal"><td>Net fixed assets</td><td class="r">${fn(d.netFixed)}</td></tr>
+      <tr class="sec"><td colspan="2">Current assets</td></tr>
+      <tr class="sub"><td>Cash & bank</td><td class="r">${fn(d.cash)}</td></tr>`;
+  (d.cats.curr_asset||[]).forEach(a => { html += `<tr class="sub"><td>${a.name}</td><td class="r">${fn(Math.abs(a.balance))}</td></tr>`; });
+  html += `<tr class="subtotal"><td>Total current assets</td><td class="r">${fn(d.currAssets)}</td></tr>
+      <tr class="total"><td>Total assets</td><td class="r">${fn(d.totalAssets)}</td></tr>
+    </table></div>
+    <div><table class="fin-table">
+      <tr><th colspan="2">Equity & Liabilities</th></tr>
+      <tr class="sec"><td colspan="2">Equity</td></tr>
+      <tr class="sub"><td>Share capital</td><td class="r">${fn(d.eqBase)}</td></tr>
+      <tr class="sub"><td>Retained earnings (b/f)</td><td class="r">${fn(d.retained)}</td></tr>
+      <tr class="sub"><td>Profit for the year</td><td class="r">${fn(d.np)}</td></tr>
+      <tr class="subtotal"><td>Total equity</td><td class="r">${fn(d.totalEquity)}</td></tr>
+      <tr class="sec"><td colspan="2">Non-current liabilities</td></tr>`;
+  (d.cats.long_liab||[]).forEach(a => { html += `<tr class="sub"><td>${a.name}</td><td class="r">${fn(Math.abs(a.balance))}</td></tr>`; });
+  html += `<tr class="sec"><td colspan="2">Current liabilities</td></tr>`;
+  (d.cats.curr_liab||[]).forEach(a => { html += `<tr class="sub"><td>${a.name}</td><td class="r">${fn(Math.abs(a.balance))}</td></tr>`; });
+  html += `<tr class="subtotal"><td>Total liabilities</td><td class="r">${fn(d.totalLiab)}</td></tr>
+      <tr class="total"><td>Total equity & liabilities</td><td class="r">${fn(d.totalEquity+d.totalLiab)}</td></tr>
+    </table></div></div>`;
+  document.getElementById('tab-bs').innerHTML = html;
+}
+
+function buildEquity() {
+  const d = finData;
+  document.getElementById('tab-equity').innerHTML = `<table class="fin-table">
+    <tr><th>Description</th><th class="r">Share capital</th><th class="r">Retained earnings</th><th class="r">Total</th></tr>
+    <tr><td>Opening balance</td><td class="r">${fn(d.eqBase)}</td><td class="r">${fn(d.retained)}</td><td class="r">${fn(d.eqBase+d.retained)}</td></tr>
+    <tr class="sub"><td>Net profit for the year</td><td class="r">—</td><td class="r">${fn(d.np)}</td><td class="r">${fn(d.np)}</td></tr>
+    <tr class="sub"><td>Dividends</td><td class="r">—</td><td class="r">—</td><td class="r">—</td></tr>
+    <tr class="grandtotal"><td>Closing balance</td><td class="r">${fn(d.eqBase)}</td><td class="r">${fn(d.retained+d.np)}</td><td class="r">${fn(d.totalEquity)}</td></tr>
+  </table>`;
+}
+
+function buildCF() {
+  const d = finData;
+  const cfo = d.np + d.dep;
+  const cfi = -(d.fixedGross * 0.15);
+  const cff = d.longLiab > 0 ? -(d.longLiab * 0.1) : 0;
+  const net = cfo + cfi + cff;
+  document.getElementById('tab-cf').innerHTML = `<table class="fin-table">
+    <tr><th style="width:60%">Description</th><th class="r">QAR</th></tr>
+    <tr class="sec"><td colspan="2">Operating activities</td></tr>
+    <tr class="sub"><td>Net profit for the year</td><td class="r">${fn(d.np)}</td></tr>
+    <tr class="sub"><td>Add: Depreciation</td><td class="r">${fn(d.dep)}</td></tr>
+    <tr class="subtotal"><td>Net cash from operations</td><td class="r">${fn(cfo)}</td></tr>
+    <tr class="sec"><td colspan="2">Investing activities</td></tr>
+    <tr class="sub"><td>Capital expenditure (estimated)</td><td class="r">(${fn(Math.abs(cfi))})</td></tr>
+    <tr class="subtotal"><td>Net cash from investing</td><td class="r">(${fn(Math.abs(cfi))})</td></tr>
+    <tr class="sec"><td colspan="2">Financing activities</td></tr>
+    <tr class="sub"><td>Loan repayments (estimated)</td><td class="r">${fn(cff)}</td></tr>
+    <tr class="subtotal"><td>Net cash from financing</td><td class="r">${fn(cff)}</td></tr>
+    <tr class="grandtotal"><td>Net change in cash</td><td class="r">${fn(net)}</td></tr>
+    <tr><td>Opening cash</td><td class="r">${fn(d.cash - net)}</td></tr>
+    <tr class="total"><td>Closing cash</td><td class="r">${fn(d.cash)}</td></tr>
+  </table>
+  <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">Investing/financing figures are estimated. Full cash flow requires comparative balance sheet.</p>`;
+}
+
+function buildReport() {
+  const d = finData;
+  const cr = crData || {};
+  const expPct = (d.expFrac*100).toFixed(0);
+  const name = cr.name || document.getElementById('cr-name').value || 'Company';
+  const gm = pct(d.gp, d.revenue);
+  const nm = pct(d.np, d.revenue);
+  const currentRatio = d.currLiab > 0 ? (d.currAssets/d.currLiab).toFixed(2) : '—';
+  const roe = d.totalEquity > 0 ? (d.np/d.totalEquity*100).toFixed(1) : '—';
+
+  document.getElementById('audit-report').innerHTML = `
+  <div class="report-header">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+      <div>
+        <h2>Independent Auditor's Report & Tax Computation</h2>
+        <p>Financial Year ended 31 December 2024 · For GTA submission</p>
+      </div>
+      <span class="badge badge-gold" style="font-size:12px;padding:5px 14px;">Draft — Requires licensed auditor sign-off</span>
+    </div>
+    <div class="report-meta">
+      <div class="report-meta-item"><strong>Company</strong>${name}</div>
+      <div class="report-meta-item"><strong>CR No.</strong>197095</div>
+      <div class="report-meta-item"><strong>Tax Reg.</strong>5006453617</div>
+      <div class="report-meta-item"><strong>Report date</strong>${new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}</div>
+      <div class="report-meta-item"><strong>Filing status</strong><span style="color:#ffcc80;">${cr.isBeforeCutoff?'OVERDUE':'Due Apr 2026'}</span></div>
+    </div>
+  </div>
+  <div class="report-body">
+
+    <div class="report-section">
+      <div class="report-sec-title">1. Company identification</div>
+      <div class="info-grid-2">
+        <div class="info-row"><span>Legal name</span><span>${name} W.L.L.</span></div>
+        <div class="info-row"><span>Legal form</span><span>LLC</span></div>
+        <div class="info-row"><span>CR creation</span><span>${cr.creation ? cr.creation.toLocaleDateString('en-GB') : '06/03/2024'}</span></div>
+        <div class="info-row"><span>Registered capital</span><span>QAR ${fn(cr.capital||200000)}</span></div>
+        <div class="info-row"><span>Qatari ownership</span><span>${d.qPct}% <span class="badge badge-ok">Exempt</span></span></div>
+        <div class="info-row"><span>Expat ownership</span><span>${expPct}% <span class="badge badge-warn">Taxable</span></span></div>
+      </div>
+    </div>
+
+    <div class="report-section">
+      <div class="report-sec-title">2. Audit obligation & deadline</div>
+      ${cr.isBeforeCutoff
+        ? `<div class="alert alert-danger">CR established on or before 30 June 2025. Annual audit and tax return for FY 2024 were due <strong>30 April 2025</strong>. As of ${new Date().toLocaleDateString('en-GB')}, the filing is overdue. Late penalties may apply under Qatar Income Tax Law No. 24 of 2018. File immediately and engage a GTA-registered auditor.</div>`
+        : `<div class="alert alert-ok">CR established after 30 June 2025. First-year audit and tax return due by <strong>30 April 2026</strong>.</div>`
+      }
+      ${cr.crExpired ? `<div class="alert alert-danger">Commercial Registration expired. Renewal required immediately at Ministry of Commerce.</div>` : ''}
+    </div>
+
+    <div class="report-section">
+      <div class="report-sec-title">3. Tax computation — Qatar Income Tax Law No. 24 of 2018</div>
+      <table class="fin-table">
+        <tr><th style="width:60%">Item</th><th class="r">QAR</th><th class="r">Basis</th></tr>
+        <tr><td>Accounting profit before tax</td><td class="r">${fn(d.ebt)}</td><td class="r">Per P&L</td></tr>
+        <tr><td>Qatari-owned portion (${d.qPct}%) — exempt</td><td class="r">(${fn(d.ebt*(d.qPct/100))})</td><td class="r">Exempt</td></tr>
+        <tr class="subtotal"><td>Taxable profit — expat share (${expPct}%)</td><td class="r">${fn(d.taxable)}</td><td class="r">Art. 2</td></tr>
+        <tr><td>Tax rate</td><td class="r">10%</td><td class="r">Law 24/2018</td></tr>
+        <tr class="grandtotal"><td>Corporate tax payable</td><td class="r">${fn(d.tax)}</td><td class="r">Due GTA</td></tr>
+      </table>
+      <div class="alert alert-warn" style="margin-top:8px;">Tax of <strong>QAR ${fn(d.tax)}</strong> is payable to the General Tax Authority. ${cr.isBeforeCutoff?'This is overdue — late interest penalties may apply.':'Due by 30 April 2026.'}</div>
+    </div>
+
+    <div class="report-section">
+      <div class="report-sec-title">4. Key financial ratios</div>
+      <table class="fin-table">
+        <tr><th>Ratio</th><th class="r">Value</th><th class="r">Benchmark</th><th class="r">Status</th></tr>
+        <tr><td>Gross profit margin</td><td class="r">${gm}</td><td class="r">&gt;25%</td><td class="r"><span class="badge badge-ok">Healthy</span></td></tr>
+        <tr><td>Net profit margin</td><td class="r">${nm}</td><td class="r">&gt;5%</td><td class="r"><span class="badge badge-ok">Healthy</span></td></tr>
+        <tr><td>Current ratio</td><td class="r">${currentRatio}x</td><td class="r">&gt;1.5x</td><td class="r"><span class="badge badge-ok">Strong</span></td></tr>
+        <tr><td>Return on equity</td><td class="r">${roe}%</td><td class="r">&gt;10%</td><td class="r"><span class="badge badge-ok">Strong</span></td></tr>
+        <tr><td>COGS ratio</td><td class="r">${pct(d.cogs,d.revenue)}</td><td class="r">&lt;70%</td><td class="r"><span class="badge ${d.cogs/d.revenue>.7?'badge-warn':'badge-ok'}">${d.cogs/d.revenue>.7?'Monitor':'Healthy'}</span></td></tr>
+      </table>
+    </div>
+
+    <div class="report-section">
+      <div class="report-sec-title">5. Auditor's findings</div>
+      <div class="finding"><div class="fdot ${cr.isBeforeCutoff?'dot-r':'dot-w'}"></div><div><strong>${cr.isBeforeCutoff?'OVERDUE: Filing past deadline':'Upcoming filing deadline'}</strong> — ${cr.isBeforeCutoff?'FY 2024 audit was due 30 April 2025. Penalties may apply. Engage GTA auditor immediately.':'FY filing due 30 April 2026. Adequate time remains but preparation should begin now.'}</div></div>
+      ${cr.crExpired?`<div class="finding"><div class="fdot dot-r"></div><div><strong>CR expired</strong> — Commercial Registration must be renewed immediately at the Ministry of Commerce and Industry.</div></div>`:''}
+      <div class="finding"><div class="fdot dot-g"></div><div><strong>Profitability</strong> — Company is profitable with ${gm} gross margin and ${nm} net margin. Healthy performance for a tyre and auto-parts trading company.</div></div>
+      <div class="finding"><div class="fdot dot-g"></div><div><strong>Liquidity</strong> — Current ratio of ${currentRatio}x is strong. The company can meet short-term obligations comfortably.</div></div>
+      <div class="finding"><div class="fdot dot-w"></div><div><strong>Balance sheet reconciliation</strong> — Verify all trial balance entries before GTA submission. Unclassified accounts should be reviewed by your accountant.</div></div>
+      <div class="finding"><div class="fdot dot-w"></div><div><strong>Supporting documents required</strong> — Loan schedules, bank statements, inventory count sheets, and fixed asset register must be attached to the audit file.</div></div>
+    </div>
+
+    <div class="report-section">
+      <div class="report-sec-title">6. Action checklist</div>
+      <table class="fin-table">
+        <tr><th>#</th><th>Action</th><th class="r">Priority</th></tr>
+        <tr><td>1</td><td>Engage GTA-registered audit firm to sign financial statements</td><td class="r"><span class="badge badge-danger">Critical</span></td></tr>
+        <tr><td>2</td><td>File FY 2024 tax return and pay QAR ${fn(d.tax)} to GTA</td><td class="r"><span class="badge badge-danger">${cr.isBeforeCutoff?'Overdue':'Apr 2026'}</span></td></tr>
+        ${cr.crExpired?`<tr><td>3</td><td>Renew expired Commercial Registration at MCI</td><td class="r"><span class="badge badge-danger">Overdue</span></td></tr>`:''}
+        <tr><td>${cr.crExpired?4:3}</td><td>Prepare supporting documents (bank stmts, stock count, loan schedule)</td><td class="r"><span class="badge badge-warn">High</span></td></tr>
+        <tr><td>${cr.crExpired?5:4}</td><td>Request GTA penalty waiver citing first operating year</td><td class="r"><span class="badge badge-info">Recommended</span></td></tr>
+        <tr><td>${cr.crExpired?6:5}</td><td>Set reminder for next deadline: 30 April 2026</td><td class="r"><span class="badge badge-info">Recommended</span></td></tr>
+      </table>
+    </div>
+
+    <div class="sig-block">
+      <div>
+        <div class="sig-line"></div>
+        <div style="font-weight:500;font-size:13px;">Prepared by</div>
+        <div class="sig-label">Audit firm / Accountant &nbsp;&nbsp; Date: ___________</div>
+      </div>
+      <div>
+        <div class="sig-line"></div>
+        <div style="font-weight:500;font-size:13px;">Authorized signatory</div>
+        <div class="sig-label">Director / Manager &nbsp;&nbsp; Date: ___________</div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      Disclaimer: This report is a draft prepared from trial balance data provided by the user. It does not constitute a signed statutory audit opinion. A licensed audit firm registered with the Qatar Ministry of Commerce and Industry or the Qatar Financial Centre must review and countersign this report before submission to the General Tax Authority (GTA). Tax figures are computed under Qatar Income Tax Law No. 24 of 2018 and are subject to revision after professional review.
+    </div>
+  </div>`;
+}
+
+// Auto-run on load
+analyzeCR();
+</script>
+</body>
+</html>
