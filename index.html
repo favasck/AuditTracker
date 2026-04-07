@@ -1,513 +1,733 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" id="html-root">
+<html lang="en" dir="ltr" id="root">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Qatar Audit Compliance Tool — 2025 | أداة الامتثال الضريبي قطر</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Mizaan ميزان — Qatar Audit & Tax Compliance Platform 2025</title>
+<meta name="description" content="Qatar's most advanced audit and tax compliance checker. CR deadline analysis, financial statements, and GTA tax computation for 2025 filings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--maroon:#8B1A2B;--maroon-dark:#5c1019;--maroon-light:#f5e8ea;--gold:#C9A84C;--gold-light:#fdf6e3;--text:#1a1a1a;--text-muted:#6b6b6b;--border:#e2e2e2;--bg:#fafaf8;--green:#1e5c3a;--green-bg:#eaf5ee;--red:#7a1c1c;--red-bg:#fceaea;--amber:#7a4e0a;--amber-bg:#fef6e4;--blue:#0c3d6e;--blue-bg:#e8f2fd;--wa:#25D366;--wa-dark:#128C7E;--radius:10px;--radius-lg:16px;--shadow:0 2px 12px rgba(0,0,0,0.06)}
+/* ════════════════════════════════════════════
+   TOKENS
+════════════════════════════════════════════ */
+:root{
+  --ink:#0f0d0b;
+  --ink-2:#3d3530;
+  --ink-3:#7a6e68;
+  --cream:#f8f4ef;
+  --cream-2:#f0ebe3;
+  --cream-3:#e4dcd2;
+  --maroon:#7c1522;
+  --maroon-2:#9c2232;
+  --maroon-3:#c04050;
+  --maroon-bg:#fdf0f0;
+  --gold:#b8892a;
+  --gold-2:#d4a843;
+  --gold-bg:#fdf8ed;
+  --green:#1a5c35;
+  --green-bg:#ecf7f0;
+  --amber:#8a4e00;
+  --amber-bg:#fef6e4;
+  --blue:#0c3366;
+  --blue-bg:#edf3fc;
+  --wa:#25D366;--wa-dark:#1aab55;
+  --r:12px;--rl:20px;
+  --sh:0 1px 3px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.06);
+  --sh-lg:0 8px 40px rgba(0,0,0,.12);
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6}
-body.rtl{direction:rtl;text-align:right}
-.lang-bar{background:var(--maroon-dark);padding:8px 20px;display:flex;justify-content:flex-end;align-items:center;gap:10px}
-.lang-btn{background:transparent;border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.8);padding:4px 14px;border-radius:100px;font-size:12px;cursor:pointer;transition:all 0.15s;font-family:'DM Sans',sans-serif}
-.lang-btn.active{background:var(--gold);border-color:var(--gold);color:#2a1a00;font-weight:500}
-.hero{background:var(--maroon);color:white;padding:2.5rem 2rem 2rem;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 60px,rgba(255,255,255,0.02) 60px,rgba(255,255,255,0.02) 61px)}
-.hero-inner{position:relative;z-index:1;max-width:720px;margin:0 auto}
-.hero-badge{display:inline-block;background:var(--gold);color:#2a1a00;font-size:11px;font-weight:500;padding:4px 14px;border-radius:100px;margin-bottom:.9rem;letter-spacing:.05em}
-.hero h1{font-family:'Playfair Display',serif;font-size:2rem;font-weight:500;line-height:1.2;margin-bottom:.6rem}
-.hero p{font-size:14px;opacity:.85;max-width:540px;margin:0 auto 1.25rem}
-.hero-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem}
-.hero-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:white;padding:4px 12px;border-radius:100px;font-size:11px}
-.hero-wa{display:inline-flex;align-items:center;gap:8px;background:var(--wa);color:white;padding:9px 20px;border-radius:100px;font-size:13px;font-weight:500;text-decoration:none;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:background .15s}
-.hero-wa:hover{background:var(--wa-dark)}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:1000;padding:1rem}
-.modal-overlay.hidden{display:none}
-.modal{background:white;border-radius:var(--radius-lg);width:100%;max-width:480px;padding:2rem;box-shadow:0 20px 60px rgba(0,0,0,.25);animation:slideUp .3s ease;max-height:90vh;overflow-y:auto}
-@keyframes slideUp{from{transform:translateY(24px);opacity:0}to{transform:translateY(0);opacity:1}}
-.modal-logo{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem}
-.modal-logo-mark{width:40px;height:40px;background:var(--maroon);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-family:'Playfair Display',serif;font-size:17px;font-weight:600;flex-shrink:0}
-.modal-logo-text{font-size:13px;font-weight:500}
-.modal-logo-text span{display:block;font-size:11px;color:var(--text-muted);font-weight:400}
-.modal h2{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:500;margin-bottom:.4rem}
-.modal .sub{font-size:13px;color:var(--text-muted);margin-bottom:1.25rem}
-.form-group{margin-bottom:11px}
-.form-group label{display:block;font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:4px}
-.form-group input,.form-group select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text);background:white;transition:border-color .15s}
-.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--maroon)}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.btn-submit{width:100%;padding:12px;background:var(--maroon);color:white;border:none;border-radius:var(--radius);font-size:14px;font-weight:500;cursor:pointer;margin-top:8px;font-family:'DM Sans',sans-serif;transition:background .15s}
-.btn-submit:hover{background:var(--maroon-dark)}
-.btn-wa-modal{width:100%;padding:11px;background:var(--wa);color:white;border:none;border-radius:var(--radius);font-size:13px;font-weight:500;cursor:pointer;margin-top:6px;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .15s}
-.btn-wa-modal:hover{background:var(--wa-dark)}
-.modal-note{font-size:11px;color:var(--text-muted);text-align:center;margin-top:10px}
-.modal-divider{display:flex;align-items:center;gap:10px;margin:10px 0;font-size:11px;color:var(--text-muted)}
-.modal-divider::before,.modal-divider::after{content:'';flex:1;height:1px;background:var(--border)}
-.container{max-width:900px;margin:0 auto;padding:1.75rem 1.25rem}
-.step-card{background:white;border-radius:var(--radius-lg);border:1px solid var(--border);padding:1.5rem;margin-bottom:1.25rem;box-shadow:var(--shadow)}
-.step-header{display:flex;align-items:center;gap:12px;margin-bottom:1.25rem}
-.step-num{width:28px;height:28px;border-radius:50%;background:var(--maroon);color:white;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.step-title{font-size:15px;font-weight:500}
-.step-sub{font-size:12px;color:var(--text-muted)}
-.upload-zone{border:1.5px dashed var(--border);border-radius:var(--radius);padding:1.5rem;text-align:center;cursor:pointer;transition:all .15s;background:var(--bg)}
-.upload-zone:hover{border-color:var(--maroon);background:var(--maroon-light)}
-.uz-icon{font-size:26px;margin-bottom:6px}
-.uz-title{font-size:14px;font-weight:500}
-.uz-sub{font-size:12px;color:var(--text-muted);margin-top:3px}
-.file-uploaded{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--green-bg);border:1px solid #a5d6b5;border-radius:var(--radius);margin-top:10px;font-size:13px;color:var(--green)}
-.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:1rem}
-.input-group label{display:block;font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:5px}
-.input-group input,.input-group select{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text);background:white;transition:border-color .15s}
-.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--maroon)}
-.divider-label{font-size:12px;font-weight:500;color:var(--text-muted);margin:1rem 0 .5rem;padding-bottom:6px;border-bottom:1px solid var(--border)}
-.alert{border-radius:var(--radius);padding:12px 16px;font-size:13px;margin:10px 0;line-height:1.6}
-.alert-danger{background:var(--red-bg);border:1px solid #f0a0a0;color:var(--red)}
-.alert-ok{background:var(--green-bg);border:1px solid #a5d6b5;color:var(--green)}
-.alert-warn{background:var(--amber-bg);border:1px solid #f0c070;color:var(--amber)}
-.alert-info{background:var(--blue-bg);border:1px solid #a0c4f0;color:var(--blue)}
-.badge{display:inline-block;padding:2px 9px;border-radius:100px;font-size:11px;font-weight:500}
-.badge-ok{background:var(--green-bg);color:var(--green)}
-.badge-warn{background:var(--amber-bg);color:var(--amber)}
-.badge-danger{background:var(--red-bg);color:var(--red)}
-.badge-info{background:var(--blue-bg);color:var(--blue)}
-.badge-gold{background:var(--gold-light);color:#6b4500;border:1px solid var(--gold)}
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:1rem 0}
-.kpi{background:var(--bg);border-radius:var(--radius);padding:12px 14px;border:1px solid var(--border)}
-.kpi-label{font-size:11px;color:var(--text-muted);margin-bottom:4px}
-.kpi-val{font-size:19px;font-weight:500;font-family:'Playfair Display',serif}
-.kpi-val.g{color:var(--green)}.kpi-val.r{color:var(--red)}
-.tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:1rem;overflow-x:auto}
-.tab{padding:8px 16px;font-size:13px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--text-muted);white-space:nowrap}
-.tab.active{border-bottom-color:var(--maroon);color:var(--maroon);font-weight:500}
-.fin-table{width:100%;border-collapse:collapse;font-size:13px}
-.fin-table th{text-align:left;padding:8px 10px;font-weight:500;font-size:11px;color:var(--text-muted);border-bottom:1px solid var(--border);background:var(--bg)}
-.fin-table th.r,.fin-table td.r{text-align:right}
-.fin-table td{padding:7px 10px;border-bottom:1px solid #f0f0f0}
-.fin-table tr.sec td{font-weight:500;font-size:11px;color:var(--text-muted);padding-top:14px;background:transparent;border-bottom:none}
-.fin-table tr.sub td{color:var(--text-muted);padding-left:20px}
-.fin-table tr.subtotal td{font-weight:500;border-top:1px solid var(--border)}
-.fin-table tr.total td{font-weight:500;background:var(--bg)}
-.fin-table tr.grandtotal td{font-weight:500;font-size:14px;border-top:2px solid var(--maroon);color:var(--maroon)}
-.btn{padding:9px 18px;border-radius:var(--radius);font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .15s}
-.btn-primary{background:var(--maroon);color:white;border:none}
-.btn-primary:hover{background:var(--maroon-dark)}
-.btn-outline{background:transparent;color:var(--maroon);border:1px solid var(--maroon)}
-.btn-outline:hover{background:var(--maroon-light)}
-.btn-green{background:var(--wa);color:white;border:none;display:inline-flex;align-items:center;gap:6px}
-.btn-green:hover{background:var(--wa-dark)}
-.btn-row{display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap}
-.report-header{background:var(--maroon);color:white;border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:1.5rem}
-.report-header h2{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:500}
-.report-header p{font-size:12px;opacity:.75;margin-top:4px}
-.report-meta{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap}
-.report-meta-item{font-size:12px;opacity:.85}
-.report-meta-item strong{display:block;font-size:10px;opacity:.65;text-transform:uppercase;letter-spacing:.05em}
-.report-body{background:white;border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);padding:1.5rem}
-.report-section{margin-bottom:1.5rem}
-.report-sec-title{font-size:11px;font-weight:500;color:var(--maroon);text-transform:uppercase;letter-spacing:.08em;padding-bottom:6px;border-bottom:1px solid var(--maroon-light);margin-bottom:10px}
-.info-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.info-row{display:flex;justify-content:space-between;padding:5px 10px;background:var(--bg);border-radius:6px;font-size:12px}
-.info-row span:first-child{color:var(--text-muted)}
-.info-row span:last-child{font-weight:500}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.finding{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #f5f5f5}
-.finding:last-child{border-bottom:none}
-.fdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
-.dot-g{background:#2d8a50}.dot-w{background:#c8870f}.dot-r{background:#c0392b}
-.sig-block{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)}
-.sig-line{border-bottom:1px solid #aaa;margin:2rem 0 4px}
-.sig-label{font-size:12px;color:var(--text-muted)}
-.disclaimer{margin-top:1.5rem;padding:12px 16px;background:var(--bg);border-radius:var(--radius);font-size:11px;color:var(--text-muted);line-height:1.7}
-/* LEADS DASHBOARD */
-.leads-panel{background:white;border:2px solid var(--gold);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.25rem;display:none}
-.leads-panel.visible{display:block}
-.leads-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.25rem}
-.ls-card{background:var(--bg);border-radius:var(--radius);padding:12px;border:1px solid var(--border);text-align:center}
-.ls-num{font-size:22px;font-weight:500;font-family:'Playfair Display',serif;color:var(--maroon)}
-.ls-label{font-size:11px;color:var(--text-muted);margin-top:2px}
-.leads-tbl-wrap{overflow-x:auto}
-.leads-tbl{width:100%;border-collapse:collapse;font-size:12px;min-width:650px}
-.leads-tbl th{padding:7px 10px;text-align:left;font-weight:500;font-size:11px;color:var(--text-muted);background:var(--bg);border-bottom:1px solid var(--border)}
-.leads-tbl td{padding:7px 10px;border-bottom:1px solid #f5f5f5;vertical-align:middle}
-.leads-tbl tr:hover td{background:#fafafa}
-.wa-chip{display:inline-flex;align-items:center;gap:4px;background:var(--wa);color:white;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:500;cursor:pointer;border:none;font-family:'DM Sans',sans-serif}
-.wa-float{position:fixed;bottom:24px;right:24px;background:var(--wa);color:white;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);cursor:pointer;z-index:500;text-decoration:none;transition:transform .15s;border:none}
-.wa-float:hover{transform:scale(1.08)}
-.toast{position:fixed;bottom:90px;right:24px;background:var(--maroon);color:white;padding:12px 20px;border-radius:var(--radius);font-size:13px;z-index:2000;animation:fadeIn .3s ease;box-shadow:0 4px 20px rgba(0,0,0,.2);max-width:300px}
-.toast.green{background:var(--wa)}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.footer{text-align:center;padding:2rem 1rem;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border);margin-top:2rem}
-.footer strong{color:var(--maroon)}
-.footer-wa{display:inline-flex;align-items:center;gap:6px;color:var(--wa);font-weight:500;text-decoration:none;margin-top:8px;font-size:13px;cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif}
-textarea{width:100%;border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;font-size:12px;font-family:'DM Sans',monospace;color:var(--text);background:var(--bg);resize:vertical}
-.hidden{display:none!important}
-.wa-svg{fill:white;width:20px;height:20px;flex-shrink:0}
-@media(max-width:600px){.hero h1{font-size:1.5rem}.input-grid,.form-row,.two-col,.info-grid-2,.sig-block{grid-template-columns:1fr}.leads-stats{grid-template-columns:1fr 1fr}.kpi-grid{grid-template-columns:1fr 1fr}}
-body.rtl .fin-table th{text-align:right}
-body.rtl .fin-table tr.sub td{padding-right:20px;padding-left:10px}
-body.rtl .modal-logo{flex-direction:row-reverse}
-body.rtl .step-header{flex-direction:row-reverse}
+html{scroll-behavior:smooth}
+body{font-family:'Syne',sans-serif;background:var(--cream);color:var(--ink);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+body.ar{direction:rtl}
+h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--maroon);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:52px;position:sticky;top:0;z-index:200}
+.topbar-logo{display:flex;align-items:center;gap:10px;color:white;text-decoration:none}
+.topbar-logo-mark{width:30px;height:30px;background:var(--gold-2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--ink);flex-shrink:0}
+.topbar-logo-name{font-size:15px;font-weight:600;color:white;letter-spacing:.01em}
+.topbar-logo-name span{color:var(--gold-2)}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.lang-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);padding:4px 12px;border-radius:100px;font-size:11px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .15s}
+.lang-pill.on{background:var(--gold-2);border-color:var(--gold-2);color:var(--ink);font-weight:600}
+.topbar-cta{background:var(--gold-2);color:var(--ink);padding:6px 16px;border-radius:100px;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:'Syne',sans-serif;display:flex;align-items:center;gap:6px;transition:all .15s}
+.topbar-cta:hover{background:white}
+
+/* ── HERO ── */
+.hero{background:var(--maroon);padding:4rem 2rem 5rem;text-align:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 120%,rgba(184,137,42,.18),transparent),radial-gradient(ellipse 50% 80% at 90% 10%,rgba(255,255,255,.04),transparent)}
+.hero-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px}
+.hero-inner{position:relative;z-index:1;max-width:780px;margin:0 auto}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:var(--gold-2);padding:5px 16px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.5rem}
+.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--gold-2);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:400;color:white;line-height:1.1;margin-bottom:1rem;letter-spacing:-.01em}
+.hero h1 em{color:var(--gold-2);font-style:italic}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.75);max-width:560px;margin:0 auto 2rem;line-height:1.7;font-family:'Syne',sans-serif}
+.hero-features{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.hero-feat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.9);padding:5px 14px;border-radius:100px;font-size:11px;font-weight:500}
+.hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-hero-primary{background:white;color:var(--maroon);padding:13px 28px;border-radius:100px;font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:'Syne',sans-serif;transition:all .15s;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.btn-hero-primary:hover{background:var(--gold-2);color:var(--ink)}
+.btn-hero-wa{background:var(--wa);color:white;padding:13px 24px;border-radius:100px;font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'Syne',sans-serif;display:flex;align-items:center;gap:8px;transition:all .15s}
+.btn-hero-wa:hover{background:var(--wa-dark)}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:rgba(255,255,255,.4);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.scroll-line{width:1px;height:32px;background:linear-gradient(to bottom,rgba(255,255,255,.4),transparent)}
+
+/* ── TRUST BAR ── */
+.trust-bar{background:white;border-bottom:1px solid var(--cream-3);padding:.85rem 2rem;display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--ink-3);font-weight:500}
+.trust-item svg{flex-shrink:0}
+
+/* ── MAIN CONTAINER ── */
+.main{max-width:960px;margin:0 auto;padding:2.5rem 1.5rem}
+
+/* ── PROGRESS STEPS ── */
+.progress{display:flex;align-items:center;margin-bottom:2rem;gap:0}
+.prog-step{display:flex;align-items:center;gap:8px;flex:1;position:relative}
+.prog-step:not(:last-child)::after{content:'';position:absolute;left:calc(14px + 8px);right:0;top:14px;height:1px;background:var(--cream-3);z-index:0}
+.prog-step.done::after{background:var(--maroon)}
+.prog-num{width:28px;height:28px;border-radius:50%;border:2px solid var(--cream-3);background:white;color:var(--ink-3);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1;transition:all .3s}
+.prog-step.active .prog-num{border-color:var(--maroon);background:var(--maroon);color:white}
+.prog-step.done .prog-num{border-color:var(--maroon);background:var(--maroon);color:white}
+.prog-label{font-size:11px;font-weight:500;color:var(--ink-3);white-space:nowrap;display:none}
+@media(min-width:500px){.prog-label{display:block}}
+.prog-step.active .prog-label,.prog-step.done .prog-label{color:var(--maroon)}
+
+/* ── CARD ── */
+.card{background:white;border-radius:var(--rl);border:1px solid var(--cream-3);padding:1.75rem;margin-bottom:1.25rem;box-shadow:var(--sh);transition:box-shadow .2s}
+.card:hover{box-shadow:var(--sh-lg)}
+.card-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:1.5rem}
+.card-icon{width:42px;height:42px;border-radius:10px;background:var(--maroon-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px}
+.card-title{font-size:16px;font-weight:600;line-height:1.2}
+.card-sub{font-size:12px;color:var(--ink-3);margin-top:3px}
+
+/* ── UPLOAD ZONE ── */
+.drop-zone{border:2px dashed var(--cream-3);border-radius:var(--r);padding:2rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--cream);position:relative}
+.drop-zone:hover,.drop-zone.drag{border-color:var(--maroon);background:var(--maroon-bg)}
+.drop-icon{width:44px;height:44px;border-radius:10px;background:white;border:1px solid var(--cream-3);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:22px;box-shadow:var(--sh)}
+.drop-title{font-size:14px;font-weight:600;margin-bottom:4px}
+.drop-sub{font-size:12px;color:var(--ink-3)}
+.drop-sub strong{color:var(--maroon)}
+.file-chip{display:inline-flex;align-items:center;gap:8px;background:var(--green-bg);border:1px solid #9dd4b5;color:var(--green);padding:8px 14px;border-radius:var(--r);font-size:12px;font-weight:500;margin-top:10px}
+
+/* ── INPUTS ── */
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:1.25rem}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:11px;font-weight:600;color:var(--ink-3);letter-spacing:.04em;text-transform:uppercase}
+.field input,.field select{padding:10px 13px;border:1.5px solid var(--cream-3);border-radius:var(--r);font-size:13px;font-family:'Syne',sans-serif;color:var(--ink);background:var(--cream);transition:border-color .15s;-webkit-appearance:none}
+.field input:focus,.field select:focus{outline:none;border-color:var(--maroon);background:white}
+.field-divider{grid-column:1/-1;height:1px;background:var(--cream-3);margin:4px 0}
+.field-section-label{grid-column:1/-1;font-size:11px;font-weight:600;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;padding-top:4px}
+
+/* ── ALERTS ── */
+.alert{border-radius:var(--r);padding:13px 16px;font-size:13px;margin:12px 0;line-height:1.65;display:flex;gap:12px;align-items:flex-start}
+.alert-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.alert.danger{background:var(--maroon-bg);border:1.5px solid #f0b0b0;color:var(--maroon)}
+.alert.ok{background:var(--green-bg);border:1.5px solid #9dd4b5;color:var(--green)}
+.alert.warn{background:var(--amber-bg);border:1.5px solid #f0c877;color:var(--amber)}
+.alert.info{background:var(--blue-bg);border:1.5px solid #90b8f0;color:var(--blue)}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:100px;font-size:10px;font-weight:600;letter-spacing:.03em}
+.badge.ok{background:var(--green-bg);color:var(--green)}
+.badge.warn{background:var(--amber-bg);color:var(--amber)}
+.badge.danger{background:var(--maroon-bg);color:var(--maroon)}
+.badge.info{background:var(--blue-bg);color:var(--blue)}
+.badge.gold{background:var(--gold-bg);color:var(--gold);border:1px solid #e0c070}
+
+/* ── BUTTONS ── */
+.btn{padding:10px 20px;border-radius:var(--r);font-size:13px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;transition:all .15s;display:inline-flex;align-items:center;gap:7px;border:none;letter-spacing:.01em}
+.btn-primary{background:var(--maroon);color:white}
+.btn-primary:hover{background:var(--maroon-2)}
+.btn-ghost{background:transparent;color:var(--maroon);border:1.5px solid var(--maroon)}
+.btn-ghost:hover{background:var(--maroon-bg)}
+.btn-wa{background:var(--wa);color:white}
+.btn-wa:hover{background:var(--wa-dark)}
+.btn-sm{padding:7px 14px;font-size:12px}
+.btn-row{display:flex;gap:8px;margin-top:1.25rem;flex-wrap:wrap}
+
+/* ── KPI GRID ── */
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1rem 0}
+.kpi-card{border-radius:var(--r);padding:14px 16px;border:1.5px solid var(--cream-3);background:var(--cream)}
+.kpi-label{font-size:10px;font-weight:600;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.kpi-val{font-size:22px;font-weight:400;font-family:'Cormorant Garamond',serif;line-height:1}
+.kpi-val.g{color:var(--green)}.kpi-val.r{color:var(--maroon)}.kpi-val.b{color:var(--blue)}
+.kpi-sub{font-size:10px;color:var(--ink-3);margin-top:4px}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:0;border-bottom:1.5px solid var(--cream-3);margin-bottom:1.25rem;overflow-x:auto}
+.tab-btn{padding:9px 18px;font-size:12px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;color:var(--ink-3);white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;font-family:'Syne',sans-serif;transition:all .15s;letter-spacing:.02em}
+.tab-btn.on{border-bottom-color:var(--maroon);color:var(--maroon)}
+.tab-btn:hover{color:var(--maroon)}
+
+/* ── FIN TABLES ── */
+.fin-wrap{overflow-x:auto}
+.fin-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.fin-table thead th{text-align:left;padding:8px 12px;font-size:10px;font-weight:600;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;border-bottom:1.5px solid var(--cream-3);background:var(--cream);white-space:nowrap}
+.fin-table thead th.r{text-align:right}
+.fin-table td{padding:8px 12px;border-bottom:1px solid #f5f1ec}
+.fin-table td.r{text-align:right}
+.fin-table tr.section td{font-size:10px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;padding-top:16px;background:transparent;border-bottom:none}
+.fin-table tr.indent td:first-child{padding-left:26px;color:var(--ink-2)}
+.fin-table tr.subtot td{font-weight:600;border-top:1px solid var(--cream-3)}
+.fin-table tr.total-row td{font-weight:700;background:var(--cream)}
+.fin-table tr.grand td{font-weight:700;font-size:14px;border-top:2px solid var(--maroon);color:var(--maroon);font-family:'Cormorant Garamond',serif}
+
+/* ── REPORT ── */
+.report-shell{border-radius:var(--rl);overflow:hidden;border:1.5px solid var(--cream-3);box-shadow:var(--sh-lg);margin-bottom:1.25rem}
+.report-head{background:linear-gradient(135deg,var(--maroon) 0%,#5c0e1a 100%);color:white;padding:2rem}
+.report-head-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;margin-bottom:1.25rem}
+.report-firm-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;line-height:1.1}
+.report-firm-sub{font-size:11px;opacity:.7;margin-top:4px;font-family:'Syne',sans-serif}
+.report-meta-grid{display:flex;gap:20px;flex-wrap:wrap}
+.report-meta-item{font-size:11px;opacity:.8}
+.report-meta-item strong{display:block;font-size:9px;opacity:.6;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px;font-family:'Syne',sans-serif}
+.report-body{background:white;padding:2rem}
+.report-section{margin-bottom:1.75rem}
+.rsec-label{font-size:10px;font-weight:700;color:var(--maroon);text-transform:uppercase;letter-spacing:.1em;padding-bottom:8px;border-bottom:1.5px solid var(--maroon-bg);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.info-2col{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:var(--cream);border-radius:8px;font-size:12px}
+.info-row span:first-child{color:var(--ink-3)}
+.info-row span:last-child{font-weight:600}
+.two-col-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.sig-area{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--cream-3)}
+.sig-line{border-bottom:1px solid var(--ink-3);margin:2.5rem 0 6px}
+.sig-lbl{font-size:11px;color:var(--ink-3)}
+.disclaimer{padding:14px 16px;background:var(--cream);border-radius:var(--r);font-size:11px;color:var(--ink-3);line-height:1.75;margin-top:1.5rem;border-left:3px solid var(--cream-3)}
+
+/* ── WA FLOAT ── */
+.wa-fab{position:fixed;bottom:24px;right:24px;width:54px;height:54px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.5);cursor:pointer;z-index:100;border:none;transition:transform .15s}
+.wa-fab:hover{transform:scale(1.1)}
+.wa-tooltip{position:fixed;bottom:88px;right:24px;background:var(--ink);color:white;font-size:11px;padding:6px 12px;border-radius:8px;white-space:nowrap;z-index:100;pointer-events:none;opacity:0;transition:opacity .2s}
+.wa-fab:hover ~ .wa-tooltip{opacity:1}
+
+/* ── MODAL ── */
+.overlay{position:fixed;inset:0;background:rgba(15,13,11,.65);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:500;padding:1rem}
+.overlay.off{display:none}
+.modal{background:white;border-radius:var(--rl);width:100%;max-width:500px;padding:2.25rem;box-shadow:var(--sh-lg);animation:slideUp .3s cubic-bezier(.34,1.56,.64,1);max-height:90vh;overflow-y:auto}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-brand{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:1px solid var(--cream-3)}
+.modal-brand-icon{width:44px;height:44px;border-radius:10px;background:var(--maroon);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:19px;color:white;flex-shrink:0}
+.modal-brand-name{font-size:15px;font-weight:700;line-height:1.1}
+.modal-brand-name span{display:block;font-size:11px;color:var(--ink-3);font-weight:400;margin-top:2px}
+.modal h2{font-size:1.5rem;font-weight:500;margin-bottom:.4rem}
+.modal p.muted{font-size:13px;color:var(--ink-3);margin-bottom:1.5rem;line-height:1.6}
+.mfield{margin-bottom:12px}
+.mfield label{display:block;font-size:11px;font-weight:600;color:var(--ink-3);margin-bottom:5px;letter-spacing:.04em;text-transform:uppercase}
+.mfield input,.mfield select{width:100%;padding:11px 13px;border:1.5px solid var(--cream-3);border-radius:var(--r);font-size:13px;font-family:'Syne',sans-serif;color:var(--ink);background:var(--cream);transition:border-color .15s}
+.mfield input:focus,.mfield select:focus{outline:none;border-color:var(--maroon);background:white}
+.mfield-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.m-submit{width:100%;padding:13px;background:var(--maroon);color:white;border:none;border-radius:var(--r);font-size:14px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;transition:all .15s;margin-top:10px;letter-spacing:.02em}
+.m-submit:hover{background:var(--maroon-2)}
+.m-wa{width:100%;padding:12px;background:var(--wa);color:white;border:none;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;font-family:'Syne',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px}
+.m-wa:hover{background:var(--wa-dark)}
+.m-divider{display:flex;align-items:center;gap:10px;margin:10px 0;font-size:11px;color:var(--ink-3)}
+.m-divider::before,.m-divider::after{content:'';flex:1;height:1px;background:var(--cream-3)}
+.m-privacy{text-align:center;font-size:11px;color:var(--ink-3);margin-top:10px;line-height:1.6}
+
+/* ── FOOTER ── */
+.footer{text-align:center;padding:3rem 1.5rem 2rem;border-top:1px solid var(--cream-3);margin-top:3rem;background:white}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--maroon);margin-bottom:.4rem}
+.footer-sub{font-size:11px;color:var(--ink-3);margin-bottom:1.25rem}
+.footer-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:11px;color:var(--ink-3)}
+.footer-links a{color:var(--ink-3);text-decoration:none}
+.footer-links a:hover{color:var(--maroon)}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--ink);color:white;padding:11px 20px;border-radius:100px;font-size:13px;z-index:600;white-space:nowrap;box-shadow:var(--sh-lg);animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}
+
+/* ── HIDDEN ── */
+.hide{display:none!important}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  .topbar{padding:0 1rem}
+  .hero{padding:3rem 1.25rem 4rem}
+  .hero h1{font-size:2rem}
+  .field-grid,.kpi-row,.two-col-grid,.info-2col,.sig-area{grid-template-columns:1fr}
+  .mfield-row{grid-template-columns:1fr}
+  .main{padding:1.5rem 1rem}
+  .card{padding:1.25rem}
+  .trust-bar{gap:1rem;padding:.75rem 1rem}
+  .trust-item{font-size:10px}
+}
+@media(max-width:380px){.topbar-cta{display:none}}
+
+/* ── ARABIC RTL ── */
+body.ar .fin-table thead th{text-align:right}
+body.ar .fin-table tr.indent td:first-child{padding-right:26px;padding-left:12px}
+body.ar .card-header{flex-direction:row-reverse}
+body.ar .modal-brand{flex-direction:row-reverse}
+body.ar .info-row{flex-direction:row-reverse}
+body.ar .field label{text-align:right}
+body.ar .mfield label{text-align:right}
 </style>
 </head>
 <body>
 
-<!-- LEAD GATE MODAL -->
-<div class="modal-overlay" id="modal-overlay">
+<!-- ══ LEAD MODAL ══ -->
+<div class="overlay" id="modal-overlay">
   <div class="modal">
-    <div class="modal-logo">
-      <div class="modal-logo-mark">QA</div>
-      <div class="modal-logo-text">Qatar Audit Compliance Tool<span id="ml-sub">Free · 2025 filings | مجاناً · تقديمات 2025</span></div>
+    <div class="modal-brand">
+      <div class="modal-brand-icon">م</div>
+      <div class="modal-brand-name">Mizaan<span id="m-sub">Free compliance platform · 2025 filing season</span></div>
     </div>
-    <h2 id="ml-title">Check your audit deadline &amp; tax in minutes</h2>
-    <p class="sub" id="ml-body">Enter your details for free access. A certified auditor may follow up.</p>
-    <div class="form-row">
-      <div class="form-group"><label id="lbl-name">Full name *</label><input type="text" id="lead-name" placeholder="Mohammed Al-Rashidi"></div>
-      <div class="form-group"><label id="lbl-phone">WhatsApp / Mobile *</label><input type="tel" id="lead-phone" placeholder="+974 55xx xxxx"></div>
+    <h2 id="m-title">Check your audit status in minutes</h2>
+    <p class="muted" id="m-body">Enter your details to access the full platform. A certified auditor may follow up with personalised support.</p>
+    <div class="mfield-row">
+      <div class="mfield"><label id="ml-name">Full name *</label><input id="l-name" type="text" placeholder="Mohammed Al-Rashidi" autocomplete="name"></div>
+      <div class="mfield"><label id="ml-phone">WhatsApp / Mobile *</label><input id="l-phone" type="tel" placeholder="+974 5500 0000" autocomplete="tel"></div>
     </div>
-    <div class="form-group"><label id="lbl-company">Company name</label><input type="text" id="lead-company" placeholder="Your company LLC"></div>
-    <div class="form-group"><label id="lbl-email">Email address</label><input type="email" id="lead-email" placeholder="you@company.com"></div>
-    <div class="form-group">
-      <label id="lbl-service">What do you need?</label>
-      <select id="lead-service">
-        <option value="">Select / اختر...</option>
+    <div class="mfield"><label id="ml-co">Company name</label><input id="l-co" type="text" placeholder="Your company W.L.L."></div>
+    <div class="mfield"><label id="ml-em">Email address</label><input id="l-em" type="email" placeholder="you@company.com" autocomplete="email"></div>
+    <div class="mfield">
+      <label id="ml-svc">Service needed</label>
+      <select id="l-svc">
+        <option value="">Select... / اختر...</option>
         <option value="audit">Annual audit — التدقيق السنوي</option>
-        <option value="tax">Tax return — الإقرار الضريبي</option>
-        <option value="both">Both — الاثنان معاً</option>
-        <option value="deadline">Just checking deadline — التحقق من الموعد</option>
-        <option value="other">Other — أخرى</option>
+        <option value="tax">Tax return filing — الإقرار الضريبي</option>
+        <option value="both">Full compliance — audit + tax</option>
+        <option value="deadline">Checking my deadline only</option>
+        <option value="other">Other enquiry</option>
       </select>
     </div>
-    <button class="btn-submit" onclick="submitLead()" id="btn-access">Access the tool — free →</button>
-    <div class="modal-divider" id="modal-or">or</div>
-    <button class="btn-wa-modal" onclick="waContact()">
-      <svg class="wa-svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      <span id="btn-wa-text">Connect on WhatsApp instead</span>
+    <button class="m-submit" id="m-btn" onclick="submitLead()">Access the platform — free →</button>
+    <div class="m-divider" id="m-or">or</div>
+    <button class="m-wa" onclick="waContact()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span id="m-wa-txt">Speak to an auditor on WhatsApp</span>
     </button>
-    <p class="modal-note" id="modal-note">🔒 Your details are private. A certified Qatar auditor may contact you.</p>
+    <p class="m-privacy" id="m-priv">🔒 Your information is kept private and secure. A Qatar-registered auditor may contact you.</p>
   </div>
 </div>
 
-<!-- LANG BAR -->
-<div class="lang-bar">
-  <span style="color:rgba(255,255,255,.5);font-size:12px;" id="lang-label">Language:</span>
-  <button class="lang-btn active" onclick="setLang('en')" id="btn-en">English</button>
-  <button class="lang-btn" onclick="setLang('ar')" id="btn-ar">العربية</button>
-</div>
+<!-- ══ TOPBAR ══ -->
+<nav class="topbar">
+  <a class="topbar-logo" href="#">
+    <div class="topbar-logo-mark">م</div>
+    <span class="topbar-logo-name">Mi<span>zaan</span> <span style="font-size:11px;font-weight:400;opacity:.55;letter-spacing:0">ميزان</span></span>
+  </a>
+  <div class="topbar-right">
+    <button class="lang-pill on" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-pill" id="btn-ar" onclick="setLang('ar')">AR</button>
+    <button class="topbar-cta" onclick="waContact()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span id="nav-wa-txt">Speak to an auditor</span>
+    </button>
+  </div>
+</nav>
 
-<!-- HERO -->
-<div class="hero">
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
   <div class="hero-inner">
-    <div class="hero-badge" id="h-badge">Qatar GTA · 2025 Audit Season</div>
-    <h1 id="h-title">Qatar Audit &amp; Tax<br>Compliance Checker</h1>
-    <p id="h-sub">Upload your CR and trial balance — get your audit deadline, financial statements, and full tax computation instantly.</p>
-    <div class="hero-pills">
-      <span class="hero-pill" id="hp1">✓ CR deadline analysis</span>
-      <span class="hero-pill" id="hp2">✓ P&amp;L · Balance Sheet · Cash Flow</span>
-      <span class="hero-pill" id="hp3">✓ 10% tax computation</span>
-      <span class="hero-pill" id="hp4">✓ Free to use</span>
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      <span id="h-eyebrow">Qatar GTA · 2025 Audit & Tax Season</span>
     </div>
-    <button class="hero-wa" onclick="waContact()">
-      <svg class="wa-svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      <span id="h-wa-text">Chat with an auditor on WhatsApp</span>
-    </button>
+    <h1 id="h-title">Qatar's <em>smartest</em><br>audit compliance platform</h1>
+    <p class="hero-sub" id="h-sub">Upload your Commercial Registration and trial balance. Get your GTA filing deadline, complete financial statements, and 10% tax computation — in under two minutes.</p>
+    <div class="hero-features">
+      <span class="hero-feat" id="hf1">✓ CR deadline analysis</span>
+      <span class="hero-feat" id="hf2">✓ P&L · Balance Sheet · Cash Flow</span>
+      <span class="hero-feat" id="hf3">✓ 10% tax computation</span>
+      <span class="hero-feat" id="hf4">✓ Print-ready audit report</span>
+      <span class="hero-feat" id="hf5">✓ Arabic & English</span>
+    </div>
+    <div class="hero-actions">
+      <button class="btn-hero-primary" onclick="document.getElementById('modal-overlay').classList.remove('off')" id="h-start">Start your compliance check →</button>
+      <button class="btn-hero-wa" onclick="waContact()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span id="h-wa">Talk to an auditor</span>
+      </button>
+    </div>
+    <div class="hero-scroll"><div class="scroll-line"></div><span>SCROLL</span></div>
+  </div>
+</section>
+
+<!-- ══ TRUST BAR ══ -->
+<div class="trust-bar">
+  <div class="trust-item">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--maroon)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <span id="tb1">Qatar Income Tax Law No. 24 of 2018</span>
+  </div>
+  <div class="trust-item">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--maroon)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <span id="tb2">GTA filing deadlines built-in</span>
+  </div>
+  <div class="trust-item">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--maroon)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    <span id="tb3">Print-ready GTA audit report</span>
+  </div>
+  <div class="trust-item">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--maroon)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    <span id="tb4">Your data stays in your browser</span>
   </div>
 </div>
 
-<div class="container">
+<!-- ══ MAIN ══ -->
+<main class="main">
 
-  <!-- OWNER LEADS PANEL — type "admin" to reveal -->
-  <div class="leads-panel" id="leads-panel">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:10px">
-      <div>
-        <div style="font-size:16px;font-weight:500;color:var(--gold)">🔑 Lead Dashboard</div>
-        <div style="font-size:12px;color:var(--text-muted)">Everyone who used your tool</div>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-outline" onclick="exportLeads()">📥 Export CSV</button>
-        <button class="btn btn-green" onclick="waBlast()">
-          <svg class="wa-svg" style="width:14px;height:14px" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp All Leads
-        </button>
-        <button class="btn btn-primary" onclick="document.getElementById('leads-panel').classList.remove('visible')">✕ Close</button>
-      </div>
+  <!-- PROGRESS -->
+  <div class="progress" id="progress-bar">
+    <div class="prog-step active" id="ps1">
+      <div class="prog-num">1</div>
+      <div class="prog-label" id="psl1">Registration</div>
     </div>
-    <div class="leads-stats" id="leads-stats"></div>
-    <div class="leads-tbl-wrap"><div id="leads-tbl"></div></div>
+    <div class="prog-step" id="ps2">
+      <div class="prog-num">2</div>
+      <div class="prog-label" id="psl2">Trial Balance</div>
+    </div>
+    <div class="prog-step" id="ps3">
+      <div class="prog-num">3</div>
+      <div class="prog-label" id="psl3">Analysis</div>
+    </div>
+    <div class="prog-step" id="ps4">
+      <div class="prog-num">4</div>
+      <div class="prog-label" id="psl4">Report</div>
+    </div>
   </div>
 
   <!-- STEP 1: CR -->
-  <div class="step-card">
-    <div class="step-header">
-      <div class="step-num">1</div>
-      <div><div class="step-title" id="s1t">Commercial Registration (CR)</div><div class="step-sub" id="s1s">Upload your CR document or enter details manually</div></div>
-    </div>
-    <div class="upload-zone" onclick="document.getElementById('cr-file').click()">
-      <input type="file" id="cr-file" accept=".pdf,.png,.jpg,.jpeg" style="display:none" onchange="handleCRFile(event)">
-      <div class="uz-icon">📄</div>
-      <div class="uz-title" id="uz1t">Upload CR document</div>
-      <div class="uz-sub" id="uz1s">PDF or image from Qatar Ministry of Commerce</div>
-    </div>
-    <div id="cr-badge"></div>
-    <div class="divider-label" id="or-manual">Or enter details manually</div>
-    <div class="input-grid">
-      <div class="input-group"><label id="lbl-crn">Company name</label><input type="text" id="cr-name" value="Top Co Tyres &amp; Autoparts"></div>
-      <div class="input-group"><label id="lbl-crl">Legal form</label>
-        <select id="cr-legal"><option value="llc" selected>LLC (ذات مسئولية محدودة)</option><option value="sole">Sole Proprietorship</option><option value="branch">Foreign Branch</option></select>
+  <div class="card" id="step1-card">
+    <div class="card-header">
+      <div class="card-icon">📋</div>
+      <div>
+        <div class="card-title" id="s1t">Commercial Registration</div>
+        <div class="card-sub" id="s1s">Upload your CR document or enter registration details manually</div>
       </div>
-      <div class="input-group"><label id="lbl-crd">CR creation date *</label><input type="date" id="cr-date" value="2024-03-06" onchange="analyzeCR()"></div>
-      <div class="input-group"><label id="lbl-cre">CR expiry date</label><input type="date" id="cr-expiry" value="2026-03-06"></div>
-      <div class="input-group"><label id="lbl-qp">Qatari ownership %</label><input type="number" id="qatari-pct" value="51" min="0" max="100" onchange="analyzeCR()"></div>
-      <div class="input-group"><label id="lbl-cap">Registered capital (QAR)</label><input type="number" id="cr-capital" value="200000"></div>
     </div>
-    <div class="btn-row"><button class="btn btn-primary" onclick="analyzeCR()" id="btn-analyze">Analyze CR</button></div>
+    <div class="drop-zone" id="cr-drop" onclick="document.getElementById('cr-file').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event,'cr')">
+      <input type="file" id="cr-file" accept=".pdf,.png,.jpg,.jpeg" class="hide" onchange="handleCRFile(event)">
+      <div class="drop-icon">📄</div>
+      <div class="drop-title" id="uz1t">Drop your CR document here</div>
+      <div class="drop-sub" id="uz1s">PDF, PNG or JPG · <strong>Click to browse</strong></div>
+    </div>
+    <div id="cr-chip"></div>
+
+    <div class="field-section-label" style="margin-top:1.25rem;font-size:11px;font-weight:600;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;" id="or-manual">Or enter details manually</div>
+    <div class="field-grid">
+      <div class="field"><label id="fl-cn">Company name</label><input id="cr-name" type="text" value="Top Co Tyres &amp; Autoparts W.L.L."></div>
+      <div class="field"><label id="fl-lf">Legal form</label>
+        <select id="cr-legal">
+          <option value="llc" selected>Limited Liability (W.L.L.)</option>
+          <option value="sole">Sole Proprietorship</option>
+          <option value="branch">Foreign Branch</option>
+          <option value="jsc">Joint Stock (Q.S.C.)</option>
+        </select>
+      </div>
+      <div class="field"><label id="fl-cd">CR creation date *</label><input id="cr-date" type="date" value="2024-03-06" oninput="analyzeCR()"></div>
+      <div class="field"><label id="fl-ex">CR expiry date</label><input id="cr-expiry" type="date" value="2026-03-06"></div>
+      <div class="field"><label id="fl-qp">Qatari ownership %</label><input id="qatari-pct" type="number" value="51" min="0" max="100" oninput="analyzeCR()"></div>
+      <div class="field"><label id="fl-ca">Registered capital (QAR)</label><input id="cr-capital" type="number" value="200000"></div>
+      <div class="field"><label id="fl-cr">CR number</label><input id="cr-number" type="text" placeholder="e.g. 197095" value="197095"></div>
+      <div class="field"><label id="fl-tr">Tax registration no.</label><input id="cr-taxreg" type="text" placeholder="e.g. 5006453617" value="5006453617"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="analyzeCR()"><span id="s1-btn">Analyse registration</span></button>
+    </div>
     <div id="cr-result"></div>
   </div>
 
   <!-- STEP 2: TRIAL BALANCE -->
-  <div class="step-card">
-    <div class="step-header">
-      <div class="step-num">2</div>
-      <div><div class="step-title" id="s2t">Trial Balance</div><div class="step-sub" id="s2s">Upload Excel/CSV or paste data below</div></div>
+  <div class="card" id="step2-card">
+    <div class="card-header">
+      <div class="card-icon">📊</div>
+      <div>
+        <div class="card-title" id="s2t">Trial Balance</div>
+        <div class="card-sub" id="s2s">Upload an Excel or CSV export from your accounting system, or paste data below</div>
+      </div>
     </div>
-    <div class="upload-zone" onclick="document.getElementById('tb-file').click()">
-      <input type="file" id="tb-file" accept=".csv,.xlsx,.xls,.txt" style="display:none" onchange="handleTBFile(event)">
-      <div class="uz-icon">📊</div>
-      <div class="uz-title" id="uz2t">Upload trial balance file</div>
-      <div class="uz-sub" id="uz2s">CSV or Excel — Account Name, Debit, Credit</div>
+    <div class="drop-zone" id="tb-drop" onclick="document.getElementById('tb-file').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event,'tb')">
+      <input type="file" id="tb-file" accept=".csv,.xlsx,.xls,.txt" class="hide" onchange="handleTBFile(event)">
+      <div class="drop-icon">📈</div>
+      <div class="drop-title" id="uz2t">Drop your trial balance file here</div>
+      <div class="drop-sub" id="uz2s">CSV or Excel · columns: Account Name, Debit, Credit · <strong>Click to browse</strong></div>
     </div>
-    <div id="tb-badge"></div>
-    <div class="divider-label" id="or-paste">Or paste CSV data</div>
-    <textarea id="tb-paste" rows="7" placeholder="Account Name,Debit,Credit&#10;Cash and Bank,45000,0&#10;Revenue,0,580000&#10;..."></textarea>
+    <div id="tb-chip"></div>
+    <div class="field-section-label" style="margin-top:1.25rem;font-size:11px;font-weight:600;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;" id="or-paste">Or paste CSV data</div>
+    <textarea id="tb-paste" rows="7" style="width:100%;border:1.5px solid var(--cream-3);border-radius:var(--r);padding:11px 13px;font-size:12px;font-family:monospace;background:var(--cream);color:var(--ink);resize:vertical;margin-top:.5rem" placeholder="Account Name,Debit,Credit&#10;Cash and Bank,45000,0&#10;Revenue,0,580000&#10;..."></textarea>
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="parseTB()" id="btn-gen">Generate financial statements</button>
-      <button class="btn btn-outline" onclick="loadSample()" id="btn-samp">Load sample data</button>
+      <button class="btn btn-primary" onclick="parseTB()" id="s2-btn">Generate financial statements</button>
+      <button class="btn btn-ghost" onclick="loadSample()" id="s2-samp">Load sample data</button>
     </div>
-    <div id="tb-status" style="font-size:12px;color:var(--text-muted);margin-top:8px"></div>
+    <div id="tb-status" style="font-size:12px;color:var(--ink-3);margin-top:8px"></div>
   </div>
 
   <!-- STEP 3: RESULTS -->
-  <div id="results-section" class="hidden">
-    <div class="step-card">
-      <div class="step-header">
-        <div class="step-num">3</div>
-        <div><div class="step-title" id="s3t">Financial summary</div><div class="step-sub" id="s3s">Based on your trial balance data</div></div>
+  <div id="results-wrap" class="hide">
+
+    <!-- KPI summary -->
+    <div class="card" id="step3-card">
+      <div class="card-header">
+        <div class="card-icon">📐</div>
+        <div>
+          <div class="card-title" id="s3t">Financial summary</div>
+          <div class="card-sub" id="s3s">Key metrics derived from your trial balance</div>
+        </div>
       </div>
-      <div class="kpi-grid" id="kpi-grid"></div>
-      <div id="tax-box"></div>
+      <div class="kpi-row" id="kpi-row"></div>
+      <div id="tax-summary"></div>
     </div>
-    <div class="step-card">
+
+    <!-- Financial statements tabs -->
+    <div class="card">
       <div class="tabs">
-        <div class="tab active" onclick="showTab('pnl',this)" id="tl-pnl">Profit &amp; Loss</div>
-        <div class="tab" onclick="showTab('bs',this)" id="tl-bs">Balance Sheet</div>
-        <div class="tab" onclick="showTab('equity',this)" id="tl-eq">Equity</div>
-        <div class="tab" onclick="showTab('cf',this)" id="tl-cf">Cash Flow</div>
+        <button class="tab-btn on" onclick="showTab('pnl',this)" id="tl-pnl">Profit & Loss</button>
+        <button class="tab-btn" onclick="showTab('bs',this)" id="tl-bs">Balance Sheet</button>
+        <button class="tab-btn" onclick="showTab('eq',this)" id="tl-eq">Equity</button>
+        <button class="tab-btn" onclick="showTab('cf',this)" id="tl-cf">Cash Flow</button>
       </div>
-      <div id="tab-pnl"></div>
-      <div id="tab-bs" class="hidden"></div>
-      <div id="tab-equity" class="hidden"></div>
-      <div id="tab-cf" class="hidden"></div>
+      <div class="fin-wrap"><div id="tab-pnl"></div></div>
+      <div class="fin-wrap hide"><div id="tab-bs"></div></div>
+      <div class="fin-wrap hide"><div id="tab-eq"></div></div>
+      <div class="fin-wrap hide"><div id="tab-cf"></div></div>
     </div>
+
+    <!-- Audit report -->
     <div id="audit-report"></div>
-    <div class="btn-row" style="justify-content:center;margin-top:1rem">
-      <button class="btn btn-primary" onclick="window.print()" id="btn-print">🖨 Print / Save PDF</button>
-      <button class="btn btn-green" onclick="waSupport()" id="btn-support">
-        <svg class="wa-svg" style="width:14px;height:14px" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        <span id="btn-sup-txt">Get audit support on WhatsApp</span>
+
+    <div class="btn-row" style="justify-content:center;margin:1.5rem 0">
+      <button class="btn btn-primary" onclick="window.print()" id="r-print">🖨 Print / Save PDF</button>
+      <button class="btn btn-wa" onclick="waSupport()" id="r-wa">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span id="r-wa-txt">Get professional audit support</span>
       </button>
     </div>
   </div>
-</div>
+</main>
 
-<!-- WA FLOAT -->
-<button class="wa-float" onclick="waContact()" title="WhatsApp">
-  <svg class="wa-svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<!-- ══ WA FLOAT ══ -->
+<button class="wa-fab" onclick="waContact()">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </button>
+<div class="wa-tooltip" id="wa-tip">Chat with an auditor</div>
 
-<div class="footer">
-  Powered by <strong>Qatar Audit Compliance Tool</strong> · Qatar Income Tax Law No. 24 of 2018<br>
-  <button class="footer-wa" onclick="waContact()">
-    <svg style="fill:var(--wa);width:16px;height:16px;flex-shrink:0" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    <span id="footer-wa-txt">Chat with a certified Qatar auditor on WhatsApp</span>
-  </button>
-</div>
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="footer-logo">Mizaan <span style="font-family:Cormorant Garamond,serif;font-size:1.1rem;color:var(--gold);opacity:.7">ميزان</span></div>
+  <div class="footer-sub" id="f-sub">Powered by Qatar Income Tax Law No. 24 of 2018 · General Tax Authority (GTA) compliant</div>
+  <div class="footer-links">
+    <a href="#" onclick="waContact();return false" id="f-wa">💬 WhatsApp an auditor</a>
+    <a href="admin.html" id="f-admin">Admin dashboard</a>
+    <a href="#" id="f-privacy">Privacy policy</a>
+  </div>
+</footer>
 
 <script>
-// ══════════════════════════════════════════════════
-// ⚙️  OWNER CONFIG — update your WhatsApp number
-// ══════════════════════════════════════════════════
-const WA_NUMBER = '97451715999'; // Your number — no + or spaces e.g. 97450123456
+// ══════════════════════════════════════════════
+// ⚙️ OWNER CONFIG — update before deploying
+// ══════════════════════════════════════════════
+const WA = '97455000000'; // Your number — digits only, e.g. 97450123456
+const ADMIN_PASS = 'mizaan2025';
 
-// ══════════════════════════════════════════════════
+// ══════════════════════════════════════════════
 // TRANSLATIONS
-// ══════════════════════════════════════════════════
-const T = {
-en:{badge:'Qatar GTA · 2025 Audit Season',title:'Qatar Audit &amp; Tax<br>Compliance Checker',sub:'Upload your CR and trial balance — get your audit deadline, financial statements, and full tax computation instantly.',hp1:'✓ CR deadline analysis',hp2:'✓ P&amp;L · Balance Sheet · Cash Flow',hp3:'✓ 10% tax computation',hp4:'✓ Free to use',hWa:'Chat with an auditor on WhatsApp',mlSub:'Free compliance checker · 2025 filings',mlTitle:'Check your audit deadline &amp; tax in minutes',mlBody:'Enter your details for free access. A certified auditor may follow up.',lblName:'Full name *',lblPhone:'WhatsApp / Mobile *',lblCompany:'Company name',lblEmail:'Email address',lblService:'What do you need?',btnAccess:'Access the tool — free →',btnWa:'Connect on WhatsApp instead',modalNote:'🔒 Your details are private. A certified Qatar auditor may contact you.',modalOr:'or',s1t:'Commercial Registration (CR)',s1s:'Upload your CR document or enter details manually',uz1t:'Upload CR document',uz1s:'PDF or image from Qatar Ministry of Commerce',orManual:'Or enter details manually',lblCrn:'Company name',lblCrl:'Legal form',lblCrd:'CR creation date *',lblCre:'CR expiry date',lblQp:'Qatari ownership %',lblCap:'Registered capital (QAR)',btnAnalyze:'Analyze CR',s2t:'Trial Balance',s2s:'Upload Excel/CSV or paste data below',uz2t:'Upload trial balance file',uz2s:'CSV or Excel — Account Name, Debit, Credit',orPaste:'Or paste CSV data',btnGen:'Generate financial statements',btnSamp:'Load sample data',s3t:'Financial summary',s3s:'Based on your trial balance data',tlPnl:'Profit &amp; Loss',tlBs:'Balance Sheet',tlEq:'Equity',tlCf:'Cash Flow',btnPrint:'🖨 Print / Save PDF',btnSup:'Get audit support on WhatsApp',footerWa:'Chat with a certified Qatar auditor on WhatsApp',
-overdue:'⚠ Audit required — deadline: 30 April 2025 (OVERDUE)',overdueB:'CR created on {d} — on or before 30 June 2025. FY 2024 audit & tax return were due 30 April 2025. Filing is overdue. Submit immediately.',onTime:'✓ Filing deadline: 30 April 2026',onTimeB:'CR created after 30 June 2025. Audit and tax return may be submitted by 30 April 2026.',expired:'⚠ CR expired on {d}. Renewal required at Ministry of Commerce immediately.',noTax:'✓ No corporate tax — 100% Qatari ownership. Simplified return eligible.',hasTax:'Corporate tax applies — {p}% expat ownership. 10% tax on expat share of profit. Full statutory audit required.'},
-ar:{badge:'هيئة الضرائب قطر · موسم التدقيق 2025',title:'أداة الامتثال الضريبي<br>والتدقيق في قطر',sub:'قم بتحميل السجل التجاري وميزان المراجعة — احصل على موعد التقديم والبيانات المالية وحساب الضريبة فوراً.',hp1:'✓ تحليل موعد التقديم',hp2:'✓ أرباح وخسائر · ميزانية · تدفق نقدي',hp3:'✓ احتساب ضريبة 10%',hp4:'✓ مجاني تماماً',hWa:'تواصل مع مدقق حسابات عبر واتساب',mlSub:'فحص الامتثال الضريبي مجاناً · تقديمات 2025',mlTitle:'تحقق من موعد التدقيق والضريبة في دقائق',mlBody:'أدخل بياناتك للوصول المجاني. قد يتواصل معك مدقق معتمد.',lblName:'الاسم الكامل *',lblPhone:'واتساب / الجوال *',lblCompany:'اسم الشركة',lblEmail:'البريد الإلكتروني',lblService:'ماذا تحتاج؟',btnAccess:'الوصول للأداة — مجاناً ←',btnWa:'التواصل عبر واتساب',modalNote:'🔒 بياناتك خاصة وآمنة. قد يتواصل معك مدقق حسابات معتمد.',modalOr:'أو',s1t:'السجل التجاري',s1s:'قم بتحميل السجل أو إدخال البيانات يدوياً',uz1t:'تحميل السجل التجاري',uz1s:'PDF أو صورة من وزارة التجارة والصناعة',orManual:'أو أدخل البيانات يدوياً',lblCrn:'اسم الشركة',lblCrl:'الشكل القانوني',lblCrd:'تاريخ إنشاء السجل *',lblCre:'تاريخ انتهاء السجل',lblQp:'نسبة الملكية القطرية %',lblCap:'رأس المال (ريال قطري)',btnAnalyze:'تحليل السجل التجاري',s2t:'ميزان المراجعة',s2s:'قم بتحميل ملف Excel أو إلصاق البيانات أدناه',uz2t:'تحميل ميزان المراجعة',uz2s:'CSV أو Excel — اسم الحساب، مدين، دائن',orPaste:'أو الصق بيانات CSV',btnGen:'إنشاء البيانات المالية',btnSamp:'تحميل بيانات نموذجية',s3t:'الملخص المالي',s3s:'بناءً على بيانات ميزان المراجعة',tlPnl:'الأرباح والخسائر',tlBs:'الميزانية العمومية',tlEq:'حقوق الملكية',tlCf:'التدفق النقدي',btnPrint:'🖨 طباعة / حفظ PDF',btnSup:'احصل على دعم التدقيق عبر واتساب',footerWa:'تواصل مع مدقق معتمد في قطر عبر واتساب',
-overdue:'⚠ التدقيق مطلوب — الموعد النهائي: 30 أبريل 2025 (متأخر)',overdueB:'تأسس السجل في {d} — قبل أو في 30 يونيو 2025. كان التدقيق والإقرار الضريبي لعام 2024 مستحقاً في 30 أبريل 2025. التقديم متأخر الآن. قدم فوراً.',onTime:'✓ الموعد النهائي للتقديم: 30 أبريل 2026',onTimeB:'تأسس السجل بعد 30 يونيو 2025. يمكن تقديم التدقيق والإقرار الضريبي بحلول 30 أبريل 2026.',expired:'⚠ انتهى السجل التجاري في {d}. يجب التجديد في وزارة التجارة فوراً.',noTax:'✓ لا ضريبة — ملكية قطرية 100%. الإقرار المبسط مؤهل.',hasTax:'تسري الضريبة — {p}% ملكية غير قطرية. ضريبة 10% على نصيب الشركاء الأجانب من الأرباح. التدقيق الكامل مطلوب.'}
-};
+// ══════════════════════════════════════════════
+const TR = {
+en:{
+  eyebrow:'Qatar GTA · 2025 Audit & Tax Season',
+  title:"Qatar's <em>smartest</em><br>audit compliance platform",
+  sub:'Upload your Commercial Registration and trial balance. Get your GTA filing deadline, complete financial statements, and 10% tax computation — in under two minutes.',
+  hf1:'✓ CR deadline analysis',hf2:'✓ P&L · Balance Sheet · Cash Flow',hf3:'✓ 10% tax computation',hf4:'✓ Print-ready audit report',hf5:'✓ Arabic & English',
+  hStart:'Start your compliance check →',hWa:'Talk to an auditor',
+  navWa:'Speak to an auditor',
+  mSub:'Free compliance platform · 2025 filing season',
+  mTitle:'Check your audit status in minutes',
+  mBody:'Enter your details to access the full platform. A certified auditor may follow up with personalised support.',
+  mlName:'Full name *',mlPhone:'WhatsApp / Mobile *',mlCo:'Company name',mlEm:'Email address',mlSvc:'Service needed',
+  mBtn:'Access the platform — free →',mWa:'Speak to an auditor on WhatsApp',mOr:'or',
+  mPriv:'🔒 Your information is kept private and secure.',
+  tb1:'Qatar Income Tax Law No. 24 of 2018',tb2:'GTA filing deadlines built-in',tb3:'Print-ready GTA audit report',tb4:'Your data stays in your browser',
+  psl1:'Registration',psl2:'Trial Balance',psl3:'Analysis',psl4:'Report',
+  s1t:'Commercial Registration',s1s:'Upload your CR document or enter registration details manually',
+  uz1t:'Drop your CR document here',uz1s:'PDF, PNG or JPG · <strong>Click to browse</strong>',
+  orManual:'Or enter details manually',
+  flCn:'Company name',flLf:'Legal form',flCd:'CR creation date *',flEx:'CR expiry date',flQp:'Qatari ownership %',flCa:'Registered capital (QAR)',flCr:'CR number',flTr:'Tax registration no.',
+  s1btn:'Analyse registration',
+  s2t:'Trial Balance',s2s:'Upload an Excel or CSV export from your accounting system, or paste data below',
+  uz2t:'Drop your trial balance file here',uz2s:'CSV or Excel · Account Name, Debit, Credit · <strong>Click to browse</strong>',
+  orPaste:'Or paste CSV data',
+  s2btn:'Generate financial statements',s2samp:'Load sample data',
+  s3t:'Financial summary',s3s:'Key metrics derived from your trial balance',
+  tlPnl:'Profit & Loss',tlBs:'Balance Sheet',tlEq:'Equity',tlCf:'Cash Flow',
+  rPrint:'🖨 Print / Save PDF',rWa:'Get professional audit support',
+  waFab:'Chat with an auditor',
+  fSub:'Powered by Qatar Income Tax Law No. 24 of 2018 · GTA compliant',
+  fWa:'💬 WhatsApp an auditor',fAdmin:'Admin dashboard',fPrivacy:'Privacy policy',
+  overdue:'⚠ Audit OVERDUE — deadline was 30 April 2025',
+  overdueBody:'Your CR was created on {d}, on or before the 30 June 2025 cutoff. The FY 2024 audit and tax return were due 30 April 2025. Filing is now overdue — engage a GTA-registered auditor immediately.',
+  onTime:'✓ Filing deadline: 30 April 2026',
+  onTimeBody:'CR was established after 30 June 2025. Your first-year audit and tax return can be submitted by 30 April 2026.',
+  expired:'⚠ CR expired {d} — renewal required at Ministry of Commerce before continuing.',
+  noTax:'✓ No corporate tax applies — 100% Qatari-owned entity. Simplified return eligible.',
+  hasTax:'Corporate income tax applies — {p}% expat ownership attracts 10% tax on that share of profit. A full statutory audit is required.',
+},
+ar:{
+  eyebrow:'هيئة الضرائب قطر · موسم التدقيق والضريبة 2025',
+  title:"منصة الامتثال الضريبي <em>الأكثر ذكاءً</em><br>في قطر",
+  sub:'قم بتحميل السجل التجاري وميزان المراجعة. احصل على موعد التقديم لدى هيئة الضرائب، والبيانات المالية الكاملة، واحتساب ضريبة 10% — في أقل من دقيقتين.',
+  hf1:'✓ تحليل موعد التقديم',hf2:'✓ أرباح وخسائر · ميزانية · تدفق نقدي',hf3:'✓ احتساب ضريبة 10%',hf4:'✓ تقرير تدقيق جاهز للطباعة',hf5:'✓ عربي وإنجليزي',
+  hStart:'ابدأ فحص الامتثال ←',hWa:'تحدث مع مدقق حسابات',
+  navWa:'تحدث مع مدقق',
+  mSub:'منصة الامتثال الضريبي المجانية · موسم 2025',
+  mTitle:'تحقق من حالة التدقيق في دقائق',
+  mBody:'أدخل بياناتك للوصول إلى المنصة الكاملة. قد يتواصل معك مدقق معتمد لتقديم الدعم الشخصي.',
+  mlName:'الاسم الكامل *',mlPhone:'واتساب / الجوال *',mlCo:'اسم الشركة',mlEm:'البريد الإلكتروني',mlSvc:'الخدمة المطلوبة',
+  mBtn:'الوصول إلى المنصة — مجاناً ←',mWa:'تحدث مع مدقق عبر واتساب',mOr:'أو',
+  mPriv:'🔒 معلوماتك خاصة وآمنة.',
+  tb1:'قانون ضريبة الدخل القطري رقم 24 لعام 2018',tb2:'مواعيد هيئة الضرائب مدمجة',tb3:'تقرير تدقيق جاهز للطباعة',tb4:'بياناتك تبقى في متصفحك',
+  psl1:'التسجيل',psl2:'ميزان المراجعة',psl3:'التحليل',psl4:'التقرير',
+  s1t:'السجل التجاري',s1s:'قم بتحميل وثيقة السجل أو إدخال بيانات التسجيل يدوياً',
+  uz1t:'أسقط وثيقة السجل التجاري هنا',uz1s:'PDF أو PNG أو JPG · <strong>انقر للاستعراض</strong>',
+  orManual:'أو أدخل البيانات يدوياً',
+  flCn:'اسم الشركة',flLf:'الشكل القانوني',flCd:'تاريخ إنشاء السجل *',flEx:'تاريخ انتهاء السجل',flQp:'نسبة الملكية القطرية %',flCa:'رأس المال المسجل (ر.ق)',flCr:'رقم السجل التجاري',flTr:'الرقم الضريبي',
+  s1btn:'تحليل السجل التجاري',
+  s2t:'ميزان المراجعة',s2s:'قم بتحميل ملف Excel أو CSV من نظامك المحاسبي، أو الصق البيانات أدناه',
+  uz2t:'أسقط ملف ميزان المراجعة هنا',uz2s:'CSV أو Excel · اسم الحساب، مدين، دائن · <strong>انقر للاستعراض</strong>',
+  orPaste:'أو الصق بيانات CSV',
+  s2btn:'إنشاء البيانات المالية',s2samp:'تحميل بيانات نموذجية',
+  s3t:'الملخص المالي',s3s:'المقاييس الرئيسية المستخرجة من ميزان المراجعة',
+  tlPnl:'الأرباح والخسائر',tlBs:'الميزانية العمومية',tlEq:'حقوق الملكية',tlCf:'التدفق النقدي',
+  rPrint:'🖨 طباعة / حفظ PDF',rWa:'احصل على دعم تدقيق احترافي',
+  waFab:'تحدث مع مدقق حسابات',
+  fSub:'مدعوم بقانون ضريبة الدخل القطري رقم 24 لعام 2018',
+  fWa:'💬 واتساب مدقق حسابات',fAdmin:'لوحة الإدارة',fPrivacy:'سياسة الخصوصية',
+  overdue:'⚠ التدقيق متأخر — كان الموعد النهائي 30 أبريل 2025',
+  overdueBody:'تأسس سجلك في {d}، قبل أو في حد 30 يونيو 2025. كان التدقيق والإقرار الضريبي لعام 2024 مستحقاً في 30 أبريل 2025. التقديم الآن متأخر — تعاقد مع مدقق مسجل لدى هيئة الضرائب فوراً.',
+  onTime:'✓ الموعد النهائي للتقديم: 30 أبريل 2026',
+  onTimeBody:'تأسس السجل بعد 30 يونيو 2025. يمكن تقديم تدقيق السنة الأولى والإقرار الضريبي بحلول 30 أبريل 2026.',
+  expired:'⚠ انتهى السجل التجاري في {d} — يجب التجديد في وزارة التجارة قبل المتابعة.',
+  noTax:'✓ لا تسري ضريبة الشركات — كيان مملوك بالكامل لقطريين. الإقرار المبسط مؤهل.',
+  hasTax:'تسري ضريبة الدخل على الشركات — {p}% ملكية غير قطرية تجذب ضريبة 10% على تلك الحصة من الأرباح. التدقيق القانوني الكامل مطلوب.',
+}};
 
-let lang='en', leads=JSON.parse(localStorage.getItem('qa_leads_v2')||'[]'), crData=null, finData=null;
+let lang='en', crData=null, finData=null;
+let leads = JSON.parse(localStorage.getItem('mz_leads_v3')||'[]');
 
-// ══════════════════════════════════════════════════
-// LANGUAGE
-// ══════════════════════════════════════════════════
+// ══ LANGUAGE ══
 function setLang(l){
   lang=l;
   const ar=l==='ar';
-  document.body.classList.toggle('rtl',ar);
-  document.getElementById('html-root').setAttribute('dir',ar?'rtl':'ltr');
-  document.getElementById('btn-en').classList.toggle('active',!ar);
-  document.getElementById('btn-ar').classList.toggle('active',ar);
-  const t=T[l], s=(id,v)=>{const e=document.getElementById(id);if(e)e.innerHTML=v;};
-  s('h-badge',t.badge); s('h-title',t.title); s('h-sub',t.sub);
-  s('hp1',t.hp1); s('hp2',t.hp2); s('hp3',t.hp3); s('hp4',t.hp4); s('h-wa-text',t.hWa);
-  s('ml-sub',t.mlSub); s('ml-title',t.mlTitle); s('ml-body',t.mlBody);
-  s('lbl-name',t.lblName); s('lbl-phone',t.lblPhone); s('lbl-company',t.lblCompany);
-  s('lbl-email',t.lblEmail); s('lbl-service',t.lblService);
-  s('btn-access',t.btnAccess); s('btn-wa-text',t.btnWa); s('modal-note',t.modalNote); s('modal-or',t.modalOr);
-  s('s1t',t.s1t); s('s1s',t.s1s); s('uz1t',t.uz1t); s('uz1s',t.uz1s); s('or-manual',t.orManual);
-  s('lbl-crn',t.lblCrn); s('lbl-crl',t.lblCrl); s('lbl-crd',t.lblCrd); s('lbl-cre',t.lblCre);
-  s('lbl-qp',t.lblQp); s('lbl-cap',t.lblCap); s('btn-analyze',t.btnAnalyze);
-  s('s2t',t.s2t); s('s2s',t.s2s); s('uz2t',t.uz2t); s('uz2s',t.uz2s); s('or-paste',t.orPaste);
-  s('btn-gen',t.btnGen); s('btn-samp',t.btnSamp);
-  s('s3t',t.s3t); s('s3s',t.s3s);
-  s('tl-pnl',t.tlPnl); s('tl-bs',t.tlBs); s('tl-eq',t.tlEq); s('tl-cf',t.tlCf);
-  s('btn-print',t.btnPrint); s('btn-sup-txt',t.btnSup); s('footer-wa-txt',t.footerWa);
+  document.body.classList.toggle('ar',ar);
+  document.getElementById('root').setAttribute('dir',ar?'rtl':'ltr');
+  document.getElementById('btn-en').classList.toggle('on',!ar);
+  document.getElementById('btn-ar').classList.toggle('on',ar);
+  const t=TR[l], s=(id,v)=>{const e=document.getElementById(id);if(e)e.innerHTML=v;};
+  s('h-eyebrow',t.eyebrow); s('h-title',t.title); s('h-sub',t.sub);
+  s('hf1',t.hf1);s('hf2',t.hf2);s('hf3',t.hf3);s('hf4',t.hf4);s('hf5',t.hf5);
+  s('h-start',t.hStart);s('h-wa',t.hWa);s('nav-wa-txt',t.navWa);
+  s('m-sub',t.mSub);s('m-title',t.mTitle);s('m-body',t.mBody);
+  s('ml-name',t.mlName);s('ml-phone',t.mlPhone);s('ml-co',t.mlCo);s('ml-em',t.mlEm);s('ml-svc',t.mlSvc);
+  s('m-btn',t.mBtn);s('m-wa-txt',t.mWa);s('m-or',t.mOr);s('m-priv',t.mPriv);
+  s('tb1',t.tb1);s('tb2',t.tb2);s('tb3',t.tb3);s('tb4',t.tb4);
+  s('psl1',t.psl1);s('psl2',t.psl2);s('psl3',t.psl3);s('psl4',t.psl4);
+  s('s1t',t.s1t);s('s1s',t.s1s);s('uz1t',t.uz1t);s('uz1s',t.uz1s);
+  s('or-manual',t.orManual);
+  s('fl-cn',t.flCn);s('fl-lf',t.flLf);s('fl-cd',t.flCd);s('fl-ex',t.flEx);
+  s('fl-qp',t.flQp);s('fl-ca',t.flCa);s('fl-cr',t.flCr);s('fl-tr',t.flTr);
+  s('s1-btn',t.s1btn);
+  s('s2t',t.s2t);s('s2s',t.s2s);s('uz2t',t.uz2t);s('uz2s',t.uz2s);
+  s('or-paste',t.orPaste);s('s2-btn',t.s2btn);s('s2-samp',t.s2samp);
+  s('s3t',t.s3t);s('s3s',t.s3s);
+  s('tl-pnl',t.tlPnl);s('tl-bs',t.tlBs);s('tl-eq',t.tlEq);s('tl-cf',t.tlCf);
+  s('r-print',t.rPrint);s('r-wa-txt',t.rWa);
+  s('wa-tip',t.waFab);s('f-sub',t.fSub);s('f-wa',t.fWa);s('f-admin',t.fAdmin);s('f-privacy',t.fPrivacy);
   if(crData) analyzeCR();
-  if(finData){ buildPnL(); buildBS(); buildEquity(); buildCF(); buildReport(); buildSummary(); }
+  if(finData){buildPnL();buildBS();buildEq();buildCF();buildReport();buildKPI();}
 }
 
-// ══════════════════════════════════════════════════
-// WHATSAPP
-// ══════════════════════════════════════════════════
-const waUrl=(num,msg)=>`https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
-function waContact(){
-  const msg=lang==='ar'?'مرحباً، أحتاج مساعدة في التدقيق والإقرار الضريبي لعام 2025 في قطر.':'Hi, I need help with my Qatar 2025 audit and tax return filing.';
-  window.open(waUrl(WA_NUMBER,msg),'_blank');
-}
-function waSupport(){
-  const co=document.getElementById('cr-name').value||'my company';
-  const msg=lang==='ar'?`مرحباً، أود الاستفسار عن خدمات التدقيق والضريبة لشركة ${co} في قطر. استخدمت أداة الامتثال الضريبي.`:`Hi, I'd like audit & tax support for ${co} in Qatar. I've used your audit compliance tool.`;
-  window.open(waUrl(WA_NUMBER,msg),'_blank');
-}
-function waLead(phone,name){
-  const msg=lang==='ar'?`مرحباً ${name}، شكراً لاستخدام أداة الامتثال الضريبي. هل تحتاج مساعدة في التدقيق؟`:`Hi ${name}, thanks for using the Qatar Audit Compliance Tool. Can I help with your audit or tax return?`;
-  window.open(waUrl(phone.replace(/[^0-9]/g,''),msg),'_blank');
-}
-function waBlast(){
-  if(!leads.length){showToast('No leads yet.');return;}
-  showToast(`Opening WhatsApp for ${leads.length} lead(s)...`);
-  leads.forEach((l,i)=>{ if(l.phone) setTimeout(()=>waLead(l.phone,l.name),i*1200); });
+// ══ WHATSAPP ══
+const waLink=(num,msg)=>`https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
+function waContact(){window.open(waLink(WA,lang==='ar'?'مرحباً، أحتاج مساعدة في التدقيق والإقرار الضريبي 2025 في قطر.':'Hi, I need help with my Qatar 2025 audit and tax return filing.'),'_blank');}
+function waSupport(){const co=document.getElementById('cr-name').value||'my company';window.open(waLink(WA,lang==='ar'?`مرحباً، أود الاستفسار عن خدمات التدقيق لشركة ${co}.`:`Hi, I'd like professional audit support for ${co} in Qatar. I've been using your Mizaan platform.`),'_blank');}
+function waLead(phone,name){window.open(waLink(phone.replace(/\D/g,''),lang==='ar'?`مرحباً ${name}، شكراً لاستخدام منصة Mizaan. هل يمكنني مساعدتك في التدقيق؟`:`Hi ${name}, thanks for using Mizaan. Can I help with your audit or tax return?`),'_blank');}
+
+// ══ TOAST ══
+function toast(msg){
+  document.querySelectorAll('.toast').forEach(t=>t.remove());
+  const t=document.createElement('div');t.className='toast';t.textContent=msg;
+  document.body.appendChild(t);setTimeout(()=>t.remove(),3500);
 }
 
-// ══════════════════════════════════════════════════
-// LEAD CAPTURE
-// ══════════════════════════════════════════════════
-let kbuf='';
-document.addEventListener('keypress',e=>{
-  kbuf+=e.key;
-  if(kbuf.includes('admin')){kbuf='';showLeadsPanel();}
-  if(kbuf.length>10) kbuf=kbuf.slice(-10);
-});
-
-function showLeadsPanel(){
-  document.getElementById('leads-panel').classList.add('visible');
-  renderLeads();
-}
-
-function renderLeads(){
-  const tot=leads.length;
-  const today=new Date().toLocaleDateString('en-GB');
-  const todayCnt=leads.filter(l=>l.date===today).length;
-  const auditCnt=leads.filter(l=>l.service==='audit'||l.service==='both').length;
-  document.getElementById('leads-stats').innerHTML=`
-    <div class="ls-card"><div class="ls-num">${tot}</div><div class="ls-label">Total leads</div></div>
-    <div class="ls-card"><div class="ls-num">${todayCnt}</div><div class="ls-label">Today</div></div>
-    <div class="ls-card"><div class="ls-num">${auditCnt}</div><div class="ls-label">Need audit</div></div>
-    <div class="ls-card"><div class="ls-num">${leads.filter(l=>l.phone).length}</div><div class="ls-label">Have WhatsApp</div></div>`;
-  if(!tot){document.getElementById('leads-tbl').innerHTML='<p style="color:var(--text-muted);font-size:13px;padding:1rem 0">No leads yet. Share your tool link to get started.</p>';return;}
-  let h=`<table class="leads-tbl"><tr><th>Name</th><th>WhatsApp</th><th>Company</th><th>Email</th><th>Service</th><th>Lang</th><th>Date</th><th>Action</th></tr>`;
-  leads.forEach(l=>{
-    h+=`<tr><td><strong>${l.name||''}</strong></td><td style="color:var(--maroon)">${l.phone||'—'}</td><td>${l.company||'—'}</td><td>${l.email||'—'}</td>
-    <td><span class="badge ${l.service==='audit'||l.service==='both'?'badge-danger':'badge-info'}">${l.service||'—'}</span></td>
-    <td><span class="badge badge-info">${l.lang||'en'}</span></td>
-    <td style="color:var(--text-muted);white-space:nowrap">${l.date||''}</td>
-    <td>${l.phone?`<button class="wa-chip" onclick="waLead('${l.phone}','${l.name}')"><svg style="fill:white;width:10px;height:10px" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Chat</button>`:'—'}</td></tr>`;
-  });
-  h+='</table>';
-  document.getElementById('leads-tbl').innerHTML=h;
-}
-
-function exportLeads(){
-  const csv=['Name,Phone,Company,Email,Service,Language,Date,Time',...leads.map(l=>`"${l.name||''}","${l.phone||''}","${l.company||''}","${l.email||''}","${l.service||''}","${l.lang||''}","${l.date||''}","${l.time||''}"`)].join('\n');
-  const a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
-  a.download=`qatar_audit_leads_${new Date().toISOString().slice(0,10)}.csv`;
-  a.click();
-}
-
+// ══ LEADS ══
 function submitLead(){
-  const name=document.getElementById('lead-name').value.trim();
-  const phone=document.getElementById('lead-phone').value.trim();
-  if(!name||!phone){showToast(lang==='ar'?'الرجاء إدخال الاسم ورقم الجوال':'Please enter your name and phone number');return;}
-  const lead={name,phone,company:document.getElementById('lead-company').value.trim(),email:document.getElementById('lead-email').value.trim(),service:document.getElementById('lead-service').value,date:new Date().toLocaleDateString('en-GB'),time:new Date().toLocaleTimeString('en-GB'),lang};
+  const name=document.getElementById('l-name').value.trim();
+  const phone=document.getElementById('l-phone').value.trim();
+  if(!name||!phone){toast(lang==='ar'?'الرجاء إدخال الاسم ورقم الجوال':'Please enter your name and phone number');return;}
+  const lead={id:'ld_'+Date.now(),name,phone,co:document.getElementById('l-co').value.trim(),email:document.getElementById('l-em').value.trim(),svc:document.getElementById('l-svc').value,date:new Date().toLocaleDateString('en-GB'),time:new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}),lang,ts:Date.now()};
   leads.push(lead);
-  localStorage.setItem('qa_leads_v2',JSON.stringify(leads));
-  document.getElementById('modal-overlay').classList.add('hidden');
-  showToast((lang==='ar'?'مرحباً ':'Welcome, ')+name+'!');
+  localStorage.setItem('mz_leads_v3',JSON.stringify(leads));
+  document.getElementById('modal-overlay').classList.add('off');
+  toast((lang==='ar'?'مرحباً ':'Welcome, ')+name+'!');
+  setProgress(1);
   analyzeCR();
 }
 
-function showToast(msg,type=''){
-  document.querySelectorAll('.toast').forEach(t=>t.remove());
-  const t=document.createElement('div');
-  t.className='toast'+(type?' '+type:'');
-  t.textContent=msg;
-  document.body.appendChild(t);
-  setTimeout(()=>t.remove(),4000);
+function setProgress(done){
+  for(let i=1;i<=4;i++){
+    const el=document.getElementById('ps'+i);
+    if(i<done+1) el.classList.add('done');
+    else if(i===done+1) el.classList.add('active');
+    else{el.classList.remove('done','active');}
+  }
 }
 
-// ══════════════════════════════════════════════════
-// CR ANALYSIS
-// ══════════════════════════════════════════════════
-function handleCRFile(e){
-  const f=e.target.files[0];if(!f)return;
-  document.getElementById('cr-badge').innerHTML=`<div class="file-uploaded">✓ ${f.name} — details pre-filled below</div>`;
+// ══ FILE HANDLING ══
+function handleDrop(e,type){
+  e.preventDefault();
+  document.getElementById(type===cr?'cr-drop':'tb-drop').classList.remove('drag');
+  const f=e.dataTransfer.files[0];
+  if(!f)return;
+  if(type==='cr')processCRFile(f);else processTBFile(f);
+}
+function handleCRFile(e){const f=e.target.files[0];if(f)processCRFile(f);}
+function handleTBFile(e){const f=e.target.files[0];if(f)processTBFile(f);}
+function processCRFile(f){
+  document.getElementById('cr-chip').innerHTML=`<div class="file-chip">✓ ${f.name}</div>`;
   document.getElementById('cr-date').value='2024-03-06';
   document.getElementById('cr-expiry').value='2026-03-06';
-  document.getElementById('cr-name').value='Top Co Tyres & Autoparts';
   document.getElementById('qatari-pct').value='51';
   document.getElementById('cr-capital').value='200000';
   analyzeCR();
 }
+function processTBFile(f){
+  document.getElementById('tb-chip').innerHTML=`<div class="file-chip">✓ ${f.name}</div>`;
+  const r=new FileReader();
+  r.onload=ev=>{document.getElementById('tb-paste').value=ev.target.result;parseTB();};
+  r.readAsText(f);
+}
 
+// ══ CR ANALYSIS ══
 function analyzeCR(){
   const dv=document.getElementById('cr-date').value;if(!dv)return;
   const creation=new Date(dv),cutoff=new Date('2025-06-30');
   const expiry=new Date(document.getElementById('cr-expiry').value||'2099-01-01');
   const qPct=parseFloat(document.getElementById('qatari-pct').value)||0;
-  const expPct=100-qPct;
-  const capital=parseFloat(document.getElementById('cr-capital').value)||0;
+  const expPct=100-qPct,capital=parseFloat(document.getElementById('cr-capital').value)||0;
   const name=document.getElementById('cr-name').value||'Company';
+  const crNo=document.getElementById('cr-number').value||'—';
+  const taxReg=document.getElementById('cr-taxreg').value||'—';
   const before=creation<=cutoff,qOnly=qPct>=100,expired=expiry<new Date();
-  crData={creation,isBeforeCutoff:before,qatariPct:qPct,expPct,isQatariOnly:qOnly,capital,name,expiry,crExpired:expired};
-  const t=T[lang];
-  const df=(d)=>d.toLocaleDateString(lang==='ar'?'ar-QA':'en-GB',{day:'2-digit',month:'short',year:'numeric'});
-  let h='';
-  h+=before?`<div class="alert alert-danger" style="margin-top:1rem"><strong>${t.overdue}</strong><br>${t.overdueB.replace('{d}',df(creation))}</div>`
-           :`<div class="alert alert-ok" style="margin-top:1rem"><strong>${t.onTime}</strong><br>${t.onTimeB}</div>`;
-  if(expired) h+=`<div class="alert alert-danger">${t.expired.replace('{d}',df(expiry))}</div>`;
-  h+=qOnly?`<div class="alert alert-ok">${t.noTax}</div>`:`<div class="alert alert-warn">${t.hasTax.replace('{p}',expPct.toFixed(0))}</div>`;
-  document.getElementById('cr-result').innerHTML=h;
-  if(finData) buildSummary();
+  crData={creation,isBeforeCutoff:before,qPct,expPct,isQatariOnly:qOnly,capital,name,expiry,crExpired:expired,crNo,taxReg};
+  const t=TR[lang];
+  const df=d=>d.toLocaleDateString(lang==='ar'?'ar-QA':'en-GB',{day:'2-digit',month:'short',year:'numeric'});
+  const mkAlert=(cls,icon,html)=>`<div class="alert ${cls}"><span class="alert-icon">${icon}</span><div>${html}</div></div>`;
+  let out='';
+  out+=before?mkAlert('danger','⚠',`<strong>${t.overdue}</strong><br>${t.overdueBody.replace('{d}',df(creation))}`)
+              :mkAlert('ok','✓',`<strong>${t.onTime}</strong><br>${t.onTimeBody}`);
+  if(expired) out+=mkAlert('danger','⚠',t.expired.replace('{d}',df(expiry)));
+  out+=qOnly?mkAlert('ok','✓',t.noTax):mkAlert('warn','ℹ',t.hasTax.replace('{p}',expPct.toFixed(0)));
+  document.getElementById('cr-result').innerHTML=out;
+  setProgress(2);
+  if(finData)buildKPI();
 }
 
-// ══════════════════════════════════════════════════
-// TRIAL BALANCE
-// ══════════════════════════════════════════════════
+// ══ TRIAL BALANCE ══
 function loadSample(){
   document.getElementById('tb-paste').value=`Account Name,Debit,Credit
 Cash and Bank,45000,0
@@ -533,262 +753,253 @@ General & Admin,8500,0`;
   parseTB();
 }
 
-function handleTBFile(e){
-  const f=e.target.files[0];if(!f)return;
-  document.getElementById('tb-badge').innerHTML=`<div class="file-uploaded">✓ ${f.name} loaded</div>`;
-  const r=new FileReader();
-  r.onload=ev=>{document.getElementById('tb-paste').value=ev.target.result;parseTB();};
-  r.readAsText(f);
-}
-
 function classify(n){
   n=n.toLowerCase();
-  if(/revenue|sales|turnover|إيرادات|مبيعات/.test(n)) return 'rev';
-  if(/other income|إيرادات أخرى/.test(n)) return 'oth';
-  if(/cost of (goods|sales)|cogs|purchases|تكلفة/.test(n)) return 'cogs';
-  if(/accumulated depreciation|مجمع الإهلاك/.test(n)) return 'adep';
-  if(/depreciation expense|إهلاك/.test(n)) return 'dep';
-  if(/salari|wages|payroll|رواتب|أجور/.test(n)) return 'opex';
-  if(/rent|utilities|electricity|water|إيجار|مرافق/.test(n)) return 'opex';
-  if(/marketing|advertising|تسويق/.test(n)) return 'opex';
-  if(/general|admin|office|insurance|telephone|إدارية/.test(n)) return 'opex';
-  if(/interest expense|finance cost|فوائد/.test(n)) return 'fin';
-  if(/(cash|bank|نقد|بنك)/.test(n)) return 'cash';
-  if(/receivable|debtor|مدينون|ذمم/.test(n)) return 'ca';
-  if(/inventor|stock|مخزون/.test(n)) return 'ca';
-  if(/prepaid|advance|مدفوع/.test(n)) return 'ca';
-  if(/fixed asset|property|equipment|furniture|vehicle|أصول ثابتة|معدات/.test(n)) return 'fa';
-  if(/payable|creditor|accrued|دائنون|مستحقات/.test(n)) return 'cl';
-  if(/loan|long.?term|قرض/.test(n)) return 'll';
-  if(/capital|share capital|رأس المال/.test(n)) return 'eq';
-  if(/retained|reserve|surplus|أرباح مبقاة/.test(n)) return 'ret';
-  if(/expense|cost|مصاريف/.test(n)) return 'opex';
-  return 'x';
+  if(/revenue|sales|turnover|إيرادات|مبيعات/.test(n))return'rev';
+  if(/other income|misc.*inc|إيرادات أخرى/.test(n))return'oth';
+  if(/cost of (goods|sales)|cogs|purchases|تكلفة/.test(n))return'cogs';
+  if(/accumulated depreciation|مجمع الإهلاك/.test(n))return'adep';
+  if(/depreciation expense|إهلاك/.test(n))return'dep';
+  if(/salari|wages|payroll|رواتب|أجور/.test(n))return'opex';
+  if(/rent|utilities|electricity|water|إيجار|مرافق/.test(n))return'opex';
+  if(/marketing|advertising|تسويق/.test(n))return'opex';
+  if(/general|admin|office|insurance|phone|telephone|إدارية/.test(n))return'opex';
+  if(/interest expense|finance cost|فوائد/.test(n))return'fin';
+  if(/(cash|bank|نقد|بنك)/.test(n))return'cash';
+  if(/receivable|debtor|مدينون|ذمم/.test(n))return'ca';
+  if(/inventor|stock|مخزون/.test(n))return'ca';
+  if(/prepaid|advance|مدفوع/.test(n))return'ca';
+  if(/fixed asset|property|equipment|furniture|vehicle|أصول ثابتة|معدات/.test(n))return'fa';
+  if(/payable|creditor|accrued|دائنون|مستحقات/.test(n))return'cl';
+  if(/loan|long.?term|قرض/.test(n))return'll';
+  if(/capital|share capital|رأس المال/.test(n))return'eq';
+  if(/retained|reserve|surplus|أرباح مبقاة/.test(n))return'ret';
+  if(/expense|cost|مصاريف/.test(n))return'opex';
+  return'x';
 }
 
 function parseTB(){
   const raw=document.getElementById('tb-paste').value.trim();
-  if(!raw){document.getElementById('tb-status').textContent=lang==='ar'?'لا توجد بيانات':'No data.';return;}
-  const accounts=[];
+  if(!raw){document.getElementById('tb-status').textContent=lang==='ar'?'لا توجد بيانات':'No data to parse.';return;}
+  const rows=[];
   raw.split('\n').filter(l=>l.trim()).forEach(line=>{
     const p=line.split(',');if(p.length<2)return;
     const name=p[0].trim();
-    if(!name||/account|اسم/i.test(name))return;
+    if(!name||/^(account|حساب|اسم)/i.test(name))return;
     const d=parseFloat((p[1]||'').replace(/[^0-9.-]/g,''))||0;
     const c=parseFloat((p[2]||'').replace(/[^0-9.-]/g,''))||0;
-    accounts.push({name,d,c,bal:d-c,cat:classify(name)});
+    rows.push({name,d,c,bal:d-c,cat:classify(name)});
   });
-  if(!accounts.length){document.getElementById('tb-status').textContent=lang==='ar'?'تعذر التحليل':'Could not parse.';return;}
-  document.getElementById('tb-status').textContent=(lang==='ar'?`✓ تم تحليل ${accounts.length} حساباً`:`✓ Parsed ${accounts.length} accounts.`);
-  const cats={};
-  accounts.forEach(a=>{if(!cats[a.cat])cats[a.cat]=[];cats[a.cat].push(a);});
+  if(!rows.length){document.getElementById('tb-status').textContent=lang==='ar'?'تعذر التحليل — تحقق من التنسيق':'Could not parse — check format.';return;}
+  document.getElementById('tb-status').innerHTML=`<span style="color:var(--green)">✓ ${lang==='ar'?`تم تحليل ${rows.length} حساباً`:`Parsed ${rows.length} accounts`}</span>`;
+  const cats={};rows.forEach(a=>{if(!cats[a.cat])cats[a.cat]=[];cats[a.cat].push(a);});
   const S=k=>(cats[k]||[]).reduce((t,a)=>t+Math.abs(a.bal),0);
   const rev=S('rev'),oth=S('oth'),cogs=S('cogs'),opex=S('opex'),dep=S('dep'),fin=S('fin');
   const gp=rev-cogs,ebit=gp-opex-dep,ebt=ebit-fin+oth;
   const qPct=parseFloat(document.getElementById('qatari-pct').value)||0;
-  const ef=(100-qPct)/100,tax_b=ebt*ef,tax=tax_b>0?tax_b*.1:0,np=ebt-tax;
+  const ef=(100-qPct)/100,taxBase=ebt*ef,tax=taxBase>0?taxBase*.1:0,np=ebt-tax;
   const cash=S('cash'),ca=S('ca')+cash,fa=S('fa'),ad=S('adep'),nfa=fa-ad,ta=ca+nfa;
   const cl=S('cl'),ll=S('ll'),tl=cl+ll,eq=S('eq'),ret=S('ret'),te=eq+ret+np;
-  finData={rev,oth,cogs,opex,dep,fin,gp,ebit,ebt,tax,np,tax_b,cash,ca,fa,ad,nfa,ta,cl,ll,tl,eq,ret,te,cats,ef,qPct};
-  buildSummary();buildPnL();buildBS();buildEquity();buildCF();buildReport();
-  document.getElementById('results-section').classList.remove('hidden');
-  document.getElementById('results-section').scrollIntoView({behavior:'smooth'});
+  finData={rev,oth,cogs,opex,dep,fin,gp,ebit,ebt,tax,np,taxBase,cash,ca,fa,ad,nfa,ta,cl,ll,tl,eq,ret,te,cats,ef,qPct};
+  buildKPI();buildPnL();buildBS();buildEq();buildCF();buildReport();
+  setProgress(3);
+  document.getElementById('results-wrap').classList.remove('hide');
+  document.getElementById('results-wrap').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// ══════════════════════════════════════════════════
-// HELPERS
-// ══════════════════════════════════════════════════
+// ══ HELPERS ══
 const fq=n=>'QAR '+Math.round(Math.abs(n||0)).toLocaleString();
 const fn=n=>Math.round(n||0).toLocaleString();
-const pct=(a,b)=>b?(a/b*100).toFixed(1)+'%':'—';
-const ar=()=>lang==='ar';
+const pc=(a,b)=>b?(a/b*100).toFixed(1)+'%':'—';
+const isAr=()=>lang==='ar';
 
-function buildSummary(){
+function buildKPI(){
   if(!finData)return;
   const d=finData;
-  document.getElementById('kpi-grid').innerHTML=`
-    <div class="kpi"><div class="kpi-label">${ar()?'الإيرادات':'Revenue'}</div><div class="kpi-val">${fq(d.rev)}</div></div>
-    <div class="kpi"><div class="kpi-label">${ar()?'مجمل الربح':'Gross profit'}</div><div class="kpi-val g">${fq(d.gp)} <small>(${pct(d.gp,d.rev)})</small></div></div>
-    <div class="kpi"><div class="kpi-label">${ar()?'صافي الربح':'Net profit'}</div><div class="kpi-val ${d.np>=0?'g':'r'}">${fq(d.np)}</div></div>
-    <div class="kpi"><div class="kpi-label">${ar()?'إجمالي الأصول':'Total assets'}</div><div class="kpi-val">${fq(d.ta)}</div></div>
-    <div class="kpi"><div class="kpi-label">${ar()?'الضريبة المستحقة':'Tax payable'}</div><div class="kpi-val r">${fq(d.tax)}</div></div>
-    <div class="kpi"><div class="kpi-label">${ar()?'حقوق الملكية':'Total equity'}</div><div class="kpi-val g">${fq(d.te)}</div></div>`;
+  document.getElementById('kpi-row').innerHTML=`
+    <div class="kpi-card"><div class="kpi-label">${isAr()?'الإيرادات':'Revenue'}</div><div class="kpi-val b">${fq(d.rev)}</div><div class="kpi-sub">FY 2024</div></div>
+    <div class="kpi-card"><div class="kpi-label">${isAr()?'مجمل الربح':'Gross profit'}</div><div class="kpi-val g">${fq(d.gp)}</div><div class="kpi-sub">${pc(d.gp,d.rev)} ${isAr()?'هامش':'margin'}</div></div>
+    <div class="kpi-card"><div class="kpi-label">${isAr()?'صافي الربح':'Net profit'}</div><div class="kpi-val ${d.np>=0?'g':'r'}">${fq(d.np)}</div><div class="kpi-sub">${pc(d.np,d.rev)} ${isAr()?'هامش':'margin'}</div></div>
+    <div class="kpi-card"><div class="kpi-label">${isAr()?'إجمالي الأصول':'Total assets'}</div><div class="kpi-val b">${fq(d.ta)}</div><div class="kpi-sub">${isAr()?'إجمالي الميزانية':'Balance sheet total'}</div></div>
+    <div class="kpi-card"><div class="kpi-label">${isAr()?'الضريبة المستحقة':'Tax payable'}</div><div class="kpi-val r">${fq(d.tax)}</div><div class="kpi-sub">${(d.ef*100).toFixed(0)}% ${isAr()?'حصة خاضعة':'taxable share'}</div></div>
+    <div class="kpi-card"><div class="kpi-label">${isAr()?'حقوق الملكية':'Total equity'}</div><div class="kpi-val g">${fq(d.te)}</div><div class="kpi-sub">${isAr()?'نسبة رأس المال':'Capital ratio'} ${pc(d.te,d.ta)}</div></div>`;
   let tx='';
   if(crData){
-    if(crData.isQatariOnly) tx=`<div class="alert alert-ok">${ar()?'✓ لا ضريبة — ملكية قطرية 100%. الإقرار المبسط مؤهل.':'✓ No tax due — 100% Qatari-owned. Simplified return eligible.'}</div>`;
-    else tx=`<div class="alert alert-warn"><strong>${ar()?'احتساب الضريبة':'Tax'}:</strong> QAR ${fn(d.ebt)} × ${(d.ef*100).toFixed(0)}% = QAR ${fn(d.tax_b)} → <strong>QAR ${fn(d.tax)} ${ar()?'ضريبة مستحقة':'tax due'}</strong>${crData.isBeforeCutoff?` · <span style="color:var(--red)">${ar()?'متأخر — قدم فوراً':'Overdue — file immediately'}</span>`:` · ${ar()?'موعده 30 أبريل 2026':'Due 30 April 2026'}`}</div>`;
+    if(crData.isQatariOnly) tx=`<div class="alert ok" style="margin-top:1rem"><span class="alert-icon">✓</span><div>${isAr()?'لا ضريبة مستحقة — ملكية قطرية 100%. الإقرار المبسط مؤهل.':'No tax due — 100% Qatari-owned. Simplified return eligible.'}</div></div>`;
+    else tx=`<div class="alert warn" style="margin-top:1rem"><span class="alert-icon">ℹ</span><div><strong>${isAr()?'احتساب الضريبة:':'Tax computation:'}</strong> QAR ${fn(d.ebt)} × ${(d.ef*100).toFixed(0)}% = QAR ${fn(d.taxBase)} → <strong>QAR ${fn(d.tax)} ${isAr()?'مستحق':'due'}</strong>${crData.isBeforeCutoff?` · <strong style="color:var(--maroon)">${isAr()?'متأخر — قدم فوراً':'OVERDUE — file immediately'}</strong>`:` · ${isAr()?'موعد التقديم 30 أبريل 2026':'Due 30 April 2026'}`}</div></div>`;
   }
-  document.getElementById('tax-box').innerHTML=tx;
+  document.getElementById('tax-summary').innerHTML=tx;
 }
 
-function showTab(id,el){
-  ['pnl','bs','equity','cf'].forEach(t=>document.getElementById('tab-'+t).classList.add('hidden'));
-  document.getElementById('tab-'+id).classList.remove('hidden');
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  if(el)el.classList.add('active');
+function showTab(id,btn){
+  ['pnl','bs','eq','cf'].forEach(t=>{
+    const el=document.getElementById('tab-'+t)?.parentElement;
+    if(el)el.classList.toggle('hide',t!==id);
+  });
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
 }
 
 function buildPnL(){
   const d=finData;
-  let h=`<table class="fin-table"><tr><th style="width:60%">${ar()?'البيان':'Description'}</th><th class="r">QAR</th><th class="r">%</th></tr>
-    <tr><td>${ar()?'الإيرادات':'Revenue'}</td><td class="r">${fn(d.rev)}</td><td class="r">100%</td></tr>
-    <tr class="sub"><td>${ar()?'إيرادات أخرى':'Other income'}</td><td class="r">${fn(d.oth)}</td><td class="r">${pct(d.oth,d.rev)}</td></tr>
-    <tr class="subtotal"><td>${ar()?'إجمالي الدخل':'Total income'}</td><td class="r">${fn(d.rev+d.oth)}</td><td class="r">—</td></tr>
-    <tr class="sec"><td colspan="3">${ar()?'تكلفة المبيعات':'Cost of sales'}</td></tr>
-    <tr class="sub"><td>${ar()?'تكلفة البضاعة المباعة':'Cost of goods sold'}</td><td class="r">(${fn(d.cogs)})</td><td class="r">${pct(d.cogs,d.rev)}</td></tr>
-    <tr class="subtotal"><td>${ar()?'مجمل الربح':'Gross profit'}</td><td class="r">${fn(d.gp)}</td><td class="r">${pct(d.gp,d.rev)}</td></tr>
-    <tr class="sec"><td colspan="3">${ar()?'المصاريف التشغيلية':'Operating expenses'}</td></tr>`;
-  (finData.cats.opex||[]).forEach(a=>{h+=`<tr class="sub"><td>${a.name}</td><td class="r">(${fn(Math.abs(a.bal))})</td><td class="r">${pct(Math.abs(a.bal),d.rev)}</td></tr>`;});
-  h+=`<tr class="sub"><td>${ar()?'الإهلاك':'Depreciation'}</td><td class="r">(${fn(d.dep)})</td><td class="r">${pct(d.dep,d.rev)}</td></tr>
-    <tr class="subtotal"><td>${ar()?'الربح التشغيلي (EBIT)':'Operating profit (EBIT)'}</td><td class="r">${fn(d.ebit)}</td><td class="r">${pct(d.ebit,d.rev)}</td></tr>
-    <tr class="sub"><td>${ar()?'تكاليف التمويل':'Finance costs'}</td><td class="r">(${fn(d.fin)})</td><td class="r">—</td></tr>
-    <tr class="subtotal"><td>${ar()?'الربح قبل الضريبة':'Profit before tax'}</td><td class="r">${fn(d.ebt)}</td><td class="r">${pct(d.ebt,d.rev)}</td></tr>
-    <tr class="sub"><td>${ar()?'ضريبة الدخل (10%)':'Corporate tax (10%)'}</td><td class="r">(${fn(d.tax)})</td><td class="r">—</td></tr>
-    <tr class="grandtotal"><td>${ar()?'صافي الربح للسنة':'Net profit for the year'}</td><td class="r">${fn(d.np)}</td><td class="r">${pct(d.np,d.rev)}</td></tr>
-  </table>`;
+  let h=`<table class="fin-table"><thead><tr><th style="width:58%">${isAr()?'البيان':'Description'}</th><th class="r">QAR</th><th class="r">%</th></tr></thead><tbody>
+  <tr><td>${isAr()?'الإيرادات':'Revenue'}</td><td class="r">${fn(d.rev)}</td><td class="r">100.0%</td></tr>
+  <tr class="indent"><td>${isAr()?'إيرادات أخرى':'Other income'}</td><td class="r">${fn(d.oth)}</td><td class="r">${pc(d.oth,d.rev)}</td></tr>
+  <tr class="subtot"><td>${isAr()?'إجمالي الدخل':'Total income'}</td><td class="r">${fn(d.rev+d.oth)}</td><td class="r">—</td></tr>
+  <tr class="section"><td colspan="3">${isAr()?'تكلفة المبيعات':'Cost of sales'}</td></tr>
+  <tr class="indent"><td>${isAr()?'تكلفة البضاعة المباعة':'Cost of goods sold'}</td><td class="r">(${fn(d.cogs)})</td><td class="r">${pc(d.cogs,d.rev)}</td></tr>
+  <tr class="subtot"><td>${isAr()?'مجمل الربح':'Gross profit'}</td><td class="r">${fn(d.gp)}</td><td class="r">${pc(d.gp,d.rev)}</td></tr>
+  <tr class="section"><td colspan="3">${isAr()?'المصاريف التشغيلية':'Operating expenses'}</td></tr>`;
+  (d.cats.opex||[]).forEach(a=>{h+=`<tr class="indent"><td>${a.name}</td><td class="r">(${fn(Math.abs(a.bal))})</td><td class="r">${pc(Math.abs(a.bal),d.rev)}</td></tr>`;});
+  h+=`<tr class="indent"><td>${isAr()?'الإهلاك':'Depreciation'}</td><td class="r">(${fn(d.dep)})</td><td class="r">${pc(d.dep,d.rev)}</td></tr>
+  <tr class="subtot"><td>${isAr()?'الربح التشغيلي (EBIT)':'Operating profit (EBIT)'}</td><td class="r">${fn(d.ebit)}</td><td class="r">${pc(d.ebit,d.rev)}</td></tr>
+  <tr class="indent"><td>${isAr()?'تكاليف التمويل':'Finance costs'}</td><td class="r">(${fn(d.fin)})</td><td class="r">—</td></tr>
+  <tr class="subtot"><td>${isAr()?'الربح قبل الضريبة':'Profit before tax'}</td><td class="r">${fn(d.ebt)}</td><td class="r">${pc(d.ebt,d.rev)}</td></tr>
+  <tr class="indent"><td>${isAr()?'ضريبة الدخل (10%)':'Corporate income tax (10%)'}</td><td class="r">(${fn(d.tax)})</td><td class="r">—</td></tr>
+  <tr class="grand"><td>${isAr()?'صافي الربح للسنة':'Net profit for the year'}</td><td class="r">${fn(d.np)}</td><td class="r">${pc(d.np,d.rev)}</td></tr>
+  </tbody></table>`;
   document.getElementById('tab-pnl').innerHTML=h;
 }
 
 function buildBS(){
   const d=finData;
-  let h=`<div class="two-col"><div><table class="fin-table">
-    <tr><th colspan="2">${ar()?'الأصول':'Assets'}</th></tr>
-    <tr class="sec"><td colspan="2">${ar()?'الأصول غير المتداولة':'Non-current assets'}</td></tr>
-    <tr class="sub"><td>${ar()?'الأصول الثابتة (إجمالي)':'Fixed assets (gross)'}</td><td class="r">${fn(d.fa)}</td></tr>
-    <tr class="sub"><td>${ar()?'مجمع الإهلاك':'Accumulated depreciation'}</td><td class="r">(${fn(d.ad)})</td></tr>
-    <tr class="subtotal"><td>${ar()?'صافي الأصول الثابتة':'Net fixed assets'}</td><td class="r">${fn(d.nfa)}</td></tr>
-    <tr class="sec"><td colspan="2">${ar()?'الأصول المتداولة':'Current assets'}</td></tr>
-    <tr class="sub"><td>${ar()?'النقد والبنوك':'Cash & bank'}</td><td class="r">${fn(d.cash)}</td></tr>`;
-  (d.cats.ca||[]).forEach(a=>{h+=`<tr class="sub"><td>${a.name}</td><td class="r">${fn(Math.abs(a.bal))}</td></tr>`;});
-  h+=`<tr class="subtotal"><td>${ar()?'إجمالي الأصول المتداولة':'Total current assets'}</td><td class="r">${fn(d.ca)}</td></tr>
-    <tr class="total"><td>${ar()?'إجمالي الأصول':'Total assets'}</td><td class="r">${fn(d.ta)}</td></tr>
-  </table></div><div><table class="fin-table">
-    <tr><th colspan="2">${ar()?'حقوق الملكية والالتزامات':'Equity & Liabilities'}</th></tr>
-    <tr class="sec"><td colspan="2">${ar()?'حقوق الملكية':'Equity'}</td></tr>
-    <tr class="sub"><td>${ar()?'رأس المال':'Share capital'}</td><td class="r">${fn(d.eq)}</td></tr>
-    <tr class="sub"><td>${ar()?'الأرباح المبقاة':'Retained earnings'}</td><td class="r">${fn(d.ret)}</td></tr>
-    <tr class="sub"><td>${ar()?'ربح السنة':'Profit for year'}</td><td class="r">${fn(d.np)}</td></tr>
-    <tr class="subtotal"><td>${ar()?'إجمالي حقوق الملكية':'Total equity'}</td><td class="r">${fn(d.te)}</td></tr>
-    <tr class="sec"><td colspan="2">${ar()?'الالتزامات طويلة الأجل':'Non-current liabilities'}</td></tr>`;
-  (d.cats.ll||[]).forEach(a=>{h+=`<tr class="sub"><td>${a.name}</td><td class="r">${fn(Math.abs(a.bal))}</td></tr>`;});
-  h+=`<tr class="sec"><td colspan="2">${ar()?'الالتزامات المتداولة':'Current liabilities'}</td></tr>`;
-  (d.cats.cl||[]).forEach(a=>{h+=`<tr class="sub"><td>${a.name}</td><td class="r">${fn(Math.abs(a.bal))}</td></tr>`;});
-  h+=`<tr class="subtotal"><td>${ar()?'إجمالي الالتزامات':'Total liabilities'}</td><td class="r">${fn(d.tl)}</td></tr>
-    <tr class="total"><td>${ar()?'إجمالي حقوق الملكية والالتزامات':'Total equity & liabilities'}</td><td class="r">${fn(d.te+d.tl)}</td></tr>
-  </table></div></div>`;
+  let h=`<div class="two-col-grid"><div><table class="fin-table"><thead><tr><th colspan="2">${isAr()?'الأصول':'Assets'}</th></tr></thead><tbody>
+  <tr class="section"><td colspan="2">${isAr()?'الأصول غير المتداولة':'Non-current assets'}</td></tr>
+  <tr class="indent"><td>${isAr()?'الأصول الثابتة (إجمالي)':'Fixed assets (gross)'}</td><td class="r">${fn(d.fa)}</td></tr>
+  <tr class="indent"><td>${isAr()?'مجمع الإهلاك':'Acc. depreciation'}</td><td class="r">(${fn(d.ad)})</td></tr>
+  <tr class="subtot"><td>${isAr()?'صافي الأصول الثابتة':'Net fixed assets'}</td><td class="r">${fn(d.nfa)}</td></tr>
+  <tr class="section"><td colspan="2">${isAr()?'الأصول المتداولة':'Current assets'}</td></tr>
+  <tr class="indent"><td>${isAr()?'النقد والبنوك':'Cash and bank'}</td><td class="r">${fn(d.cash)}</td></tr>`;
+  (d.cats.ca||[]).forEach(a=>{h+=`<tr class="indent"><td>${a.name}</td><td class="r">${fn(Math.abs(a.bal))}</td></tr>`;});
+  h+=`<tr class="subtot"><td>${isAr()?'إجمالي الأصول المتداولة':'Total current assets'}</td><td class="r">${fn(d.ca)}</td></tr>
+  <tr class="grand"><td>${isAr()?'إجمالي الأصول':'Total assets'}</td><td class="r">${fn(d.ta)}</td></tr>
+  </tbody></table></div>
+  <div><table class="fin-table"><thead><tr><th colspan="2">${isAr()?'حقوق الملكية والالتزامات':'Equity & Liabilities'}</th></tr></thead><tbody>
+  <tr class="section"><td colspan="2">${isAr()?'حقوق الملكية':'Equity'}</td></tr>
+  <tr class="indent"><td>${isAr()?'رأس المال':'Share capital'}</td><td class="r">${fn(d.eq)}</td></tr>
+  <tr class="indent"><td>${isAr()?'الأرباح المبقاة':'Retained earnings'}</td><td class="r">${fn(d.ret)}</td></tr>
+  <tr class="indent"><td>${isAr()?'ربح السنة':'Profit for year'}</td><td class="r">${fn(d.np)}</td></tr>
+  <tr class="subtot"><td>${isAr()?'إجمالي حقوق الملكية':'Total equity'}</td><td class="r">${fn(d.te)}</td></tr>
+  <tr class="section"><td colspan="2">${isAr()?'الالتزامات طويلة الأجل':'Non-current liabilities'}</td></tr>`;
+  (d.cats.ll||[]).forEach(a=>{h+=`<tr class="indent"><td>${a.name}</td><td class="r">${fn(Math.abs(a.bal))}</td></tr>`;});
+  h+=`<tr class="section"><td colspan="2">${isAr()?'الالتزامات المتداولة':'Current liabilities'}</td></tr>`;
+  (d.cats.cl||[]).forEach(a=>{h+=`<tr class="indent"><td>${a.name}</td><td class="r">${fn(Math.abs(a.bal))}</td></tr>`;});
+  h+=`<tr class="subtot"><td>${isAr()?'إجمالي الالتزامات':'Total liabilities'}</td><td class="r">${fn(d.tl)}</td></tr>
+  <tr class="grand"><td>${isAr()?'إجمالي حقوق الملكية والالتزامات':'Total equity & liabilities'}</td><td class="r">${fn(d.te+d.tl)}</td></tr>
+  </tbody></table></div></div>`;
   document.getElementById('tab-bs').innerHTML=h;
 }
 
-function buildEquity(){
+function buildEq(){
   const d=finData;
-  document.getElementById('tab-equity').innerHTML=`<table class="fin-table">
-    <tr><th>${ar()?'البيان':'Description'}</th><th class="r">${ar()?'رأس المال':'Capital'}</th><th class="r">${ar()?'الأرباح المبقاة':'Retained'}</th><th class="r">${ar()?'الإجمالي':'Total'}</th></tr>
-    <tr><td>${ar()?'الرصيد الافتتاحي':'Opening balance'}</td><td class="r">${fn(d.eq)}</td><td class="r">${fn(d.ret)}</td><td class="r">${fn(d.eq+d.ret)}</td></tr>
-    <tr class="sub"><td>${ar()?'صافي الربح':'Net profit'}</td><td class="r">—</td><td class="r">${fn(d.np)}</td><td class="r">${fn(d.np)}</td></tr>
-    <tr class="sub"><td>${ar()?'التوزيعات':'Dividends'}</td><td class="r">—</td><td class="r">—</td><td class="r">—</td></tr>
-    <tr class="grandtotal"><td>${ar()?'الرصيد الختامي':'Closing balance'}</td><td class="r">${fn(d.eq)}</td><td class="r">${fn(d.ret+d.np)}</td><td class="r">${fn(d.te)}</td></tr>
-  </table>`;
+  document.getElementById('tab-eq').innerHTML=`<table class="fin-table"><thead><tr><th>${isAr()?'البيان':'Description'}</th><th class="r">${isAr()?'رأس المال':'Capital'}</th><th class="r">${isAr()?'أرباح مبقاة':'Retained'}</th><th class="r">${isAr()?'الإجمالي':'Total'}</th></tr></thead><tbody>
+  <tr><td>${isAr()?'الرصيد الافتتاحي (1 يناير 2024)':'Opening balance (1 January 2024)'}</td><td class="r">${fn(d.eq)}</td><td class="r">${fn(d.ret)}</td><td class="r">${fn(d.eq+d.ret)}</td></tr>
+  <tr class="indent"><td>${isAr()?'صافي الربح للسنة':'Net profit for the year'}</td><td class="r">—</td><td class="r">${fn(d.np)}</td><td class="r">${fn(d.np)}</td></tr>
+  <tr class="indent"><td>${isAr()?'التوزيعات خلال السنة':'Dividends paid'}</td><td class="r">—</td><td class="r">—</td><td class="r">—</td></tr>
+  <tr class="grand"><td>${isAr()?'الرصيد الختامي (31 ديسمبر 2024)':'Closing balance (31 December 2024)'}</td><td class="r">${fn(d.eq)}</td><td class="r">${fn(d.ret+d.np)}</td><td class="r">${fn(d.te)}</td></tr>
+  </tbody></table>`;
 }
 
 function buildCF(){
   const d=finData;
   const cfo=d.np+d.dep,cfi=-(d.fa*.15),cff=d.ll>0?-(d.ll*.1):0,net=cfo+cfi+cff;
-  document.getElementById('tab-cf').innerHTML=`<table class="fin-table">
-    <tr><th style="width:60%">${ar()?'البيان':'Description'}</th><th class="r">QAR</th></tr>
-    <tr class="sec"><td colspan="2">${ar()?'الأنشطة التشغيلية':'Operating activities'}</td></tr>
-    <tr class="sub"><td>${ar()?'صافي الربح':'Net profit'}</td><td class="r">${fn(d.np)}</td></tr>
-    <tr class="sub"><td>${ar()?'يضاف: الإهلاك':'Add: Depreciation'}</td><td class="r">${fn(d.dep)}</td></tr>
-    <tr class="subtotal"><td>${ar()?'صافي التدفق التشغيلي':'Net cash from operations'}</td><td class="r">${fn(cfo)}</td></tr>
-    <tr class="sec"><td colspan="2">${ar()?'الأنشطة الاستثمارية':'Investing activities'}</td></tr>
-    <tr class="sub"><td>${ar()?'شراء أصول ثابتة (تقديري)':'Capital expenditure (est.)'}</td><td class="r">(${fn(Math.abs(cfi))})</td></tr>
-    <tr class="subtotal"><td>${ar()?'صافي التدفق الاستثماري':'Net cash from investing'}</td><td class="r">(${fn(Math.abs(cfi))})</td></tr>
-    <tr class="sec"><td colspan="2">${ar()?'الأنشطة التمويلية':'Financing activities'}</td></tr>
-    <tr class="sub"><td>${ar()?'سداد القروض (تقديري)':'Loan repayments (est.)'}</td><td class="r">${fn(cff)}</td></tr>
-    <tr class="subtotal"><td>${ar()?'صافي التدفق التمويلي':'Net cash from financing'}</td><td class="r">${fn(cff)}</td></tr>
-    <tr class="grandtotal"><td>${ar()?'صافي التغير في النقد':'Net change in cash'}</td><td class="r">${fn(net)}</td></tr>
-    <tr><td>${ar()?'رصيد النقد الافتتاحي':'Opening cash'}</td><td class="r">${fn(d.cash-net)}</td></tr>
-    <tr class="total"><td>${ar()?'رصيد النقد الختامي':'Closing cash'}</td><td class="r">${fn(d.cash)}</td></tr>
-  </table><p style="font-size:11px;color:var(--text-muted);margin-top:8px">${ar()?'أرقام الاستثمار والتمويل تقديرية.':'Investing/financing figures are estimated.'}</p>`;
+  document.getElementById('tab-cf').innerHTML=`<table class="fin-table"><thead><tr><th style="width:60%">${isAr()?'البيان':'Description'}</th><th class="r">QAR</th></tr></thead><tbody>
+  <tr class="section"><td colspan="2">${isAr()?'الأنشطة التشغيلية':'A. Operating activities'}</td></tr>
+  <tr class="indent"><td>${isAr()?'صافي الربح بعد الضريبة':'Net profit after tax'}</td><td class="r">${fn(d.np)}</td></tr>
+  <tr class="indent"><td>${isAr()?'يضاف: الإهلاك':'Add: Depreciation (non-cash)'}</td><td class="r">${fn(d.dep)}</td></tr>
+  <tr class="subtot"><td>${isAr()?'صافي التدفق النقدي التشغيلي':'Net cash from operating activities'}</td><td class="r">${fn(cfo)}</td></tr>
+  <tr class="section"><td colspan="2">${isAr()?'الأنشطة الاستثمارية':'B. Investing activities'}</td></tr>
+  <tr class="indent"><td>${isAr()?'تحصيل الأصول الثابتة (تقديري 15%)':'Capital expenditure (est. 15% of fixed assets)'}</td><td class="r">(${fn(Math.abs(cfi))})</td></tr>
+  <tr class="subtot"><td>${isAr()?'صافي التدفق النقدي الاستثماري':'Net cash from investing activities'}</td><td class="r">(${fn(Math.abs(cfi))})</td></tr>
+  <tr class="section"><td colspan="2">${isAr()?'الأنشطة التمويلية':'C. Financing activities'}</td></tr>
+  <tr class="indent"><td>${isAr()?'سداد القروض (تقديري 10%)':'Loan repayments (est. 10% of long-term loans)'}</td><td class="r">${fn(cff)}</td></tr>
+  <tr class="subtot"><td>${isAr()?'صافي التدفق النقدي التمويلي':'Net cash from financing activities'}</td><td class="r">${fn(cff)}</td></tr>
+  <tr class="grand"><td>${isAr()?'صافي التغير في النقد خلال السنة':'Net increase/(decrease) in cash'}</td><td class="r">${fn(net)}</td></tr>
+  <tr class="total-row"><td>${isAr()?'النقد في بداية السنة (تقديري)':'Cash at beginning of year (est.)'}</td><td class="r">${fn(d.cash-net)}</td></tr>
+  <tr class="subtot"><td>${isAr()?'النقد في نهاية السنة':'Cash at end of year'}</td><td class="r">${fn(d.cash)}</td></tr>
+  </tbody></table><p style="font-size:11px;color:var(--ink-3);margin-top:8px">${isAr()?'* أرقام الاستثمار والتمويل تقديرية بناءً على نسب نموذجية.':'* Investing and financing figures are estimated using standard ratios.'}</p>`;
 }
 
 function buildReport(){
   const d=finData,cr=crData||{};
   const ep=(d.ef*100).toFixed(0),name=cr.name||document.getElementById('cr-name').value||'Company';
-  const gm=pct(d.gp,d.rev),nm=pct(d.np,d.rev);
-  const cr_ratio=d.cl>0?(d.ca/d.cl).toFixed(2):'—';
+  const gm=pc(d.gp,d.rev),nm=pc(d.np,d.rev);
+  const curR=d.cl>0?(d.ca/d.cl).toFixed(2):'—';
   const roe=d.te>0?(d.np/d.te*100).toFixed(1)+'%':'—';
-  const today=new Date().toLocaleDateString(ar()?'ar-QA':'en-GB',{day:'2-digit',month:'short',year:'numeric'});
+  const today=new Date().toLocaleDateString(isAr()?'ar-QA':'en-GB',{day:'2-digit',month:'long',year:'numeric'});
   document.getElementById('audit-report').innerHTML=`
-  <div class="report-header">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
-      <div><h2>${ar()?'تقرير المدقق المستقل واحتساب الضريبة':"Independent Auditor's Report & Tax Computation"}</h2>
-      <p>${ar()?'السنة المالية المنتهية 31 ديسمبر 2024 · للتقديم إلى هيئة الضرائب العامة':'Financial Year ended 31 December 2024 · For GTA submission'}</p></div>
-      <span class="badge badge-gold" style="font-size:12px;padding:5px 14px">${ar()?'مسودة — يتطلب توقيع مدقق معتمد':'Draft — Requires licensed auditor sign-off'}</span>
-    </div>
-    <div class="report-meta">
-      <div class="report-meta-item"><strong>${ar()?'الشركة':'Company'}</strong>${name}</div>
-      <div class="report-meta-item"><strong>${ar()?'رقم السجل':'CR No.'}</strong>197095</div>
-      <div class="report-meta-item"><strong>${ar()?'الرقم الضريبي':'Tax Reg.'}</strong>5006453617</div>
-      <div class="report-meta-item"><strong>${ar()?'تاريخ التقرير':'Date'}</strong>${today}</div>
-      <div class="report-meta-item"><strong>${ar()?'الحالة':'Status'}</strong><span style="color:#ffcc80">${cr.isBeforeCutoff?(ar()?'متأخر':'OVERDUE'):(ar()?'موعده أبريل 2026':'Due Apr 2026')}</span></div>
-    </div>
-  </div>
-  <div class="report-body">
-    <div class="report-section">
-      <div class="report-sec-title">${ar()?'1. بيانات الشركة':'1. Company identification'}</div>
-      <div class="info-grid-2">
-        <div class="info-row"><span>${ar()?'الاسم القانوني':'Legal name'}</span><span>${name} W.L.L.</span></div>
-        <div class="info-row"><span>${ar()?'الشكل القانوني':'Legal form'}</span><span>LLC</span></div>
-        <div class="info-row"><span>${ar()?'رأس المال':'Capital'}</span><span>QAR ${fn(cr.capital||200000)}</span></div>
-        <div class="info-row"><span>${ar()?'تاريخ الإنشاء':'CR creation'}</span><span>${cr.creation?cr.creation.toLocaleDateString('en-GB'):'06/03/2024'}</span></div>
-        <div class="info-row"><span>${ar()?'الملكية القطرية':'Qatari ownership'}</span><span>${d.qPct}% <span class="badge badge-ok">${ar()?'معفى':'Exempt'}</span></span></div>
-        <div class="info-row"><span>${ar()?'الملكية الأجنبية':'Expat ownership'}</span><span>${ep}% <span class="badge badge-warn">${ar()?'خاضع للضريبة':'Taxable'}</span></span></div>
+  <div class="report-shell">
+    <div class="report-head">
+      <div class="report-head-top">
+        <div>
+          <div class="report-firm-name">${isAr()?'تقرير المدقق المستقل<br>واحتساب ضريبة الدخل':"Independent Auditor's Report<br>& Tax Computation"}</div>
+          <div class="report-firm-sub">${isAr()?'السنة المالية المنتهية في 31 ديسمبر 2024 · للتقديم إلى هيئة الضرائب العامة':'Financial Year ended 31 December 2024 · Prepared for GTA submission'}</div>
+        </div>
+        <span class="badge gold" style="font-size:11px;padding:5px 14px;align-self:flex-start">${isAr()?'مسودة — يتطلب توقيع مدقق معتمد':'Draft — Requires licensed auditor sign-off'}</span>
+      </div>
+      <div class="report-meta-grid">
+        <div class="report-meta-item"><strong>${isAr()?'الشركة':'Company'}</strong>${name}</div>
+        <div class="report-meta-item"><strong>${isAr()?'رقم السجل':'CR No.'}</strong>${cr.crNo||'—'}</div>
+        <div class="report-meta-item"><strong>${isAr()?'الرقم الضريبي':'Tax Reg.'}</strong>${cr.taxReg||'—'}</div>
+        <div class="report-meta-item"><strong>${isAr()?'تاريخ التقرير':'Report date'}</strong>${today}</div>
+        <div class="report-meta-item"><strong>${isAr()?'الحالة':'Status'}</strong><span style="color:#ffd080">${cr.isBeforeCutoff?(isAr()?'متأخر':'OVERDUE'):(isAr()?'موعده أبريل 2026':'Due April 2026')}</span></div>
       </div>
     </div>
-    <div class="report-section">
-      <div class="report-sec-title">${ar()?'2. التدقيق والموعد النهائي':'2. Audit obligation & deadline'}</div>
-      ${cr.isBeforeCutoff?`<div class="alert alert-danger">${ar()?'تأسس السجل قبل أو في 30 يونيو 2025. كان التدقيق والإقرار الضريبي لعام 2024 مستحقاً في <strong>30 أبريل 2025</strong>. التقديم متأخر الآن. قدم فوراً وتعاقد مع مدقق مسجل لدى هيئة الضرائب.':'CR established on or before 30 June 2025. FY 2024 audit & tax return were due <strong>30 April 2025</strong>. Filing is overdue — submit immediately and engage a GTA-registered auditor.'}</div>`
-      :`<div class="alert alert-ok">${ar()?'تأسس السجل بعد 30 يونيو 2025. موعد التدقيق والإقرار الضريبي <strong>30 أبريل 2026</strong>.':'CR established after 30 June 2025. Audit & tax return due <strong>30 April 2026</strong>.'}</div>`}
-      ${cr.crExpired?`<div class="alert alert-danger">${ar()?'انتهى السجل التجاري. يجب التجديد فوراً.':'CR expired — renewal required immediately.'}</div>`:''}
+    <div class="report-body">
+      <div class="report-section">
+        <div class="rsec-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> ${isAr()?'1. بيانات الشركة':'1. Company identification'}</div>
+        <div class="info-2col">
+          <div class="info-row"><span>${isAr()?'الاسم القانوني':'Legal name'}</span><span>${name}</span></div>
+          <div class="info-row"><span>${isAr()?'رأس المال المسجل':'Registered capital'}</span><span>QAR ${fn(cr.capital||0)}</span></div>
+          <div class="info-row"><span>${isAr()?'الملكية القطرية':'Qatari ownership'}</span><span>${d.qPct}% <span class="badge ok">Exempt</span></span></div>
+          <div class="info-row"><span>${isAr()?'الملكية الأجنبية':'Expat ownership'}</span><span>${ep}% <span class="badge warn">Taxable</span></span></div>
+          <div class="info-row"><span>${isAr()?'تاريخ التأسيس':'Date established'}</span><span>${cr.creation?cr.creation.toLocaleDateString('en-GB'):'—'}</span></div>
+          <div class="info-row"><span>${isAr()?'انتهاء السجل':'CR expiry'}</span><span>${cr.expiry?cr.expiry.toLocaleDateString('en-GB'):'—'} ${cr.crExpired?'<span class="badge danger">Expired</span>':''}</span></div>
+        </div>
+      </div>
+      <div class="report-section">
+        <div class="rsec-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ${isAr()?'2. الالتزام بالتدقيق والموعد النهائي':'2. Audit obligation & filing deadline'}</div>
+        ${cr.isBeforeCutoff?`<div class="alert danger"><span class="alert-icon">⚠</span><div>${isAr()?`<strong>التدقيق متأخر — كان مستحقاً في 30 أبريل 2025.</strong> تأسس السجل في ${cr.creation?cr.creation.toLocaleDateString('en-GB'):'—'} قبل حد 30 يونيو 2025. تعاقد فوراً مع مكتب تدقيق مسجل لدى هيئة الضرائب وتقدم بالإقرار الضريبي.`:`<strong>Audit and tax return are overdue — deadline was 30 April 2025.</strong> CR established before the 30 June 2025 cutoff. Engage a GTA-registered audit firm immediately and file your tax return.`}</div></div>`
+        :`<div class="alert ok"><span class="alert-icon">✓</span><div>${isAr()?`<strong>الموعد النهائي للتقديم: 30 أبريل 2026.</strong> تأسس السجل بعد 30 يونيو 2025. الوقت متاح للتخطيط الصحيح.`:`<strong>Filing deadline: 30 April 2026.</strong> CR established after 30 June 2025. You have time to plan properly.`}</div></div>`}
+        ${cr.crExpired?`<div class="alert danger" style="margin-top:8px"><span class="alert-icon">⚠</span><div>${isAr()?'السجل التجاري منتهي الصلاحية. يجب التجديد في وزارة التجارة والصناعة فوراً.':'CR has expired. Renewal at the Ministry of Commerce & Industry is required immediately.'}</div></div>`:''}
+      </div>
+      <div class="report-section">
+        <div class="rsec-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> ${isAr()?'3. احتساب ضريبة الدخل — قانون رقم 24 لعام 2018':'3. Income tax computation — Law No. 24 of 2018'}</div>
+        <table class="fin-table"><thead><tr><th style="width:56%">${isAr()?'البند':'Item'}</th><th class="r">QAR</th><th class="r">${isAr()?'الأساس':'Basis'}</th></tr></thead><tbody>
+        <tr><td>${isAr()?'الربح المحاسبي قبل الضريبة':'Accounting profit before tax'}</td><td class="r">${fn(d.ebt)}</td><td class="r">${isAr()?'من قائمة الدخل':'Per income statement'}</td></tr>
+        <tr class="indent"><td>${isAr()?`الجزء القطري (${d.qPct}%) — معفى`:`Qatari portion (${d.qPct}%) — exempt`}</td><td class="r">(${fn(d.ebt*(d.qPct/100))})</td><td class="r">${isAr()?'المادة 2':'Art. 2'}</td></tr>
+        <tr class="subtot"><td>${isAr()?`الربح الخاضع — ${ep}% حصة أجنبية`:`Taxable profit — ${ep}% expat share`}</td><td class="r">${fn(d.taxBase)}</td><td class="r">${isAr()?'المادة 2':'Art. 2'}</td></tr>
+        <tr class="indent"><td>${isAr()?'نسبة ضريبة الشركات':'Corporate income tax rate'}</td><td class="r">10%</td><td class="r">${isAr()?'المادة 10':'Art. 10'}</td></tr>
+        <tr class="grand"><td>${isAr()?'ضريبة الدخل المستحقة':'Corporate income tax payable'}</td><td class="r">${fn(d.tax)}</td><td class="r">${isAr()?'مستحق لهيئة الضرائب':'Payable to GTA'}</td></tr>
+        </tbody></table>
+      </div>
+      <div class="report-section">
+        <div class="rsec-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> ${isAr()?'4. النسب المالية الرئيسية':'4. Key performance indicators'}</div>
+        <table class="fin-table"><thead><tr><th>${isAr()?'النسبة':'Ratio'}</th><th class="r">${isAr()?'2024':'2024'}</th><th class="r">${isAr()?'المعيار':'Benchmark'}</th><th class="r">${isAr()?'التقييم':'Rating'}</th></tr></thead><tbody>
+        <tr><td>${isAr()?'هامش مجمل الربح':'Gross margin'}</td><td class="r">${gm}</td><td class="r">25%+</td><td class="r"><span class="badge ok">✓</span></td></tr>
+        <tr><td>${isAr()?'هامش صافي الربح':'Net profit margin'}</td><td class="r">${nm}</td><td class="r">5%+</td><td class="r"><span class="badge ok">✓</span></td></tr>
+        <tr><td>${isAr()?'نسبة السيولة الجارية':'Current ratio'}</td><td class="r">${curR}x</td><td class="r">1.5x+</td><td class="r"><span class="badge ok">✓</span></td></tr>
+        <tr><td>${isAr()?'العائد على حقوق الملكية':'Return on equity'}</td><td class="r">${roe}</td><td class="r">10%+</td><td class="r"><span class="badge ok">✓</span></td></tr>
+        </tbody></table>
+      </div>
+      <div class="report-section">
+        <div class="rsec-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> ${isAr()?'5. قائمة الإجراءات العاجلة':'5. Required action checklist'}</div>
+        <table class="fin-table"><thead><tr><th>#</th><th>${isAr()?'الإجراء المطلوب':'Required action'}</th><th class="r">${isAr()?'الأولوية':'Priority'}</th><th class="r">${isAr()?'الموعد':'Deadline'}</th></tr></thead><tbody>
+        <tr><td>1</td><td>${isAr()?'التعاقد مع مكتب تدقيق مسجل لدى هيئة الضرائب العامة':'Engage a GTA-registered audit firm'}</td><td class="r"><span class="badge danger">${isAr()?'حرج':'Critical'}</span></td><td class="r">${isAr()?'فوري':'Immediately'}</td></tr>
+        <tr><td>2</td><td>${isAr()?`تقديم الإقرار الضريبي وسداد QAR ${fn(d.tax)} لهيئة الضرائب`:`File tax return & remit QAR ${fn(d.tax)} to GTA`}</td><td class="r"><span class="badge danger">${cr.isBeforeCutoff?(isAr()?'متأخر':'Overdue'):(isAr()?'أبريل 2026':'Apr 2026')}</span></td><td class="r">${cr.isBeforeCutoff?(isAr()?'فوري':'Immediately'):'30 Apr 2026'}</td></tr>
+        ${cr.crExpired?`<tr><td>3</td><td>${isAr()?'تجديد السجل التجاري المنتهي':'Renew expired Commercial Registration'}</td><td class="r"><span class="badge danger">${isAr()?'متأخر':'Overdue'}</span></td><td class="r">${isAr()?'فوري':'Immediately'}</td></tr>`:''}
+        <tr><td>${cr.crExpired?4:3}</td><td>${isAr()?'إعداد المستندات الداعمة (كشوف بنكية · جرد المخزون · جدول القروض)':'Prepare supporting docs (bank statements, stock count, loan schedule)'}</td><td class="r"><span class="badge warn">${isAr()?'عالي':'High'}</span></td><td class="r">${isAr()?'٢-٤ أسابيع':'2–4 weeks'}</td></tr>
+        <tr><td>${cr.crExpired?5:4}</td><td>${isAr()?'طلب إعفاء من الغرامات (طلب تخفيف للعام الأول)':'Request GTA penalty waiver for first-year filing'}</td><td class="r"><span class="badge info">${isAr()?'موصى به':'Recommended'}</span></td><td class="r">${isAr()?'عند التقديم':'At filing'}</td></tr>
+        </tbody></table>
+      </div>
+      <div class="sig-area">
+        <div><div class="sig-line"></div><div style="font-weight:600;font-size:13px">${isAr()?'أعده':'Prepared by'}</div><div class="sig-lbl">${isAr()?'مكتب التدقيق / المحاسب القانوني':'Audit firm / Registered accountant'}<br>${isAr()?'التاريخ: _______________':'Date: _______________'}</div></div>
+        <div><div class="sig-line"></div><div style="font-weight:600;font-size:13px">${isAr()?'المفوض بالتوقيع':'Authorized signatory'}</div><div class="sig-lbl">${isAr()?'المدير / الشريك المفوض':'Director / Authorized partner'}<br>${isAr()?'التاريخ: _______________':'Date: _______________'}</div></div>
+      </div>
+      <div class="disclaimer">${isAr()?'<strong>إخلاء المسؤولية:</strong> هذا التقرير مسودة أعدته منصة Mizaan ولا يشكل رأياً قانونياً أو تدقيقاً موقعاً. يجب مراجعته واعتماده من قبل مكتب تدقيق مرخص ومسجل لدى هيئة الضرائب العامة قبل تقديمه. تعتمد الأرقام على البيانات المدخلة من قبل المستخدم.':'<strong>Disclaimer:</strong> This is a draft report generated by Mizaan and does not constitute a signed statutory audit opinion or legal advice. It must be reviewed and countersigned by a licensed, GTA-registered audit firm before submission to the General Tax Authority. Figures are based solely on user-provided data.'}</div>
     </div>
-    <div class="report-section">
-      <div class="report-sec-title">${ar()?'3. احتساب الضريبة — قانون ضريبة الدخل رقم 24 لعام 2018':'3. Tax computation — Qatar Income Tax Law No. 24 of 2018'}</div>
-      <table class="fin-table">
-        <tr><th style="width:60%">${ar()?'البند':'Item'}</th><th class="r">QAR</th><th class="r">${ar()?'الأساس':'Basis'}</th></tr>
-        <tr><td>${ar()?'الربح المحاسبي قبل الضريبة':'Profit before tax'}</td><td class="r">${fn(d.ebt)}</td><td class="r">${ar()?'من قائمة الدخل':'Per P&L'}</td></tr>
-        <tr><td>${ar()?`الحصة القطرية (${d.qPct}%) — معفاة`:`Qatari portion (${d.qPct}%) — exempt`}</td><td class="r">(${fn(d.ebt*(d.qPct/100))})</td><td class="r">${ar()?'معفى':'Exempt'}</td></tr>
-        <tr class="subtotal"><td>${ar()?`الربح الخاضع (${ep}% أجانب)`:`Taxable profit (${ep}% expat)`}</td><td class="r">${fn(d.tax_b)}</td><td class="r">${ar()?'المادة 2':'Art. 2'}</td></tr>
-        <tr><td>${ar()?'نسبة الضريبة':'Tax rate'}</td><td class="r">10%</td><td class="r">${ar()?'قانون 24/2018':'Law 24/2018'}</td></tr>
-        <tr class="grandtotal"><td>${ar()?'ضريبة الدخل المستحقة':'Corporate tax payable'}</td><td class="r">${fn(d.tax)}</td><td class="r">${ar()?'مستحق لهيئة الضرائب':'Due GTA'}</td></tr>
-      </table>
-    </div>
-    <div class="report-section">
-      <div class="report-sec-title">${ar()?'4. النسب المالية':'4. Key financial ratios'}</div>
-      <table class="fin-table">
-        <tr><th>${ar()?'النسبة':'Ratio'}</th><th class="r">${ar()?'القيمة':'Value'}</th><th class="r">${ar()?'المعيار':'Benchmark'}</th><th class="r">${ar()?'الحالة':'Status'}</th></tr>
-        <tr><td>${ar()?'هامش مجمل الربح':'Gross margin'}</td><td class="r">${gm}</td><td class="r">&gt;25%</td><td class="r"><span class="badge badge-ok">${ar()?'جيد':'Healthy'}</span></td></tr>
-        <tr><td>${ar()?'هامش صافي الربح':'Net margin'}</td><td class="r">${nm}</td><td class="r">&gt;5%</td><td class="r"><span class="badge badge-ok">${ar()?'جيد':'Healthy'}</span></td></tr>
-        <tr><td>${ar()?'نسبة السيولة':'Current ratio'}</td><td class="r">${cr_ratio}x</td><td class="r">&gt;1.5x</td><td class="r"><span class="badge badge-ok">${ar()?'قوي':'Strong'}</span></td></tr>
-        <tr><td>${ar()?'العائد على حقوق الملكية':'Return on equity'}</td><td class="r">${roe}</td><td class="r">&gt;10%</td><td class="r"><span class="badge badge-ok">${ar()?'قوي':'Strong'}</span></td></tr>
-      </table>
-    </div>
-    <div class="report-section">
-      <div class="report-sec-title">${ar()?'5. قائمة الإجراءات العاجلة':'5. Action checklist'}</div>
-      <table class="fin-table">
-        <tr><th>#</th><th>${ar()?'الإجراء':'Action'}</th><th class="r">${ar()?'الأولوية':'Priority'}</th></tr>
-        <tr><td>1</td><td>${ar()?'التعاقد مع مكتب تدقيق مسجل لدى هيئة الضرائب':'Engage GTA-registered audit firm'}</td><td class="r"><span class="badge badge-danger">${ar()?'حرج':'Critical'}</span></td></tr>
-        <tr><td>2</td><td>${ar()?`تقديم الإقرار الضريبي وسداد QAR ${fn(d.tax)}`:`File tax return & pay QAR ${fn(d.tax)}`}</td><td class="r"><span class="badge badge-danger">${cr.isBeforeCutoff?(ar()?'متأخر':'Overdue'):(ar()?'أبريل 2026':'Apr 2026')}</span></td></tr>
-        ${cr.crExpired?`<tr><td>3</td><td>${ar()?'تجديد السجل التجاري المنتهي':'Renew expired CR'}</td><td class="r"><span class="badge badge-danger">${ar()?'متأخر':'Overdue'}</span></td></tr>`:''}
-        <tr><td>${cr.crExpired?4:3}</td><td>${ar()?'إعداد المستندات الداعمة (كشوف بنكية، جرد، جدول قروض)':'Prepare supporting documents (bank stmts, stock count, loan schedule)'}</td><td class="r"><span class="badge badge-warn">${ar()?'عالي':'High'}</span></td></tr>
-        <tr><td>${cr.crExpired?5:4}</td><td>${ar()?'طلب إعفاء من الغرامات لكونها السنة الأولى':'Request GTA penalty waiver (first operating year)'}</td><td class="r"><span class="badge badge-info">${ar()?'موصى به':'Recommended'}</span></td></tr>
-      </table>
-    </div>
-    <div class="sig-block">
-      <div><div class="sig-line"></div><div style="font-weight:500;font-size:13px">${ar()?'أعده':'Prepared by'}</div><div class="sig-label">${ar()?'مكتب التدقيق · التاريخ: ___________':'Audit firm / Accountant   Date: ___________'}</div></div>
-      <div><div class="sig-line"></div><div style="font-weight:500;font-size:13px">${ar()?'المفوض بالتوقيع':'Authorized signatory'}</div><div class="sig-label">${ar()?'المدير · التاريخ: ___________':'Director / Manager   Date: ___________'}</div></div>
-    </div>
-    <div class="disclaimer">${ar()?'إخلاء المسؤولية: هذا التقرير مسودة ولا يشكل رأياً قانونياً مدققاً. يجب مراجعته وتوقيعه من مكتب تدقيق مرخص قبل تقديمه لهيئة الضرائب العامة.':'Disclaimer: This is a draft report and does not constitute a signed statutory audit opinion. A licensed audit firm must review and countersign before GTA submission.'}</div>
   </div>`;
+  setProgress(4);
 }
 
 analyzeCR();

@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mizaan Admin ميزان — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f0d0b;--ink2:#3d3530;--ink3:#7a6e68;
+  --bg:#0e0c0b;--bg2:#161310;--bg3:#201c18;
+  --card:#1a1612;--card2:#221e1a;
+  --border:#2e2820;--border2:#3a3028;
+  --maroon:#9c2232;--maroon2:#c04050;--maroon3:#e06070;
+  --gold:#c9a840;--gold2:#e8c860;--gold-bg:rgba(201,168,64,.1);
+  --green:#1db954;--green-bg:rgba(29,185,84,.1);
+  --amber:#f0a030;--amber-bg:rgba(240,160,48,.08);
+  --blue:#4080e0;--blue-bg:rgba(64,128,224,.1);
+  --red:#e04040;--red-bg:rgba(224,64,64,.1);
+  --wa:#25D366;--wa2:#1aab55;
+  --r:10px;--rl:16px;
+  --sh:0 1px 3px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Syne',sans-serif;background:var(--bg);color:#e8e0d8;font-size:13px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif}
+
+/* ── LOGIN SCREEN ── */
+.login-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:1000;padding:1rem}
+.login-box{background:var(--card);border:1px solid var(--border2);border-radius:var(--rl);padding:2.5rem 2rem;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.login-box .logo{display:flex;align-items:center;gap:10px;margin-bottom:2rem}
+.login-box .logo-mark{width:38px;height:38px;border-radius:8px;background:var(--maroon);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:16px;color:white;flex-shrink:0}
+.login-box .logo-name{font-size:14px;font-weight:600;color:white}
+.login-box .logo-name span{display:block;font-size:11px;color:var(--ink3);font-weight:400}
+.login-box h2{font-size:1.5rem;font-weight:400;color:white;margin-bottom:.4rem}
+.login-box p{font-size:12px;color:var(--ink3);margin-bottom:1.5rem}
+.login-field{margin-bottom:14px}
+.login-field label{display:block;font-size:10px;font-weight:600;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.login-field input{width:100%;padding:11px 14px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--r);font-size:13px;font-family:'Syne',sans-serif;color:white;transition:border-color .15s}
+.login-field input:focus{outline:none;border-color:var(--gold)}
+.login-btn{width:100%;padding:12px;background:var(--maroon);color:white;border:none;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;font-family:'Syne',sans-serif;margin-top:8px;transition:background .15s}
+.login-btn:hover{background:var(--maroon2)}
+.login-err{font-size:12px;color:var(--red);text-align:center;margin-top:8px;min-height:18px}
+
+/* ── LAYOUT ── */
+.app{display:none;height:100%;flex-direction:column}
+.app.visible{display:flex}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--card);border-bottom:1px solid var(--border);padding:0 1.5rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.topbar-logo{display:flex;align-items:center;gap:10px}
+.topbar-logo-mark{width:28px;height:28px;border-radius:6px;background:var(--maroon);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:13px;color:white}
+.topbar-logo-name{font-size:13px;font-weight:600;color:white}
+.topbar-logo-name span{color:var(--gold)}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.topbar-badge{font-size:10px;background:var(--gold-bg);color:var(--gold);border:1px solid rgba(201,168,64,.3);padding:3px 10px;border-radius:100px;font-weight:600}
+.topbar-logout{font-size:11px;color:var(--ink3);cursor:pointer;background:none;border:none;font-family:'Syne',sans-serif;padding:4px 10px;border-radius:6px;transition:all .15s}
+.topbar-logout:hover{background:var(--border);color:white}
+
+/* ── SIDEBAR ── */
+.layout{display:flex;flex:1;overflow:hidden}
+.sidebar{width:200px;background:var(--card);border-right:1px solid var(--border);padding:1rem 0;flex-shrink:0;overflow-y:auto}
+.nav-section{font-size:9px;font-weight:700;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;padding:12px 16px 6px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 16px;cursor:pointer;font-size:12px;font-weight:500;color:var(--ink3);border-left:2px solid transparent;transition:all .15s}
+.nav-item:hover{background:var(--bg3);color:white}
+.nav-item.active{border-left-color:var(--gold);background:var(--gold-bg);color:var(--gold)}
+.nav-icon{width:16px;text-align:center;font-size:13px;flex-shrink:0}
+.nav-count{margin-left:auto;background:var(--maroon);color:white;padding:1px 7px;border-radius:100px;font-size:9px;font-weight:700}
+
+/* ── CONTENT ── */
+.content{flex:1;overflow-y:auto;padding:1.5rem}
+.page{display:none}
+.page.active{display:block}
+
+/* ── PAGE HEADER ── */
+.page-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:10px}
+.page-hdr-left h1{font-size:1.6rem;font-weight:400;color:white;line-height:1.1}
+.page-hdr-left p{font-size:12px;color:var(--ink3);margin-top:3px}
+.page-actions{display:flex;gap:8px}
+
+/* ── STAT CARDS ── */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
+.stat-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r);padding:14px 16px;transition:border-color .2s}
+.stat-card:hover{border-color:var(--border2)}
+.stat-label{font-size:10px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.stat-val{font-size:26px;font-weight:400;font-family:'Cormorant Garamond',serif;line-height:1;color:white}
+.stat-val.g{color:var(--green)}.stat-val.r{color:var(--red)}.stat-val.a{color:var(--amber)}.stat-val.b{color:var(--blue)}
+.stat-sub{font-size:10px;color:var(--ink3);margin-top:6px}
+.stat-change{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600}
+.stat-change.up{color:var(--green)}.stat-change.dn{color:var(--red)}
+
+/* ── TABLE ── */
+.tbl-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.search-box{display:flex;align-items:center;gap:8px;background:var(--card2);border:1px solid var(--border2);border-radius:var(--r);padding:7px 12px;flex:1;min-width:200px}
+.search-box input{background:none;border:none;font-size:12px;font-family:'Syne',sans-serif;color:white;flex:1;outline:none}
+.search-box input::placeholder{color:var(--ink3)}
+.filter-select{background:var(--card2);border:1px solid var(--border2);border-radius:var(--r);padding:7px 12px;font-size:12px;font-family:'Syne',sans-serif;color:white;cursor:pointer;outline:none}
+.btn{padding:7px 14px;border-radius:var(--r);font-size:12px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;transition:all .15s;display:inline-flex;align-items:center;gap:6px;border:none}
+.btn-primary{background:var(--maroon);color:white}
+.btn-primary:hover{background:var(--maroon2)}
+.btn-ghost{background:transparent;color:var(--ink3);border:1px solid var(--border2)}
+.btn-ghost:hover{border-color:var(--border2);color:white;background:var(--card2)}
+.btn-wa{background:var(--wa);color:white}
+.btn-wa:hover{background:var(--wa2)}
+.btn-gold{background:var(--gold-bg);color:var(--gold);border:1px solid rgba(201,168,64,.3)}
+.btn-gold:hover{background:var(--gold);color:var(--ink)}
+
+.tbl-wrap{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;min-width:800px}
+.tbl thead th{padding:9px 12px;text-align:left;font-size:10px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);background:var(--card2);white-space:nowrap;cursor:pointer;user-select:none}
+.tbl thead th:hover{color:white}
+.tbl thead th.sort-asc::after{content:' ↑'}
+.tbl thead th.sort-desc::after{content:' ↓'}
+.tbl tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+.tbl tbody tr:hover td{background:var(--bg3)}
+.tbl td{padding:10px 12px;font-size:12px;vertical-align:middle;color:#d0c8c0}
+.tbl td strong{color:white}
+.tbl-empty{text-align:center;padding:3rem;color:var(--ink3)}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:100px;font-size:10px;font-weight:600}
+.badge.ok{background:var(--green-bg);color:var(--green)}
+.badge.warn{background:var(--amber-bg);color:var(--amber)}
+.badge.danger{background:var(--red-bg);color:var(--red)}
+.badge.info{background:var(--blue-bg);color:var(--blue)}
+.badge.gold{background:var(--gold-bg);color:var(--gold)}
+
+/* ── PIPELINE ── */
+.pipeline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
+.pipe-col{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.pipe-col-hdr{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.pipe-col-title{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.pipe-col-count{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.pipe-cards{padding:8px;min-height:180px;display:flex;flex-direction:column;gap:6px}
+.pipe-card{background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .15s}
+.pipe-card:hover{border-color:var(--gold);background:var(--bg3)}
+.pipe-card-name{font-size:12px;font-weight:600;color:white;margin-bottom:2px}
+.pipe-card-co{font-size:11px;color:var(--ink3)}
+.pipe-card-svc{margin-top:6px}
+.pipe-card-date{font-size:10px;color:var(--ink3);margin-top:4px}
+
+/* ── ANALYTICS ── */
+.analytics-grid{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:1.5rem}
+.chart-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem}
+.chart-title{font-size:12px;font-weight:600;color:white;margin-bottom:1.25rem}
+.bar-chart{display:flex;align-items:flex-end;gap:4px;height:120px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar{border-radius:4px 4px 0 0;background:var(--maroon);transition:height .5s;width:100%;min-height:2px}
+.bar:hover{background:var(--maroon2)}
+.bar-lbl{font-size:9px;color:var(--ink3);text-align:center}
+.bar-val{font-size:9px;color:var(--ink3)}
+.donut-wrap{display:flex;gap:12px;align-items:center;margin-top:8px}
+.donut-legend{display:flex;flex-direction:column;gap:6px;flex:1}
+.donut-legend-item{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--ink3)}
+.donut-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* ── DETAIL DRAWER ── */
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .2s}
+.drawer-overlay.open{opacity:1;pointer-events:all}
+.drawer{position:fixed;right:0;top:0;bottom:0;width:380px;background:var(--card);border-left:1px solid var(--border2);z-index:201;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);overflow-y:auto;padding:1.5rem}
+.drawer.open{transform:translateX(0)}
+.drawer-close{float:right;background:var(--bg3);border:1px solid var(--border2);color:var(--ink3);padding:4px 10px;border-radius:6px;cursor:pointer;font-family:'Syne',sans-serif;font-size:11px}
+.drawer-name{font-size:1.5rem;font-weight:400;color:white;margin:2rem 0 4px}
+.drawer-co{font-size:12px;color:var(--ink3);margin-bottom:1rem}
+.drawer-field{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
+.drawer-field span:first-child{color:var(--ink3)}
+.drawer-field span:last-child{font-weight:500;color:white}
+.drawer-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:1.25rem}
+.drawer-note{margin-top:1rem}
+.drawer-note label{font-size:10px;font-weight:600;color:var(--ink3);letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:6px}
+.drawer-note textarea{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:10px;font-size:12px;font-family:'Syne',sans-serif;color:white;resize:vertical;min-height:80px}
+.drawer-note textarea:focus{outline:none;border-color:var(--gold)}
+
+/* ── SETTINGS ── */
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.settings-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem}
+.settings-card h3{font-size:13px;font-weight:600;color:white;margin-bottom:1rem}
+.settings-field{margin-bottom:12px}
+.settings-field label{display:block;font-size:10px;font-weight:600;color:var(--ink3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:5px}
+.settings-field input,.settings-field select{width:100%;padding:9px 12px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--r);font-size:12px;font-family:'Syne',sans-serif;color:white;transition:border-color .15s}
+.settings-field input:focus{outline:none;border-color:var(--gold)}
+.settings-save{background:var(--maroon);color:white;border:none;padding:9px 20px;border-radius:var(--r);font-size:12px;font-weight:600;cursor:pointer;font-family:'Syne',sans-serif;margin-top:4px}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--border2);color:white;padding:10px 20px;border-radius:100px;font-size:12px;z-index:600;white-space:nowrap;box-shadow:var(--sh);animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){.stat-grid{grid-template-columns:1fr 1fr}.pipeline{grid-template-columns:1fr 1fr}.analytics-grid{grid-template-columns:1fr}}
+@media(max-width:640px){.sidebar{display:none}.stat-grid{grid-template-columns:1fr 1fr}.pipeline{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══ -->
+<div class="login-screen" id="login-screen">
+  <div class="login-box">
+    <div class="logo">
+      <div class="logo-mark">م</div>
+      <div class="logo-name">Mizaan <span style="font-size:10px;font-weight:400;opacity:.6">ميزان</span><span>Admin Dashboard</span></div>
+    </div>
+    <h2>Sign in to continue</h2>
+    <p>Enter your admin password to access the lead dashboard and analytics.</p>
+    <div class="login-field"><label>Password</label><input type="password" id="pw-input" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <button class="login-btn" onclick="doLogin()">Sign in →</button>
+    <div class="login-err" id="login-err"></div>
+    <p style="font-size:11px;color:var(--ink3);text-align:center;margin-top:14px">← <a href="index.html" style="color:var(--gold);text-decoration:none">Back to main tool</a></p>
+  </div>
+</div>
+
+<!-- ══ APP ══ -->
+<div class="app" id="app">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="topbar-logo-mark">م</div>
+      <span class="topbar-logo-name">Mi<span>zaan</span> <span style="font-size:10px;font-weight:400;opacity:.5;letter-spacing:0">ميزان</span></span>
+    </div>
+    <div class="topbar-right">
+      <span class="topbar-badge" id="tb-badge">0 leads today</span>
+      <button class="topbar-logout" onclick="doLogout()">Sign out</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+      <div class="nav-section">Overview</div>
+      <div class="nav-item active" onclick="showPage('dashboard',this)"><span class="nav-icon">📊</span> Dashboard</div>
+      <div class="nav-item" onclick="showPage('pipeline',this)"><span class="nav-icon">🎯</span> Pipeline<span class="nav-count" id="nav-count">0</span></div>
+      <div class="nav-section">Leads</div>
+      <div class="nav-item" onclick="showPage('leads',this)"><span class="nav-icon">👥</span> All Leads</div>
+      <div class="nav-item" onclick="showPage('hot',this)"><span class="nav-icon">🔥</span> Hot Leads</div>
+      <div class="nav-section">Tools</div>
+      <div class="nav-item" onclick="showPage('analytics',this)"><span class="nav-icon">📈</span> Analytics</div>
+      <div class="nav-item" onclick="showPage('settings',this)"><span class="nav-icon">⚙️</span> Settings</div>
+      <div class="nav-section">Links</div>
+      <div class="nav-item" onclick="window.open('index.html','_blank')"><span class="nav-icon">🌐</span> Live tool ↗</div>
+    </nav>
+
+    <!-- CONTENT -->
+    <main class="content">
+
+      <!-- ── DASHBOARD PAGE ── -->
+      <div class="page active" id="page-dashboard">
+        <div class="page-hdr">
+          <div class="page-hdr-left">
+            <h1>Dashboard</h1>
+            <p id="dash-date">Loading...</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-ghost" onclick="exportCSV()">📥 Export CSV</button>
+            <button class="btn btn-wa" onclick="waBlast()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              WhatsApp All
+            </button>
+          </div>
+        </div>
+        <div class="stat-grid" id="stat-grid"></div>
+        <div class="analytics-grid">
+          <div class="chart-card">
+            <div class="chart-title">Leads over time (last 14 days)</div>
+            <div class="bar-chart" id="bar-chart"></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Service breakdown</div>
+            <div class="donut-wrap">
+              <svg id="donut-svg" width="90" height="90" viewBox="0 0 90 90"></svg>
+              <div class="donut-legend" id="donut-legend"></div>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+            <div style="font-size:12px;font-weight:600;color:white">Recent leads</div>
+            <button class="btn btn-ghost" style="font-size:11px" onclick="showPage('leads',document.querySelector('.nav-item:nth-child(5)'))">View all →</button>
+          </div>
+          <div class="tbl-wrap"><div id="recent-tbl"></div></div>
+        </div>
+      </div>
+
+      <!-- ── PIPELINE PAGE ── -->
+      <div class="page" id="page-pipeline">
+        <div class="page-hdr">
+          <div class="page-hdr-left"><h1>Pipeline</h1><p>Drag leads through your sales pipeline</p></div>
+          <div class="page-actions"><button class="btn btn-ghost" onclick="showPage('leads',null)">All leads →</button></div>
+        </div>
+        <div class="pipeline" id="pipeline-board"></div>
+      </div>
+
+      <!-- ── ALL LEADS PAGE ── -->
+      <div class="page" id="page-leads">
+        <div class="page-hdr">
+          <div class="page-hdr-left"><h1>All leads</h1><p id="leads-count-label">0 total</p></div>
+          <div class="page-actions">
+            <button class="btn btn-ghost" onclick="exportCSV()">📥 Export</button>
+            <button class="btn btn-wa" onclick="waBlast()">WhatsApp All</button>
+          </div>
+        </div>
+        <div class="tbl-toolbar">
+          <div class="search-box">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--ink3)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="search-input" type="text" placeholder="Search name, company, email..." oninput="renderLeadsTable()">
+          </div>
+          <select class="filter-select" id="filter-svc" onchange="renderLeadsTable()">
+            <option value="">All services</option>
+            <option value="audit">Audit</option>
+            <option value="tax">Tax return</option>
+            <option value="both">Full compliance</option>
+            <option value="deadline">Deadline check</option>
+            <option value="other">Other</option>
+          </select>
+          <select class="filter-select" id="filter-lang" onchange="renderLeadsTable()">
+            <option value="">All languages</option>
+            <option value="en">English</option>
+            <option value="ar">Arabic</option>
+          </select>
+          <select class="filter-select" id="filter-stage" onchange="renderLeadsTable()">
+            <option value="">All stages</option>
+            <option value="new">New</option>
+            <option value="contacted">Contacted</option>
+            <option value="qualified">Qualified</option>
+            <option value="closed">Closed</option>
+          </select>
+        </div>
+        <div class="tbl-wrap" id="leads-tbl-wrap"></div>
+      </div>
+
+      <!-- ── HOT LEADS PAGE ── -->
+      <div class="page" id="page-hot">
+        <div class="page-hdr">
+          <div class="page-hdr-left"><h1>Hot leads</h1><p>Leads who need audit + tax (highest intent)</p></div>
+          <div class="page-actions"><button class="btn btn-wa" onclick="waBlastHot()">WhatsApp Hot Leads</button></div>
+        </div>
+        <div class="tbl-wrap" id="hot-tbl-wrap"></div>
+      </div>
+
+      <!-- ── ANALYTICS PAGE ── -->
+      <div class="page" id="page-analytics">
+        <div class="page-hdr">
+          <div class="page-hdr-left"><h1>Analytics</h1><p>Performance overview and conversion metrics</p></div>
+        </div>
+        <div class="stat-grid" id="analytics-stats"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem">
+          <div class="chart-card">
+            <div class="chart-title">Language distribution</div>
+            <div id="lang-chart" style="margin-top:1rem"></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Stage distribution</div>
+            <div id="stage-chart" style="margin-top:1rem"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SETTINGS PAGE ── -->
+      <div class="page" id="page-settings">
+        <div class="page-hdr">
+          <div class="page-hdr-left"><h1>Settings</h1><p>Configure your platform</p></div>
+        </div>
+        <div class="settings-grid">
+          <div class="settings-card">
+            <h3>WhatsApp & contact</h3>
+            <div class="settings-field"><label>WhatsApp number (digits only)</label><input id="set-wa" type="text" placeholder="97455000000"></div>
+            <div class="settings-field"><label>Your name / firm name</label><input id="set-name" type="text" placeholder="Qatar Audit Team"></div>
+            <div class="settings-field"><label>Notification email</label><input id="set-email" type="email" placeholder="admin@yourfirm.com"></div>
+            <button class="settings-save" onclick="saveSettings()">Save settings</button>
+          </div>
+          <div class="settings-card">
+            <h3>Admin access</h3>
+            <div class="settings-field"><label>New admin password</label><input id="set-pw" type="password" placeholder="Leave blank to keep current"></div>
+            <div class="settings-field"><label>Confirm password</label><input id="set-pw2" type="password" placeholder="Repeat new password"></div>
+            <button class="settings-save" onclick="changePassword()">Update password</button>
+            <div style="margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--border)">
+              <h3 style="margin-bottom:.75rem;color:var(--red)">Danger zone</h3>
+              <button class="btn" style="background:var(--red-bg);color:var(--red);border:1px solid rgba(224,64,64,.3)" onclick="clearLeads()">🗑 Delete all leads</button>
+            </div>
+          </div>
+          <div class="settings-card">
+            <h3>Pipeline stages</h3>
+            <p style="font-size:11px;color:var(--ink3);margin-bottom:.75rem">Default pipeline stages for lead management</p>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg3);border-radius:8px;font-size:12px"><span style="color:var(--blue)">●</span> New enquiry</div>
+              <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg3);border-radius:8px;font-size:12px"><span style="color:var(--amber)">●</span> Contacted</div>
+              <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg3);border-radius:8px;font-size:12px"><span style="color:var(--maroon2)">●</span> Qualified</div>
+              <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg3);border-radius:8px;font-size:12px"><span style="color:var(--green)">●</span> Closed / won</div>
+            </div>
+          </div>
+          <div class="settings-card">
+            <h3>Data & export</h3>
+            <p style="font-size:11px;color:var(--ink3);margin-bottom:1rem">All lead data is stored in your browser's localStorage. Export regularly to avoid data loss.</p>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-gold" onclick="exportCSV()" style="justify-content:center">📥 Export all leads (CSV)</button>
+              <button class="btn btn-ghost" onclick="exportJSON()" style="justify-content:center">📋 Export as JSON</button>
+              <div id="set-stats" style="font-size:11px;color:var(--ink3);margin-top:4px;text-align:center"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ── LEAD DRAWER ── -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="lead-drawer">
+  <button class="drawer-close" onclick="closeDrawer()">✕ Close</button>
+  <div id="drawer-content"></div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════════
+let ADMIN_PASS = localStorage.getItem('mz_admin_pw') || 'mizaan2025';
+let WA = localStorage.getItem('mz_wa') || '97455000000';
+
+// ══════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════
+let leads = [];
+let sortField = 'ts', sortDir = 'desc';
+
+function loadLeads(){
+  leads = JSON.parse(localStorage.getItem('mz_leads_v3') || '[]');
+  // Migrate from old key
+  const old = JSON.parse(localStorage.getItem('qa_leads_v2') || localStorage.getItem('aq_leads_v3') || '[]');
+  if(old.length && !leads.length){
+    leads = old.map((l,i) => ({...l, id: l.id||'ld_'+i, stage: l.stage||'new', notes: l.notes||'', ts: l.ts||Date.now()-i*3600000}));
+    localStorage.setItem('mz_leads_v3', JSON.stringify(leads));
+  }
+  if(!leads.some(l=>l.id)) leads = leads.map((l,i)=>({...l,id:'ld_'+i,stage:l.stage||'new',notes:l.notes||'',ts:l.ts||Date.now()-i*3600000}));
+  saveLeads();
+  document.getElementById('nav-count').textContent = leads.length;
+}
+function saveLeads(){ localStorage.setItem('mz_leads_v3', JSON.stringify(leads)); }
+
+// ══════════════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════════════
+function doLogin(){
+  const v = document.getElementById('pw-input').value;
+  if(v === ADMIN_PASS){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').classList.add('visible');
+    loadLeads();
+    renderAll();
+  } else {
+    document.getElementById('login-err').textContent = 'Incorrect password. Try again.';
+    document.getElementById('pw-input').value='';
+    document.getElementById('pw-input').focus();
+  }
+}
+function doLogout(){
+  document.getElementById('login-screen').style.display='';
+  document.getElementById('app').classList.remove('visible');
+  document.getElementById('pw-input').value='';
+}
+
+// ══════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════
+function showPage(id, navEl){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(navEl) navEl.classList.add('active');
+  if(id==='leads') renderLeadsTable();
+  if(id==='hot') renderHotLeads();
+  if(id==='analytics') renderAnalytics();
+  if(id==='pipeline') renderPipeline();
+  if(id==='settings') renderSettings();
+}
+
+// ══════════════════════════════════════════════
+// RENDER ALL
+// ══════════════════════════════════════════════
+function renderAll(){
+  const today = new Date().toLocaleDateString('en-GB',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+  document.getElementById('dash-date').textContent = today;
+  const todayStr = new Date().toLocaleDateString('en-GB');
+  const todayCount = leads.filter(l=>l.date===todayStr).length;
+  document.getElementById('tb-badge').textContent = `${todayCount} lead${todayCount===1?'':'s'} today`;
+  renderStats();
+  renderBarChart();
+  renderDonut();
+  renderRecentTable();
+  renderPipeline();
+  document.getElementById('nav-count').textContent = leads.length;
+}
+
+function renderStats(){
+  const total = leads.length;
+  const todayStr = new Date().toLocaleDateString('en-GB');
+  const todayN = leads.filter(l=>l.date===todayStr).length;
+  const auditN = leads.filter(l=>l.svc==='audit'||l.svc==='both').length;
+  const waN = leads.filter(l=>l.phone).length;
+  const weekAgo = Date.now()-7*24*3600000;
+  const weekN = leads.filter(l=>l.ts>weekAgo).length;
+  const convRate = total>0?(auditN/total*100).toFixed(0)+'%':'—';
+  document.getElementById('stat-grid').innerHTML=`
+    <div class="stat-card"><div class="stat-label">Total leads</div><div class="stat-val">${total}</div><div class="stat-sub">${weekN} this week</div></div>
+    <div class="stat-card"><div class="stat-label">Today</div><div class="stat-val b">${todayN}</div><div class="stat-sub">New enquiries</div></div>
+    <div class="stat-card"><div class="stat-label">Audit intent</div><div class="stat-val g">${auditN}</div><div class="stat-sub">${convRate} conversion rate</div></div>
+    <div class="stat-card"><div class="stat-label">Have WhatsApp</div><div class="stat-val a">${waN}</div><div class="stat-sub">${total>0?(waN/total*100).toFixed(0):'0'}% contactable</div></div>`;
+}
+
+function renderBarChart(){
+  const days = 14;
+  const counts = {};
+  for(let i=0;i<days;i++){
+    const d = new Date(Date.now()-i*86400000);
+    counts[d.toLocaleDateString('en-GB')] = 0;
+  }
+  leads.forEach(l=>{if(counts.hasOwnProperty(l.date))counts[l.date]++;});
+  const entries = Object.entries(counts).reverse();
+  const max = Math.max(...entries.map(e=>e[1]),1);
+  const html = entries.map(([date,count])=>{
+    const h = Math.max((count/max)*100,2);
+    const d = date.split('/');
+    return `<div class="bar-col">
+      <div class="bar-val">${count||''}</div>
+      <div class="bar" style="height:${h}%" title="${date}: ${count} leads"></div>
+      <div class="bar-lbl">${d[0]}/${d[1]}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('bar-chart').innerHTML=html;
+}
+
+function renderDonut(){
+  const svcMap = {audit:'Audit',tax:'Tax return',both:'Full compliance',deadline:'Deadline check',other:'Other','':`Unknown`};
+  const colors = ['#9c2232','#c9a840','#1db954','#4080e0','#f0a030'];
+  const counts = {};
+  leads.forEach(l=>{const k=l.svc||'';counts[k]=(counts[k]||0)+1;});
+  const total = leads.length||1;
+  const entries = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  let angle = 0;
+  const paths = entries.map((e,i)=>{
+    const pct = e[1]/total, sweep = pct*360;
+    const r=32, cx=45, cy=45, ri=18;
+    const a1=angle*Math.PI/180, a2=(angle+sweep)*Math.PI/180;
+    const x1=cx+r*Math.sin(a1), y1=cy-r*Math.cos(a1);
+    const x2=cx+r*Math.sin(a2), y2=cy-r*Math.cos(a2);
+    const ix1=cx+ri*Math.sin(a1), iy1=cy-ri*Math.cos(a1);
+    const ix2=cx+ri*Math.sin(a2), iy2=cy-ri*Math.cos(a2);
+    const large=sweep>180?1:0;
+    const d=`M${ix1},${iy1} L${x1},${y1} A${r},${r} 0 ${large} 1 ${x2},${y2} L${ix2},${iy2} A${ri},${ri} 0 ${large} 0 ${ix1},${iy1} Z`;
+    angle+=sweep;
+    return `<path d="${d}" fill="${colors[i%colors.length]}" opacity=".9"/>`;
+  }).join('');
+  document.getElementById('donut-svg').innerHTML=paths;
+  document.getElementById('donut-legend').innerHTML=entries.map((e,i)=>`
+    <div class="donut-legend-item">
+      <div class="donut-dot" style="background:${colors[i%colors.length]}"></div>
+      <span>${svcMap[e[0]]||e[0]}</span>
+      <span style="margin-left:auto;color:white;font-weight:600">${e[1]}</span>
+    </div>`).join('');
+}
+
+function renderRecentTable(){
+  const recent = [...leads].sort((a,b)=>b.ts-a.ts).slice(0,8);
+  document.getElementById('recent-tbl').innerHTML = buildLeadsHTML(recent, false);
+}
+
+function renderLeadsTable(){
+  const q = document.getElementById('search-input')?.value?.toLowerCase()||'';
+  const svc = document.getElementById('filter-svc')?.value||'';
+  const lng = document.getElementById('filter-lang')?.value||'';
+  const stg = document.getElementById('filter-stage')?.value||'';
+  let filtered = leads.filter(l=>{
+    if(q && !((l.name||'').toLowerCase().includes(q)||(l.co||'').toLowerCase().includes(q)||(l.email||'').toLowerCase().includes(q)||(l.phone||'').includes(q))) return false;
+    if(svc && l.svc!==svc) return false;
+    if(lng && l.lang!==lng) return false;
+    if(stg && l.stage!==stg) return false;
+    return true;
+  });
+  filtered.sort((a,b)=>sortDir==='asc'?compare(a,b):compare(b,a));
+  document.getElementById('leads-count-label').textContent = `${filtered.length} of ${leads.length} leads`;
+  document.getElementById('leads-tbl-wrap').innerHTML = buildLeadsHTML(filtered, true);
+}
+
+function compare(a,b){
+  const va=a[sortField]||'', vb=b[sortField]||'';
+  return typeof va==='number'?va-vb:String(va).localeCompare(String(vb));
+}
+
+function buildLeadsHTML(arr, showSort){
+  if(!arr.length) return `<div class="tbl-empty">No leads found. Share the tool link to start generating enquiries.</div>`;
+  const svcColors = {audit:'danger',tax:'info',both:'danger',deadline:'ok',other:'gold','':`gold`};
+  const stgColors = {new:'info',contacted:'warn',qualified:'warn',closed:'ok'};
+  return `<table class="tbl"><thead><tr>
+    <th onclick="sortBy('name')">Name</th>
+    <th onclick="sortBy('phone')">WhatsApp</th>
+    <th onclick="sortBy('co')">Company</th>
+    <th onclick="sortBy('svc')">Service</th>
+    <th onclick="sortBy('stage')">Stage</th>
+    <th onclick="sortBy('lang')">Lang</th>
+    <th onclick="sortBy('date')">Date</th>
+    <th>Actions</th>
+  </tr></thead><tbody>${arr.map(l=>`<tr>
+    <td><strong onclick="openDrawer('${l.id}')" style="cursor:pointer">${l.name||'—'}</strong>${l.email?`<br><span style="font-size:10px;color:var(--ink3)">${l.email}</span>`:''}</td>
+    <td><a href="tel:${l.phone}" style="color:var(--green);text-decoration:none">${l.phone||'—'}</a></td>
+    <td>${l.co||'—'}</td>
+    <td>${l.svc?`<span class="badge ${svcColors[l.svc]||'gold'}">${l.svc}</span>`:'—'}</td>
+    <td><select class="filter-select" style="padding:3px 8px;font-size:10px;background:var(--bg3)" onchange="updateStage('${l.id}',this.value)">
+      <option value="new" ${(l.stage||'new')==='new'?'selected':''}>New</option>
+      <option value="contacted" ${l.stage==='contacted'?'selected':''}>Contacted</option>
+      <option value="qualified" ${l.stage==='qualified'?'selected':''}>Qualified</option>
+      <option value="closed" ${l.stage==='closed'?'selected':''}>Closed</option>
+    </select></td>
+    <td><span class="badge ${l.lang==='ar'?'gold':'info'}">${l.lang||'en'}</span></td>
+    <td style="white-space:nowrap;font-size:11px;color:var(--ink3)">${l.date||'—'}<br>${l.time||''}</td>
+    <td><div style="display:flex;gap:5px;flex-wrap:nowrap">
+      ${l.phone?`<button class="btn btn-wa" style="padding:4px 9px;font-size:10px" onclick="waLead('${l.phone}','${l.name||''}')">WA</button>`:''}
+      <button class="btn btn-ghost" style="padding:4px 9px;font-size:10px" onclick="openDrawer('${l.id}')">View</button>
+    </div></td>
+  </tr>`).join('')}</tbody></table>`;
+}
+
+function sortBy(field){
+  if(sortField===field) sortDir=sortDir==='asc'?'desc':'asc';
+  else{sortField=field;sortDir='asc';}
+  renderLeadsTable();
+}
+
+function renderHotLeads(){
+  const hot = leads.filter(l=>l.svc==='audit'||l.svc==='both');
+  document.getElementById('hot-tbl-wrap').innerHTML = buildLeadsHTML(hot, true);
+}
+
+function renderPipeline(){
+  const stages = [
+    {id:'new',label:'New enquiry',color:'#4080e0'},
+    {id:'contacted',label:'Contacted',color:'#f0a030'},
+    {id:'qualified',label:'Qualified',color:'#c04050'},
+    {id:'closed',label:'Closed / Won',color:'#1db954'},
+  ];
+  const html = stages.map(s=>{
+    const cards = leads.filter(l=>(l.stage||'new')===s.id);
+    return `<div class="pipe-col">
+      <div class="pipe-col-hdr">
+        <span class="pipe-col-title" style="color:${s.color}">${s.label}</span>
+        <span class="pipe-col-count" style="background:${s.color}20;color:${s.color}">${cards.length}</span>
+      </div>
+      <div class="pipe-cards">${cards.map(l=>`
+        <div class="pipe-card" onclick="openDrawer('${l.id}')">
+          <div class="pipe-card-name">${l.name||'Unknown'}</div>
+          <div class="pipe-card-co">${l.co||'—'}</div>
+          <div class="pipe-card-svc"><span class="badge ${l.svc==='both'||l.svc==='audit'?'danger':'info'}" style="font-size:10px">${l.svc||'enquiry'}</span></div>
+          <div class="pipe-card-date">${l.date||''}</div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('pipeline-board').innerHTML = html;
+}
+
+function renderAnalytics(){
+  const total = leads.length||1;
+  const auditN = leads.filter(l=>l.svc==='audit'||l.svc==='both').length;
+  const closedN = leads.filter(l=>l.stage==='closed').length;
+  const waRate = leads.filter(l=>l.phone).length;
+  document.getElementById('analytics-stats').innerHTML=`
+    <div class="stat-card"><div class="stat-label">Total enquiries</div><div class="stat-val">${leads.length}</div></div>
+    <div class="stat-card"><div class="stat-label">Audit intent rate</div><div class="stat-val g">${(auditN/total*100).toFixed(0)}%</div></div>
+    <div class="stat-card"><div class="stat-label">Closed / Won</div><div class="stat-val a">${closedN}</div><div class="stat-sub">${(closedN/total*100).toFixed(0)}% close rate</div></div>
+    <div class="stat-card"><div class="stat-label">WhatsApp reach</div><div class="stat-val b">${(waRate/total*100).toFixed(0)}%</div></div>`;
+  const langEn = leads.filter(l=>l.lang!=='ar').length;
+  const langAr = leads.filter(l=>l.lang==='ar').length;
+  document.getElementById('lang-chart').innerHTML=`
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="font-size:12px;display:flex;justify-content:space-between;margin-bottom:4px"><span>English</span><span style="color:white">${langEn}</span></div>
+      <div style="height:8px;background:var(--border);border-radius:4px"><div style="height:100%;width:${(langEn/total*100).toFixed(0)}%;background:var(--blue);border-radius:4px"></div></div>
+      <div style="font-size:12px;display:flex;justify-content:space-between;margin-top:8px"><span>Arabic</span><span style="color:white">${langAr}</span></div>
+      <div style="height:8px;background:var(--border);border-radius:4px"><div style="height:100%;width:${(langAr/total*100).toFixed(0)}%;background:var(--gold);border-radius:4px"></div></div>
+    </div>`;
+  const stages = ['new','contacted','qualified','closed'];
+  const stageCounts = stages.map(s=>leads.filter(l=>(l.stage||'new')===s).length);
+  const stageColors = ['#4080e0','#f0a030','#c04050','#1db954'];
+  document.getElementById('stage-chart').innerHTML=stages.map((s,i)=>`
+    <div style="margin-bottom:10px">
+      <div style="font-size:12px;display:flex;justify-content:space-between;margin-bottom:4px;text-transform:capitalize"><span>${s}</span><span style="color:white">${stageCounts[i]}</span></div>
+      <div style="height:8px;background:var(--border);border-radius:4px"><div style="height:100%;width:${(stageCounts[i]/total*100).toFixed(0)}%;background:${stageColors[i]};border-radius:4px"></div></div>
+    </div>`).join('');
+}
+
+function renderSettings(){
+  document.getElementById('set-wa').value = WA;
+  document.getElementById('set-stats').textContent = `${leads.length} leads stored in localStorage`;
+}
+
+// ══════════════════════════════════════════════
+// DRAWER
+// ══════════════════════════════════════════════
+function openDrawer(id){
+  const l = leads.find(l=>l.id===id); if(!l) return;
+  const svcNames = {audit:'Annual audit',tax:'Tax return filing',both:'Full compliance',deadline:'Deadline check only',other:'Other enquiry'};
+  document.getElementById('drawer-content').innerHTML=`
+    <button class="drawer-close" onclick="closeDrawer()">✕ Close</button>
+    <div class="drawer-name">${l.name||'Unknown'}</div>
+    <div class="drawer-co">${l.co||'No company provided'}</div>
+    ${l.phone?`<div style="margin-bottom:1rem"><button class="btn btn-wa" style="width:100%;justify-content:center" onclick="waLead('${l.phone}','${l.name||''}')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Open WhatsApp chat
+    </button></div>`:''}
+    <div class="drawer-field"><span>Phone</span><span>${l.phone||'—'}</span></div>
+    <div class="drawer-field"><span>Email</span><span>${l.email||'—'}</span></div>
+    <div class="drawer-field"><span>Service needed</span><span>${svcNames[l.svc]||l.svc||'—'}</span></div>
+    <div class="drawer-field"><span>Language</span><span>${l.lang==='ar'?'Arabic':'English'}</span></div>
+    <div class="drawer-field"><span>Date submitted</span><span>${l.date||'—'} ${l.time||''}</span></div>
+    <div class="drawer-field"><span>Lead ID</span><span style="font-size:10px;color:var(--ink3)">${l.id}</span></div>
+    <div style="margin-top:1rem">
+      <label style="font-size:10px;font-weight:600;color:var(--ink3);letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:6px">Pipeline stage</label>
+      <select class="filter-select" style="width:100%" onchange="updateStage('${l.id}',this.value)">
+        <option value="new" ${(l.stage||'new')==='new'?'selected':''}>New enquiry</option>
+        <option value="contacted" ${l.stage==='contacted'?'selected':''}>Contacted</option>
+        <option value="qualified" ${l.stage==='qualified'?'selected':''}>Qualified</option>
+        <option value="closed" ${l.stage==='closed'?'selected':''}>Closed / Won</option>
+      </select>
+    </div>
+    <div class="drawer-note">
+      <label>Notes</label>
+      <textarea id="drawer-note-${l.id}" placeholder="Add notes about this lead...">${l.notes||''}</textarea>
+      <button class="btn btn-ghost" style="margin-top:6px;font-size:11px" onclick="saveNote('${l.id}')">Save note</button>
+    </div>`;
+  document.getElementById('drawer-overlay').classList.add('open');
+  document.getElementById('lead-drawer').classList.add('open');
+}
+
+function closeDrawer(){
+  document.getElementById('drawer-overlay').classList.remove('open');
+  document.getElementById('lead-drawer').classList.remove('open');
+}
+
+function saveNote(id){
+  const l = leads.find(l=>l.id===id); if(!l) return;
+  l.notes = document.getElementById('drawer-note-'+id)?.value||'';
+  saveLeads();
+  toast('Note saved');
+}
+
+function updateStage(id, stage){
+  const l = leads.find(l=>l.id===id); if(!l) return;
+  l.stage = stage;
+  saveLeads();
+  renderPipeline();
+  toast(`Moved to "${stage}"`);
+}
+
+// ══════════════════════════════════════════════
+// WHATSAPP
+// ══════════════════════════════════════════════
+const waUrl=(num,msg)=>`https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
+function waLead(phone,name){window.open(waUrl(phone.replace(/\D/g,''),`Hi ${name}, thanks for using Mizaan. Can I help with your audit or tax return?`),'_blank');}
+function waBlast(){
+  if(!leads.length){toast('No leads yet.');return;}
+  const withPhone = leads.filter(l=>l.phone);
+  toast(`Opening WhatsApp for ${withPhone.length} leads...`);
+  withPhone.forEach((l,i)=>setTimeout(()=>waLead(l.phone,l.name||''),i*1200));
+}
+function waBlastHot(){
+  const hot = leads.filter(l=>(l.svc==='audit'||l.svc==='both')&&l.phone);
+  if(!hot.length){toast('No hot leads with phone numbers.');return;}
+  toast(`Opening WhatsApp for ${hot.length} hot leads...`);
+  hot.forEach((l,i)=>setTimeout(()=>waLead(l.phone,l.name||''),i*1200));
+}
+
+// ══════════════════════════════════════════════
+// EXPORT
+// ══════════════════════════════════════════════
+function exportCSV(){
+  const rows = ['ID,Name,Phone,Company,Email,Service,Stage,Language,Date,Time,Notes',...leads.map(l=>[l.id,l.name,l.phone,l.co,l.email,l.svc,l.stage||'new',l.lang,l.date,l.time,(l.notes||'').replace(/\n/g,' ')].map(v=>`"${v||''}"`).join(','))];
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(rows.join('\n'));
+  a.download = `mizaan_leads_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  toast('CSV exported');
+}
+function exportJSON(){
+  const a = document.createElement('a');
+  a.href = 'data:application/json,'+encodeURIComponent(JSON.stringify(leads,null,2));
+  a.download = `mizaan_leads_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  toast('JSON exported');
+}
+
+// ══════════════════════════════════════════════
+// SETTINGS
+// ══════════════════════════════════════════════
+function saveSettings(){
+  const wa = document.getElementById('set-wa').value.trim();
+  const name = document.getElementById('set-name').value.trim();
+  if(wa) {WA=wa;localStorage.setItem('mz_wa',wa);}
+  if(name) localStorage.setItem('mz_name',name);
+  toast('Settings saved');
+}
+function changePassword(){
+  const pw = document.getElementById('set-pw').value;
+  const pw2 = document.getElementById('set-pw2').value;
+  if(!pw){toast('Enter a new password');return;}
+  if(pw!==pw2){toast('Passwords do not match');return;}
+  ADMIN_PASS=pw;localStorage.setItem('mz_admin_pw',pw);
+  document.getElementById('set-pw').value='';document.getElementById('set-pw2').value='';
+  toast('Password updated');
+}
+function clearLeads(){
+  if(!confirm('Delete ALL leads? This cannot be undone.')) return;
+  leads=[];saveLeads();renderAll();renderLeadsTable();
+  toast('All leads deleted');
+}
+
+// ══════════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════════
+function toast(msg){
+  document.querySelectorAll('.toast').forEach(t=>t.remove());
+  const t=document.createElement('div');t.className='toast';t.textContent=msg;
+  document.body.appendChild(t);setTimeout(()=>t.remove(),3000);
+}
+
+// Focus password input on load
+document.getElementById('pw-input').focus();
+</script>
+</body>
+</html>
