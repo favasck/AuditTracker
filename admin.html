@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mizaan Admin ميزان — Dashboard</title>
+<title>Mizaan Admin ميزان - Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -271,7 +271,7 @@ h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif}
         <div class="stat-grid" id="stat-grid"></div>
         <div style="display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:1.5rem">
           <div class="chart-card">
-            <div class="chart-title">Leads — last 14 days</div>
+            <div class="chart-title">Leads - last 14 days</div>
             <div class="bar-chart" id="bar-chart"></div>
           </div>
           <div class="chart-card">
@@ -325,7 +325,7 @@ h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif}
         <div class="page-hdr">
           <div class="page-hdr-left">
             <h1>High risk leads</h1>
-            <p>Companies with score below 50 — overdue, high tax, or multiple risk flags</p>
+            <p>Companies with score below 50 - overdue, high tax, or multiple risk flags</p>
           </div>
           <div class="page-actions">
             <button class="btn btn-wa" onclick="waBlastHot()">WhatsApp High Risk</button>
@@ -424,7 +424,7 @@ h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif}
 
 <script>
 // ══════════════════════════════════════════
-// CONFIG — update these before going live
+// CONFIG - update these before going live
 // ══════════════════════════════════════════
 let ADMIN_PASS = localStorage.getItem('mz_admin_pw') || 'mizaan2026';
 let WA         = localStorage.getItem('mz_wa')       || '97451715999';
@@ -639,14 +639,14 @@ function buildLeadsHTML(arr) {
     if (l.exc)     flags.push(`<span class="badge gold">Excise</span>`);
     return `<tr>
       <td>
-        <strong style="cursor:pointer" onclick="openDrawer('${esc(l.id)}')">${esc(l.name||'—')}</strong>
+        <strong style="cursor:pointer" onclick="openDrawer('${esc(l.id)}')">${esc(l.name||'-')}</strong>
         ${l.company ? `<br><span style="font-size:10px;color:var(--ink3)">${esc(l.company)}</span>` : ''}
       </td>
-      <td><a href="tel:${esc(l.phone||'')}" style="color:var(--green);text-decoration:none">${esc(l.phone||'—')}</a></td>
-      <td><div class="score-mini ${scCls}">${l.score||'—'}</div></td>
-      <td style="font-size:11px">${l.tax ? 'QAR '+Math.round(l.tax).toLocaleString() : '—'}</td>
-      <td style="font-size:11px;color:${l.overdue?'var(--red)':'var(--ink3)'}">${esc(l.deadline||'—')}</td>
-      <td style="display:flex;gap:3px;flex-wrap:wrap;padding-top:14px">${flags.join('') || '<span style="color:var(--ink3);font-size:10px">—</span>'}</td>
+      <td><a href="tel:${esc(l.phone||'')}" style="color:var(--green);text-decoration:none">${esc(l.phone||'-')}</a></td>
+      <td><div class="score-mini ${scCls}">${l.score||'-'}</div></td>
+      <td style="font-size:11px">${l.tax ? 'QAR '+Math.round(l.tax).toLocaleString() : '-'}</td>
+      <td style="font-size:11px;color:${l.overdue?'var(--red)':'var(--ink3)'}">${esc(l.deadline||'-')}</td>
+      <td style="display:flex;gap:3px;flex-wrap:wrap;padding-top:14px">${flags.join('') || '<span style="color:var(--ink3);font-size:10px">-</span>'}</td>
       <td>
         <select class="filter-select" style="padding:3px 8px;font-size:10px" onchange="updateStage('${esc(l.id)}',this.value)">
           <option value="new"       ${(l.stage||'new')==='new'?'selected':''}>New</option>
@@ -655,7 +655,7 @@ function buildLeadsHTML(arr) {
           <option value="closed"    ${l.stage==='closed'?'selected':''}>Closed</option>
         </select>
       </td>
-      <td style="white-space:nowrap;font-size:11px;color:var(--ink3)">${esc(l.date||'—')}</td>
+      <td style="white-space:nowrap;font-size:11px;color:var(--ink3)">${esc(l.date||'-')}</td>
       <td>
         <div style="display:flex;gap:5px">
           ${l.phone ? `<button class="btn btn-wa" style="padding:4px 9px;font-size:10px" onclick="waLead('${esc(l.phone)}','${esc(l.name||'')}')">WA</button>` : ''}
@@ -696,9 +696,9 @@ function renderPipeline() {
         const scCls = sc < 50 ? 'lo' : sc < 70 ? 'md' : 'hi';
         return `<div class="pipe-card" onclick="openDrawer('${esc(l.id)}')">
           <div class="pipe-card-name">${esc(l.name||'Unknown')}</div>
-          <div class="pipe-card-co">${esc(l.company||'—')}</div>
+          <div class="pipe-card-co">${esc(l.company||'-')}</div>
           <div class="pipe-card-meta">
-            <div class="score-mini ${scCls}" style="width:28px;height:28px;font-size:11px">${l.score||'—'}</div>
+            <div class="score-mini ${scCls}" style="width:28px;height:28px;font-size:11px">${l.score||'-'}</div>
             ${l.overdue ? `<span class="badge danger" style="font-size:9px">Overdue</span>` : ''}
             ${l.tax ? `<span style="font-size:10px;color:var(--amber)">QAR ${Math.round(l.tax/1000)}k</span>` : ''}
           </div>
@@ -776,19 +776,19 @@ function openDrawer(id) {
     </div>` : ''}
 
     <div class="drawer-section">Contact</div>
-    <div class="drawer-field"><span>Phone</span><span>${esc(l.phone||'—')}</span></div>
-    <div class="drawer-field"><span>Email</span><span>${esc(l.email||'—')}</span></div>
-    <div class="drawer-field"><span>Date submitted</span><span>${esc(l.date||'—')}</span></div>
+    <div class="drawer-field"><span>Phone</span><span>${esc(l.phone||'-')}</span></div>
+    <div class="drawer-field"><span>Email</span><span>${esc(l.email||'-')}</span></div>
+    <div class="drawer-field"><span>Date submitted</span><span>${esc(l.date||'-')}</span></div>
 
     <div class="drawer-section" style="margin-top:1rem">Compliance results</div>
     <div class="drawer-field">
       <span>Compliance score</span>
-      <span><div class="score-mini ${scCls}" style="display:inline-flex">${l.score||'—'}</div></span>
+      <span><div class="score-mini ${scCls}" style="display:inline-flex">${l.score||'-'}</div></span>
     </div>
-    <div class="drawer-field"><span>Filing deadline</span><span style="color:${l.overdue?'var(--red)':'inherit'}">${esc(l.deadline||'—')}${l.overdue?' ⚠ OVERDUE':''}</span></div>
-    <div class="drawer-field"><span>Estimated tax</span><span style="color:var(--amber)">${l.tax ? 'QAR '+Math.round(l.tax).toLocaleString() : '—'}</span></div>
-    <div class="drawer-field"><span>Activity type</span><span>${esc(l.activity||'—')}</span></div>
-    <div class="drawer-field"><span>Qatari ownership</span><span>${l.qatariPct !== undefined ? l.qatariPct+'%' : '—'}</span></div>
+    <div class="drawer-field"><span>Filing deadline</span><span style="color:${l.overdue?'var(--red)':'inherit'}">${esc(l.deadline||'-')}${l.overdue?' ⚠ OVERDUE':''}</span></div>
+    <div class="drawer-field"><span>Estimated tax</span><span style="color:var(--amber)">${l.tax ? 'QAR '+Math.round(l.tax).toLocaleString() : '-'}</span></div>
+    <div class="drawer-field"><span>Activity type</span><span>${esc(l.activity||'-')}</span></div>
+    <div class="drawer-field"><span>Qatari ownership</span><span>${l.qatariPct !== undefined ? l.qatariPct+'%' : '-'}</span></div>
     <div class="drawer-field"><span>WHT obligation</span><span>${l.wht ? '<span class="badge warn">Yes</span>' : 'No'}</span></div>
     <div class="drawer-field"><span>Capital gains event</span><span>${l.cgt ? '<span class="badge warn">Yes</span>' : 'No'}</span></div>
     <div class="drawer-field"><span>Excise tax</span><span>${l.exc ? '<span class="badge gold">Yes</span>' : 'No'}</span></div>
@@ -867,13 +867,13 @@ function openScorecard(id) {
   const leads = getLeads();
   const lead = leads.find(l => l.id === id);
   if (!lead) { toast('Lead not found.'); return; }
-  if (!lead.pillarPcts) { toast('No scorecard data for this lead — they may not have completed the questionnaire.'); return; }
+  if (!lead.pillarPcts) { toast('No scorecard data for this lead - they may not have completed the questionnaire.'); return; }
   localStorage.setItem('mz_scorecard_lead', JSON.stringify(lead));
   window.open('scorecard.html', '_blank');
 }
 
 function waLead(phone, name) {
-  const msg = `Hi ${name}, this is ${FIRM}. Thank you for using Mizaan — I'd like to discuss your compliance check results and how we can help. Is now a good time?`;
+  const msg = `Hi ${name}, this is ${FIRM}. Thank you for using Mizaan - I'd like to discuss your compliance check results and how we can help. Is now a good time?`;
   window.open(waUrl(phone.replace(/\D/g, ''), msg), '_blank');
 }
 

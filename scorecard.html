@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mizaan — Investment Readiness Scorecard</title>
+<title>Mizaan - Investment Readiness Scorecard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
@@ -166,7 +166,7 @@ body{font-family:'Syne',sans-serif;color:var(--ink);background:#fff;-webkit-prin
 </div>
 
 <script>
-const CFG={FIRM:'Guardian Consulting',ADDR:'West Bay, Doha — Qatar',PHONE:'+974 5171 5999'};
+const CFG={FIRM:'Guardian Consulting Company',ADDR:'Doha, Qatar',PHONE:'+974 5171 5999'};
 
 const PILLARS=[
   {key:'financial', ic:'💰',en:'Financial Health',  ar:'الصحة المالية',  w:.25},
@@ -178,7 +178,7 @@ const PILLARS=[
 ];
 
 function qar(n){return 'QAR '+Math.round(n||0).toLocaleString();}
-function fd(d){return d?new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}):'—';}
+function fd(d){return d?new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}):'-';}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 function getBand(s){
@@ -193,7 +193,7 @@ function etaMonths(s){
   if(g<=10)return '~3 months with focused effort';
   if(g<=20)return '~6 months with structured support';
   if(g<=30)return '~9–12 months with a clear roadmap';
-  return '12–18 months — start with compliance';
+  return '12–18 months - start with compliance';
 }
 function gapAction(key){
   const a={
@@ -235,9 +235,9 @@ function renderScorecard(lead){
         <div class="cov-title">Investment<br><em>Readiness Score</em></div>
         <div class="cov-sub">Prepared by ${esc(CFG.FIRM)} · ${fd(new Date())}</div>
         <div class="cov-fields">
-          <div class="cf-row"><span class="cf-lbl">Company</span><span class="cf-val">${esc(lead.company||'—')}</span></div>
-          <div class="cf-row"><span class="cf-lbl">Prepared for</span><span class="cf-val">${esc(lead.name||'—')}</span></div>
-          <div class="cf-row"><span class="cf-lbl">Sector</span><span class="cf-val">${esc(lead.sector||'—')}</span></div>
+          <div class="cf-row"><span class="cf-lbl">Company</span><span class="cf-val">${esc(lead.company||'-')}</span></div>
+          <div class="cf-row"><span class="cf-lbl">Prepared for</span><span class="cf-val">${esc(lead.name||'-')}</span></div>
+          <div class="cf-row"><span class="cf-lbl">Sector</span><span class="cf-val">${esc(lead.sector||'-')}</span></div>
           <div class="cf-row"><span class="cf-lbl">Date</span><span class="cf-val">${fd(new Date())}</span></div>
         </div>
       </div>
@@ -279,14 +279,14 @@ function renderScorecard(lead){
   <div class="sec-title">Path to investment ready</div>
   <div class="roadmap">
     <div class="rm-top">
-      <div class="rm-label">Current: ${total}/100 — ${band.en}</div>
+      <div class="rm-label">Current: ${total}/100 - ${band.en}</div>
       <div class="rm-eta">⏱ ${etaMonths(total)}</div>
     </div>
     <div class="rm-track">
       <div class="rm-marker" style="left:${total}%"></div>
       <div class="rm-target"></div>
     </div>
-    <div class="rm-ends"><span>0 — Early Stage</span><span>40 — Developing</span><span>60 — Growth Ready</span><span style="color:var(--green);font-weight:600">80+ — Investment Ready</span></div>
+    <div class="rm-ends"><span>0 - Early Stage</span><span>40 - Developing</span><span>60 - Growth Ready</span><span style="color:var(--green);font-weight:600">80+ - Investment Ready</span></div>
   </div>
 
   <!-- TOP 3 GAPS -->
@@ -295,7 +295,7 @@ function renderScorecard(lead){
     ${gaps.map((g,i)=>`<div class="gap-item">
       <div class="gap-num">${i+1}</div>
       <div class="gap-content">
-        <div class="gap-title">${g.ic} ${g.en} — ${g.pct}%</div>
+        <div class="gap-title">${g.ic} ${g.en} - ${g.pct}%</div>
         <div class="gap-action">${gapAction(g.key)}</div>
       </div>
     </div>`).join('')}
@@ -304,13 +304,13 @@ function renderScorecard(lead){
   <!-- QDB -->
   <div class="sec-title">QDB financing readiness</div>
   <div class="qdb-box">
-    <div class="qdb-title">🏦 Qatar Development Bank — ${qdb.t}</div>
+    <div class="qdb-title">🏦 Qatar Development Bank - ${qdb.t}</div>
     <div style="font-size:11px;color:var(--blue);margin-bottom:10px">${qdb.s}</div>
     <div class="qdb-rows">
-      <div class="qdb-row"><span class="qdb-k">Compliance score</span><span class="qdb-v">${pcts.compliance||0}%${(pcts.compliance||0)>=60?' ✓':' — needs improvement'}</span></div>
+      <div class="qdb-row"><span class="qdb-k">Compliance score</span><span class="qdb-v">${pcts.compliance||0}%${(pcts.compliance||0)>=60?' ✓':' - needs improvement'}</span></div>
       <div class="qdb-row"><span class="qdb-k">Financial health</span><span class="qdb-v">${pcts.financial||0}%</span></div>
       <div class="qdb-row"><span class="qdb-k">Operations readiness</span><span class="qdb-v">${pcts.operations||0}%</span></div>
-      <div class="qdb-row"><span class="qdb-k">Overall readiness</span><span class="qdb-v">${total}/100 — ${band.en}</span></div>
+      <div class="qdb-row"><span class="qdb-k">Overall readiness</span><span class="qdb-v">${total}/100 - ${band.en}</span></div>
     </div>
   </div>
 
@@ -318,13 +318,13 @@ function renderScorecard(lead){
   ${lead.optIn?`<div class="optin-box">✅ <strong>${esc(lead.company)}</strong> has consented to be added to the Mizaan investor network. Guardian Consulting will reach out if an investor expresses interest in this profile.</div>`:''}
 
   <!-- PROPOSAL -->
-  <div class="sec-title">Guardian Consulting — recommended next steps</div>
+  <div class="sec-title">Guardian Consulting - recommended next steps</div>
   <div class="proposal">
     <div class="prop-title">How we can help you reach Investment Ready</div>
     <div class="prop-items">
       ${[
         ['GTA compliance review and filing','Resolve any outstanding tax returns and ensure full GTA compliance'],
-        ['Financial statement preparation','Prepare audited accounts — required for QDB and investor due diligence'],
+        ['Financial statement preparation','Prepare audited accounts - required for QDB and investor due diligence'],
         ['Investment readiness advisory','Structured 90-day programme to raise your score to 80+'],
         ['QDB application support','Full preparation of QDB application package with financial projections'],
         ['Investor introduction service','Curated introductions from the Mizaan investor network'],
@@ -336,11 +336,11 @@ function renderScorecard(lead){
   <!-- SIGNATURE -->
   <div class="sig-area">
     <div class="sig-box">
-      <div class="sig-lbl">Prepared by — ${esc(CFG.FIRM)}</div>
+      <div class="sig-lbl">Prepared by - ${esc(CFG.FIRM)}</div>
       <div class="sig-name">${esc(CFG.FIRM)}<br>${esc(CFG.PHONE)}</div>
     </div>
     <div class="sig-box">
-      <div class="sig-lbl">Acknowledged — ${esc(lead.company||'')}</div>
+      <div class="sig-lbl">Acknowledged - ${esc(lead.company||'')}</div>
       <div class="sig-name">${esc(lead.name||'')}</div>
     </div>
   </div>
@@ -349,7 +349,7 @@ function renderScorecard(lead){
     <div class="ft-l">Confidential · ${esc(lead.company||'')} · ${fd(new Date())}</div>
     <div class="ft-r">Powered by Mizaan ميزان</div>
   </div>
-  <div class="disclaimer">This scorecard is prepared by ${esc(CFG.FIRM)} based on self-reported information provided by the client. Scores are indicative and should not be construed as a guarantee of investment eligibility, financing approval, or investor interest. Guardian Consulting accepts no liability for decisions made solely on the basis of this assessment. All recommendations should be verified by a qualified professional. Powered by Mizaan ميزان — Qatar Investment Intelligence Platform.</div>
+  <div class="disclaimer">This scorecard is prepared by ${esc(CFG.FIRM)} based on self-reported information provided by the client. Scores are indicative and should not be construed as a guarantee of investment eligibility, financing approval, or investor interest. Guardian Consulting accepts no liability for decisions made solely on the basis of this assessment. All recommendations should be verified by a qualified professional. Powered by Mizaan ميزان - Qatar Investment Intelligence Platform.</div>
   `;
 
   // Draw radar chart after DOM is ready
