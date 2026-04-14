@@ -689,13 +689,27 @@ function generate(p){
 }
 
 // Init
+const DEMO_REPORT = {
+  company:'Al Rashid Trading W.L.L.', crNo:'1-234-567',
+  crDate: new Date(new Date().setFullYear(new Date().getFullYear()-3)).toISOString().split('T')[0],
+  jur:'moci', act:'general', profit:500000, rev:2000000, capital:1000000,
+  qPct:100, yrs:'3t10', emp:15, qemp:2, unfiled:1, acct:'firm',
+  coll:'real', finNeed:'working', attn:'Ahmed Al-Rashid, Managing Director',
+  wps:'yes', arFin:'no', tenYr:'yes', wht:false, cgt:false, exc:false, rp:false,
+  hins:false, qdb:true, name:'Ahmed Al-Rashid',
+};
 document.addEventListener('DOMContentLoaded',()=>{
   // Auto-load from localStorage — set by admin.html when "Generate Report" is clicked
   try{
     const raw=localStorage.getItem('mz_report_lead');
-    if(!raw){showError('No report data found. Please open this page from the Admin dashboard.');return;}
-    const lead=JSON.parse(raw);
-    document.getElementById('tb-co').textContent=lead.company||'Compliance Report';
+    const lead = raw ? JSON.parse(raw) : DEMO_REPORT;
+    const isDemo = !raw;
+    if(!raw){
+      const sub=document.getElementById('tb-co');
+      if(sub) sub.textContent='Preview — sample data';
+    } else {
+      document.getElementById('tb-co').textContent=lead.company||'Compliance Report';
+    }
     // Map localStorage lead fields to generate() params
     const p={
       co:       lead.company||'',

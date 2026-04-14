@@ -383,14 +383,24 @@ function renderScorecard(lead){
   },300);
 }
 
+const DEMO_SCORECARD = {
+  name:'Ahmed Al-Rashid', company:'Al Rashid Trading W.L.L.',
+  sector:'trading', investScore:61, investBand:'Growth Ready', optIn:true,
+  pillarPcts:{financial:75,compliance:50,business:65,operations:58,leadership:50,growth:67},
+  date:new Date().toLocaleDateString('en-GB'),
+};
 document.addEventListener('DOMContentLoaded',()=>{
   try{
     const raw=localStorage.getItem('mz_scorecard_lead');
-    if(!raw){document.getElementById('wrap').innerHTML=`<div style="padding:80px 40px;text-align:center;color:#9a8e87"><div style="font-size:32px;margin-bottom:12px">⚠️</div><div style="font-size:14px;font-weight:600">No scorecard data found</div><div style="font-size:12px;margin-top:6px">Open this page from the Admin dashboard using the Generate Scorecard button</div><div style="margin-top:16px"><a href="admin.html" style="color:#7c1522;font-weight:600">← Return to Admin</a></div></div>`;return;}
-    const lead=JSON.parse(raw);
+    const lead = raw ? JSON.parse(raw) : DEMO_SCORECARD;
+    const isDemo = !raw;
+    if(isDemo){
+      const sub=document.getElementById('tb-co');
+      if(sub) sub.textContent='Preview — sample data';
+    }
     renderScorecard(lead);
   }catch(e){
-    document.getElementById('wrap').innerHTML=`<div style="padding:80px 40px;text-align:center;color:#9a8e87"><div style="font-size:32px;margin-bottom:12px">⚠️</div><div style="font-size:14px;font-weight:600">Error loading scorecard</div><div style="font-size:12px;margin-top:6px">${e.message}</div><div style="margin-top:16px"><a href="admin.html" style="color:#7c1522;font-weight:600">← Return to Admin</a></div></div>`;
+    document.getElementById('wrap').innerHTML=`<div style="padding:80px 40px;text-align:center;color:#9a8e87"><div style="font-size:32px;margin-bottom:12px">⚠️</div><div style="font-size:14px;font-weight:600">Error loading scorecard: ${e.message}</div><div style="margin-top:16px"><a href="admin.html" style="color:#7c1522;font-weight:600">← Return to Admin</a></div></div>`;
   }
 });
 </script>

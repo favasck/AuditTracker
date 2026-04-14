@@ -469,6 +469,7 @@ h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif}
 // CONFIG - update these before going live
 // ══════════════════════════════════════════
 let ADMIN_PASS = localStorage.getItem('mz_admin_pw') || 'mizaan2026';
+// Reset password: open browser console and run: localStorage.removeItem('mz_admin_pw')
 let WA         = localStorage.getItem('mz_wa')       || '97451715999';
 let FIRM       = localStorage.getItem('mz_firm')     || 'Guardian Consulting';
 
@@ -507,7 +508,7 @@ function saveLeads() {
 // AUTH
 // ══════════════════════════════════════════
 function doLogin() {
-  const v = document.getElementById('pw-input').value;
+  const v = document.getElementById('pw-input').value.trim();
   if (v === ADMIN_PASS) {
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app').classList.add('visible');

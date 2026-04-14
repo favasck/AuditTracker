@@ -968,16 +968,48 @@ function setCard(id,cls,val,sub){
 // ── MODAL ─────────────────────────────────────────
 function openM(mode){
   mMode=mode||'report';
-  if(R){
-    const mn=document.getElementById('m-name'),mp=document.getElementById('m-phone');
-    if(!mn.value&&R._name)mn.value=R._name;
-    if(!mp.value&&R._phone)mp.value=R._phone;
-  }
+  // Reset to step 1
+  const s1=document.getElementById('m-step1');
+  const s2=document.getElementById('m-step2');
+  if(s1)s1.style.display='block';
+  if(s2)s2.style.display='none';
   document.getElementById('modal').classList.add('open');
 }
 function closeM(){document.getElementById('modal').classList.remove('open');}
 
-function submitM(){
+function submitMStep1(){
+  const a=lang==='ar';
+  const crno=document.getElementById('m-crno').value.trim();
+  if(!crno){toast(a?'رقم السجل التجاري مطلوب':'CR Number is required.');return;}
+  // Save extra report details into the latest lead
+  try{
+    const leads=JSON.parse(localStorage.getItem('mz_leads')||'[]');
+    if(leads.length){
+      const last=leads[leads.length-1];
+      last.crNo=crno;
+      last.crExp=document.getElementById('m-crexp').value||'';      last.tlExp=document.getElementById('m-tlexp').value||'';      last.emp=document.getElementById('m-emp').value||'';      last.qemp=document.getElementById('m-qemp').value||'';      last.capital=document.getElementById('m-cap').value||'';      last.collateral=document.getElementById('m-coll').value||'none';      last.finNeed=document.getElementById('m-finneed').value||'working';      last.reportRequested=true;      last.reportTs=Date.now();      localStorage.setItem('mz_leads',JSON.stringify(leads));
+    }
+  }catch(e){}
+  // Show step 2 — price reveal
+  document.getElementById('m-step1').style.display='none';
+  document.getElementById('m-step2').style.display='block';
+}
+
+function submitMFinal(){
+  const a=lang==='ar';
+  const nm=R?R._name:'Client';
+  const co=R&&R._company?R._company:(a?'شركتي':'my company');
+  const crno=document.getElementById('m-crno').value.trim()||'-';
+  const penStr=R&&R.pen&&R.pen.total>0?(a?`. الغرامات: ${qar(R.pen.total)}`:`. Penalties: ${qar(R.pen.total)}`):'';  const msg=a
+    ?`مرحباً ${CFG.FIRM}، أنا ${nm} من ${co}. درجة الامتثال: ${R?R.sc:'-'}/100. الموعد: ${R?fd(R.rdl):'-'}${R&&R.overdue?' (متأخر)':''}.  الضريبة: ${R?qar(R.txA):'-'}${penStr}. رقم السجل التجاري: ${crno}. أطلب التقرير التفصيلي الكامل — 149 ريال.`
+    :`Hi ${CFG.FIRM}, I'm ${nm} from ${co}. Score: ${R?R.sc:'-'}/100. Deadline: ${R?fd(R.rdl):'-'}${R&&R.overdue?' (OVERDUE)':''}.  Tax: ${R?qar(R.txA):'-'}${penStr}. CR: ${crno}. Requesting Full Compliance Report — QAR 149.`;
+  closeM();
+  window.open(`https://wa.me/${CFG.WA}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+function submitM(){submitMFinal();}
+
+function submitM_old(){
   const nm=document.getElementById('m-name').value.trim();
   const ph=document.getElementById('m-phone').value.trim();
   const em=document.getElementById('m-email').value.trim();
