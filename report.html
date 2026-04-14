@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mizaan — Full Compliance Report</title>
+<title>Mizaan - Full Compliance Report</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -273,7 +273,7 @@ body{font-family:'Syne',sans-serif;color:#1a1410;background:#fff;-webkit-print-c
     <p style="font-size:12px;color:var(--ink3);margin-bottom:20px;line-height:1.65">Fill in the client details below. This generates a print-ready compliance report. Press <strong>Print / Save PDF</strong> to deliver to the client.</p>
 
     <!-- Section A: Identity -->
-    <div class="sec-lbl">A — Company Identity</div>
+    <div class="sec-lbl">A - Company Identity</div>
     <div class="fi-row fg">
       <div><label class="fl">Company Name <em>*</em></label><input class="fi" id="i-co" type="text" placeholder="Al Rashid Trading W.L.L."></div>
       <div><label class="fl">CR Number <em>*</em></label><input class="fi" id="i-cr-no" type="text" placeholder="1-XXX-XXX"></div>
@@ -283,9 +283,9 @@ body{font-family:'Syne',sans-serif;color:#1a1410;background:#fff;-webkit-print-c
       <div><label class="fl">CR Expiry Date</label><input class="fi" id="i-cr-exp" type="date"></div>
       <div><label class="fl">Jurisdiction <em>*</em></label>
         <select class="fi" id="i-jur">
-          <option value="moci">MOCI — Mainland</option>
+          <option value="moci">MOCI - Mainland</option>
           <option value="qfc">QFC</option>
-          <option value="qfza">QFZA — Free Zone</option>
+          <option value="qfza">QFZA - Free Zone</option>
           <option value="other">Other</option>
         </select>
       </div>
@@ -307,7 +307,7 @@ body{font-family:'Syne',sans-serif;color:#1a1410;background:#fff;-webkit-print-c
     </div>
 
     <!-- Section B: Financials -->
-    <div class="sec-lbl">B — Financial Details</div>
+    <div class="sec-lbl">B - Financial Details</div>
     <div class="fi-row3 fg">
       <div><label class="fl">Net Profit (QAR) <em>*</em></label><input class="fi" id="i-profit" type="number" placeholder="500000"></div>
       <div><label class="fl">Annual Revenue (QAR)</label><input class="fi" id="i-rev" type="number" placeholder="2000000"></div>
@@ -328,7 +328,7 @@ body{font-family:'Syne',sans-serif;color:#1a1410;background:#fff;-webkit-print-c
       <div><label class="fl">Qatari Employees</label><input class="fi" id="i-qemp" type="number" placeholder="3"></div>
       <div><label class="fl">Years Unfiled</label>
         <select class="fi" id="i-unfiled">
-          <option value="0">All filed — up to date</option>
+          <option value="0">All filed - up to date</option>
           <option value="1">1 year unfiled</option>
           <option value="2">2 years unfiled</option>
           <option value="3">3 years unfiled</option>
@@ -370,19 +370,19 @@ body{font-family:'Syne',sans-serif;color:#1a1410;background:#fff;-webkit-print-c
     </div>
 
     <!-- Section C: Compliance Flags -->
-    <div class="sec-lbl">C — Compliance Flags</div>
+    <div class="sec-lbl">C - Compliance Flags</div>
     <div class="fi-row3 fg">
-      <div><label class="fl">WPS Registered?</label><select class="fi" id="i-wps"><option value="yes">Yes — registered</option><option value="no">No</option><option value="na">Not applicable</option></select></div>
+      <div><label class="fl">WPS Registered?</label><select class="fi" id="i-wps"><option value="yes">Yes - registered</option><option value="no">No</option><option value="na">Not applicable</option></select></div>
       <div><label class="fl">Arabic Financials?</label><select class="fi" id="i-ar-fin"><option value="yes">Yes</option><option value="no">No</option></select></div>
       <div><label class="fl">10-Year Records in Qatar?</label><select class="fi" id="i-10yr"><option value="yes">Yes</option><option value="partial">Partial</option><option value="no">No</option></select></div>
     </div>
-    <div class="sec-lbl">C2 — Additional Tax Flags</div>
+    <div class="sec-lbl">C2 - Additional Tax Flags</div>
     <div class="flags">
-      <div class="flag" id="f-wht" onclick="fFlip('f-wht')"><div class="flag-l">🌐 WHT — Non-resident payments made</div><div class="pip"></div></div>
-      <div class="flag" id="f-cgt" onclick="fFlip('f-cgt')"><div class="flag-l">🏢 CGT — Assets / shares disposed this year</div><div class="pip"></div></div>
-      <div class="flag" id="f-exc" onclick="fFlip('f-exc')"><div class="flag-l">🚬 Excise — Tobacco / energy drinks / soft drinks</div><div class="pip"></div></div>
+      <div class="flag" id="f-wht" onclick="fFlip('f-wht')"><div class="flag-l">🌐 WHT - Non-resident payments made</div><div class="pip"></div></div>
+      <div class="flag" id="f-cgt" onclick="fFlip('f-cgt')"><div class="flag-l">🏢 CGT - Assets / shares disposed this year</div><div class="pip"></div></div>
+      <div class="flag" id="f-exc" onclick="fFlip('f-exc')"><div class="flag-l">🚬 Excise - Tobacco / energy drinks / soft drinks</div><div class="pip"></div></div>
       <div class="flag" id="f-rp" onclick="fFlip('f-rp')"><div class="flag-l">🔗 Related-party transactions present</div><div class="pip"></div></div>
-      <div class="flag" id="f-hi" onclick="fFlip('f-hi')"><div class="flag-l">🏥 Health insurance for all employees — covered</div><div class="pip"></div></div>
+      <div class="flag" id="f-hi" onclick="fFlip('f-hi')"><div class="flag-l">🏥 Health insurance for all employees - covered</div><div class="pip"></div></div>
       <div class="flag" id="f-qdb" onclick="fFlip('f-qdb')"><div class="flag-l">🏦 Client has / wants QDB or government financing</div><div class="pip"></div></div>
     </div>
 
@@ -398,17 +398,17 @@ body{font-family:'Syne',sans-serif;color:#1a1410;background:#fff;-webkit-print-c
 </div><!-- /wrap -->
 
 <script>
-const CFG={WA:'97455171999',FIRM:'Guardian Consulting',ADDR:'West Bay, Doha — Qatar',PHONE:'+974 5171 5999',EMAIL:'info@guardianqatar.com'};
+const CFG={WA:'97455171999',FIRM:'Guardian Consulting',ADDR:'Doha - Qatar',PHONE:'+974 5171 5999',EMAIL:'info@guardianconsultingcompany.com'};
 const today=new Date();today.setHours(0,0,0,0);
 
 function fFlip(id){document.getElementById(id).classList.toggle('on');}
 function isOn(id){return document.getElementById(id).classList.contains('on');}
 function qar(n){return 'QAR '+Math.round(n||0).toLocaleString();}
-function fd(d){if(!d)return'—';return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});}
+function fd(d){if(!d)return'-';return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});}
 function fp(s,e){return fd(s)+' – '+fd(e);}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function daysFrom(d){const dt=new Date(d);dt.setHours(0,0,0,0);return Math.ceil((dt-today)/86400000);}
-function expStatus(d){if(!d)return{lbl:'Not provided',cls:'b-gray'};const dd=daysFrom(d);if(dd<0)return{lbl:'Expired',cls:'b-red'};if(dd<=30)return{lbl:'Expires in '+dd+' days',cls:'b-red'};if(dd<=90)return{lbl:'Expires in '+dd+' days',cls:'b-amber'};return{lbl:'Valid — '+fd(d),cls:'b-green'};}
+function expStatus(d){if(!d)return{lbl:'Not provided',cls:'b-gray'};const dd=daysFrom(d);if(dd<0)return{lbl:'Expired',cls:'b-red'};if(dd<=30)return{lbl:'Expires in '+dd+' days',cls:'b-red'};if(dd<=90)return{lbl:'Expires in '+dd+' days',cls:'b-amber'};return{lbl:'Valid - '+fd(d),cls:'b-green'};}
 function penCalc(unfiled){
   const rows=[];let total=0;
   const ty=today.getFullYear();
@@ -462,10 +462,10 @@ function qdbProduct(p,R){
     if(p.finNeed==='assets')prods.push({n:'Asset Finance',d:'Equipment and machinery acquisition with extended repayment.'});
     if(p.finNeed==='supply')prods.push({n:'Supply Chain Finance',d:'Invoice discounting and supplier payment solutions.'});
     if(p.finNeed==='export')prods.push({n:'Export Finance',d:'Pre and post-shipment finance for export businesses.'});
-    prods.push({n:'Credit Guarantee Programme',d:'Partial guarantee on bank financing — reduces collateral requirement.'});
+    prods.push({n:'Credit Guarantee Programme',d:'Partial guarantee on bank financing - reduces collateral requirement.'});
   }
   if(p.yrs==='u3')prods.push({n:'Startup Qatar',d:'Pre-seed and seed financing for businesses under 3 years.'});
-  if(p.acct==='owner'||p.acct==='nobody')prods.push({n:'Minha Advisory Programme',d:'Free accounting and audit advisory — QDB pays for your accountant through registered providers such as Guardian Consulting.'});
+  if(p.acct==='owner'||p.acct==='nobody')prods.push({n:'Minha Advisory Programme',d:'Free accounting and audit advisory - QDB pays for your accountant through registered providers.'});
   if(!prods.length)prods.push({n:'Not Currently Eligible',d:'Resolve GTA compliance issues before applying. Guardian Consulting can prepare you within one fiscal year.'});
   return prods;
 }
@@ -475,18 +475,18 @@ function buildChecklist(p,R){
   const items=[];
   const ok=(l,s,p)=>({ok:true,l,s,p:p||'rec'});
   const no=(l,s,p)=>({ok:false,l,s,p:p||'high'});
-  if(!R.overdue&&p.unfiled===0)items.push(ok('Tax returns — up to date','All prior year returns filed via Dhareeba'));
-  else items.push(no('File outstanding tax returns immediately','GTA Dhareeba — dhareeba.gov.qa','crit'));
+  if(!R.overdue&&p.unfiled===0)items.push(ok('Tax returns - up to date','All prior year returns filed via Dhareeba'));
+  else items.push(no('File outstanding tax returns immediately','GTA Dhareeba - dhareeba.gov.qa','crit'));
   if(R.needsAudit)items.push(no('Engage GTA-registered auditor for FY audit','Required: revenue >QAR 500k or capital >QAR 200k','crit'));
-  else items.push(ok('Audited financial statements — below mandatory threshold'));
-  items.push(p.wps==='yes'?ok('WPS — registered and compliant'):no('Register for Wages Protection System (WPS)','Ministry of Labour — mandatory for all private sector','crit'));
-  items.push(p.hins?ok('Health insurance — all employees covered'):no('Ensure health insurance for all employees','Compulsory under Qatar Labour Law','high'));
-  items.push(p.arFin==='yes'?ok('Arabic financial statements — in place'):no('Prepare Arabic financial statements','Required by Income Tax Law for submission','high'));
-  items.push(p.tenYr==='yes'?ok('10-year records in Qatar — compliant'):no('Ensure financial records maintained 10 years in Qatar','GTA audit requirement — Art. 27','high'));
-  const crExp=expStatus(p.crExp);items.push(crExp.cls==='b-green'?ok('Commercial Registration — valid','CR expiry: '+fd(p.crExp)):no('Renew Commercial Registration','Expired or expiring within 90 days','crit'));
-  const tlExp=expStatus(p.tlExp);items.push(tlExp.cls==='b-green'?ok('Trade License — valid'):no('Renew Trade License','Required for CR renewal and operations','crit'));
-  if(p.wht)items.push(no('Reconcile WHT remittances — check all months','Due before 16th monthly to GTA','high'));
-  items.push(ok('File GTA penalty exemption application if applicable','GTA 100% waiver initiative — apply via Dhareeba','rec'));
+  else items.push(ok('Audited financial statements - below mandatory threshold'));
+  items.push(p.wps==='yes'?ok('WPS - registered and compliant'):no('Register for Wages Protection System (WPS)','Ministry of Labour - mandatory for all private sector','crit'));
+  items.push(p.hins?ok('Health insurance - all employees covered'):no('Ensure health insurance for all employees','Compulsory under Qatar Labour Law','high'));
+  items.push(p.arFin==='yes'?ok('Arabic financial statements - in place'):no('Prepare Arabic financial statements','Required by Income Tax Law for submission','high'));
+  items.push(p.tenYr==='yes'?ok('10-year records in Qatar - compliant'):no('Ensure financial records maintained 10 years in Qatar','GTA audit requirement - Art. 27','high'));
+  const crExp=expStatus(p.crExp);items.push(crExp.cls==='b-green'?ok('Commercial Registration - valid','CR expiry: '+fd(p.crExp)):no('Renew Commercial Registration','Expired or expiring within 90 days','crit'));
+  const tlExp=expStatus(p.tlExp);items.push(tlExp.cls==='b-green'?ok('Trade License - valid'):no('Renew Trade License','Required for CR renewal and operations','crit'));
+  if(p.wht)items.push(no('Reconcile WHT remittances - check all months','Due before 16th monthly to GTA','high'));
+  items.push(ok('File GTA penalty exemption application if applicable','GTA 100% waiver initiative - apply via Dhareeba','rec'));
   return items;
 }
 
@@ -494,18 +494,18 @@ function buildChecklist(p,R){
 function buildCalendar(p,R){
   const year=today.getFullYear();
   const cal=[
-    {m:'January',items:[{c:'cd-blue',t:'WPS — salaries via WPS system'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-blue',t:'WHT return if applicable'}]},
-    {m:'February',items:[{c:'cd-blue',t:'WPS — monthly compliance'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-red',t:'Start engaging auditor for FY report'}]},
-    {m:'March',items:[{c:'cd-red',t:'DEADLINE MONTH — file via Dhareeba'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-blue',t:'WHT reconciliation'}]},
-    {m:'April 30',items:[{c:'cd-red',t:'⚑ INCOME TAX FILING DEADLINE'+(R.overdue?' — OVERDUE':'')},{c:'cd-amber',t:'Last day to avoid late filing penalties'},{c:'cd-blue',t:'QFC deadline: 30 June'}]},
+    {m:'January',items:[{c:'cd-blue',t:'WPS - salaries via WPS system'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-blue',t:'WHT return if applicable'}]},
+    {m:'February',items:[{c:'cd-blue',t:'WPS - monthly compliance'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-red',t:'Start engaging auditor for FY report'}]},
+    {m:'March',items:[{c:'cd-red',t:'DEADLINE MONTH - file via Dhareeba'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-blue',t:'WHT reconciliation'}]},
+    {m:'April 30',items:[{c:'cd-red',t:'⚑ INCOME TAX FILING DEADLINE'+(R.overdue?' - OVERDUE':'')},{c:'cd-amber',t:'Last day to avoid late filing penalties'},{c:'cd-blue',t:'QFC deadline: 30 June'}]},
     {m:'May',items:[{c:'cd-green',t:'CR renewal if due'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-blue',t:'CGT return if disposal occurred'}]},
-    {m:'June',items:[{c:'cd-blue',t:'QFC companies — filing deadline 30 June'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-green',t:'Mid-year compliance review'}]},
+    {m:'June',items:[{c:'cd-blue',t:'QFC companies - filing deadline 30 June'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-green',t:'Mid-year compliance review'}]},
     {m:'July',items:[{c:'cd-blue',t:'WHT return if applicable'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-green',t:'Trade license renewal if due'}]},
-    {m:'August',items:[{c:'cd-blue',t:'WPS — monthly compliance'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-green',t:'Review lease expiry dates'}]},
-    {m:'September',items:[{c:'cd-blue',t:'WPS — monthly compliance'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-green',t:'Q3 financial review recommended'}]},
-    {m:'October',items:[{c:'cd-blue',t:'WPS — monthly compliance'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-red',t:'Begin FY closing preparation'}]},
-    {m:'November',items:[{c:'cd-blue',t:'WPS — monthly compliance'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-red',t:'Engage auditor for FY '+year}]},
-    {m:'December',items:[{c:'cd-red',t:'FY year-end — close financial records'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-blue',t:'Prepare Dhareeba portal access'}]}
+    {m:'August',items:[{c:'cd-blue',t:'WPS - monthly compliance'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-green',t:'Review lease expiry dates'}]},
+    {m:'September',items:[{c:'cd-blue',t:'WPS - monthly compliance'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-green',t:'Q3 financial review recommended'}]},
+    {m:'October',items:[{c:'cd-blue',t:'WPS - monthly compliance'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-red',t:'Begin FY closing preparation'}]},
+    {m:'November',items:[{c:'cd-blue',t:'WPS - monthly compliance'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-red',t:'Engage auditor for FY '+year}]},
+    {m:'December',items:[{c:'cd-red',t:'FY year-end - close financial records'},{c:'cd-amber',t:'GRSIA contributions due 5th'},{c:'cd-blue',t:'Prepare Dhareeba portal access'}]}
   ];
   return cal;
 }
@@ -517,7 +517,7 @@ function generate(){
   if(!crDate){alert('CR Registration Date is required.');return;}
 
   const p={
-    co,crNo:document.getElementById('i-cr-no').value||'—',crDate,
+    co,crNo:document.getElementById('i-cr-no').value||'-',crDate,
     crExp:document.getElementById('i-cr-exp').value,
     jur:document.getElementById('i-jur').value,
     tlExp:document.getElementById('i-tl-exp').value,
@@ -556,7 +556,7 @@ function generate(){
   const yrMos=Math.round((R.rpe-R.rps)/(1000*60*60*24*30.4));
 
   // Financial maturity labels
-  const fmLbls=['0 — Pre-financial','1 — Early stage','2 — Basic tracking','3 — Developing','4 — Structured','5 — Investment-grade'];
+  const fmLbls=['0 - Pre-financial','1 - Early stage','2 - Basic tracking','3 - Developing','4 - Structured','5 - Investment-grade'];
   const fmCol=R.qdbFM>=4?'green':R.qdbFM>=2?'amber':'red';
 
   // QDB product names map
@@ -582,7 +582,7 @@ function generate(){
     <div class="cover-top">
       <div class="cover-brand">
         <div class="cov-mark">م</div>
-        <div><div class="cov-name">Mizaan ميزان</div><div class="cov-ar">Powered by Mizaan — Prepared by ${esc(CFG.FIRM)}</div></div>
+        <div><div class="cov-name">Mizaan ميزان</div><div class="cov-ar">Powered by Mizaan - Prepared by ${esc(CFG.FIRM)}</div></div>
       </div>
       <div class="cover-doc-type">Qatar Tax Compliance Assessment Report</div>
       <div class="cover-h1">Full Compliance<br><em>& Tax Report</em></div>
@@ -608,7 +608,7 @@ function generate(){
       </div>
     </div>
     <div class="cover-bottom">
-      <div class="cov-pow">Powered by <strong>Mizaan ميزان</strong> — Qatar Compliance Intelligence Platform</div>
+      <div class="cov-pow">Powered by <strong>Mizaan ميزان</strong> - Qatar Compliance Intelligence Platform</div>
       <div class="cov-firm">
         <div class="cf-firm-name">${esc(CFG.FIRM)}</div>
         <div class="cf-firm-sub">${esc(CFG.ADDR)} · ${esc(CFG.PHONE)}</div>
@@ -635,8 +635,8 @@ function generate(){
     <div class="dc ${lsSt.cls==='b-red'?'red':lsSt.cls==='b-amber'?'amber':'green'}"><div class="dc-lbl">Lease Expiry</div><div class="dc-val">${fd(p.leaseExp)||'Not provided'}</div><div class="dc-sub">${lsSt.lbl}</div></div>
   </div>
   <div class="dg">
-    <div class="dc"><div class="dc-lbl">Employees (Total)</div><div class="dc-val">${p.emp||'—'}</div></div>
-    <div class="dc"><div class="dc-lbl">Qatari Employees</div><div class="dc-val">${p.qemp||'—'}</div><div class="dc-sub">Qatarisation rate: ${p.emp>0?Math.round((p.qemp/p.emp)*100)+'%':'—'}</div></div>
+    <div class="dc"><div class="dc-lbl">Employees (Total)</div><div class="dc-val">${p.emp||'-'}</div></div>
+    <div class="dc"><div class="dc-lbl">Qatari Employees</div><div class="dc-val">${p.qemp||'-'}</div><div class="dc-sub">Qatarisation rate: ${p.emp>0?Math.round((p.qemp/p.emp)*100)+'%':'-'}</div></div>
     <div class="dc"><div class="dc-lbl">Ownership Structure</div><div class="dc-val">${100-R.fPct}% Qatari/GCC · ${R.fPct}% Foreign</div></div>
   </div>
 </div>
@@ -646,12 +646,12 @@ function generate(){
   <div class="sec-head"><div class="sec-num">2</div><div class="sec-title">Filing Obligation & Audit Period</div></div>
   <div class="alert alert-b">
     <div class="al-ic">ℹ️</div>
-    <div class="al-txt"><strong>All Entities Must File — GTA Notification December 2025</strong>Per GTA directive effective December 2025: ALL entities registered in Qatar — including fully Qatari or GCC-owned companies and tax-exempt entities — must submit an annual income tax return via the Dhareeba portal (dhareeba.gov.qa) by the statutory deadline.</div>
+    <div class="al-txt"><strong>All Entities Must File - GTA Notification December 2025</strong>Per GTA directive effective December 2025: ALL entities registered in Qatar - including fully Qatari or GCC-owned companies and tax-exempt entities - must submit an annual income tax return via the Dhareeba portal (dhareeba.gov.qa) by the statutory deadline.</div>
   </div>
   <div class="dg dg-4">
     <div class="dc ${R.overdue?'red':'green'}"><div class="dc-lbl">Audit Period Start</div><div class="dc-val">${fd(R.rps)}</div></div>
     <div class="dc ${R.overdue?'red':'green'}"><div class="dc-lbl">Audit Period End</div><div class="dc-val">${fd(R.rpe)}</div></div>
-    <div class="dc ${R.overdue?'red':R.urgent?'amber':'green'}"><div class="dc-lbl">Filing Deadline</div><div class="dc-val">${fd(R.rdl)}</div><div class="dc-sub">${R.overdue?'OVERDUE — '+R.dO+' days':R.urgent?R.dL+' days remaining':R.dL+' days remaining'}</div></div>
+    <div class="dc ${R.overdue?'red':R.urgent?'amber':'green'}"><div class="dc-lbl">Filing Deadline</div><div class="dc-val">${fd(R.rdl)}</div><div class="dc-sub">${R.overdue?'OVERDUE - '+R.dO+' days':R.urgent?R.dL+' days remaining':R.dL+' days remaining'}</div></div>
     <div class="dc blue"><div class="dc-lbl">Audit Period</div><div class="dc-val">${yrMos} months</div><div class="dc-sub">${p.jur==='qfc'?'QFC: 6-month deadline':'MOCI: April 30 deadline'}</div></div>
   </div>
   <div class="sub-head">Registration date analysis</div>
@@ -659,7 +659,7 @@ function generate(){
     <tr><th>CR Registered</th><th>Before July 1?</th><th>First Audit Period</th><th>First Deadline</th><th>Deadline Rule</th></tr>
     <tr><td>${fd(p.crDate)}</td><td>${new Date(p.crDate).getMonth()+1<7?'Yes':'No'}</td><td>${fp(R.rps,R.rpe)}</td><td>${fd(R.rdl)}</td><td>${p.jur==='qfc'?'6 months after FY end (QFC)':'30 April following audit year-end'}</td></tr>
   </table>
-  ${p.jur==='qfc'?`<div class="alert alert-b"><div class="al-ic">ℹ️</div><div class="al-txt"><strong>QFC Jurisdiction — Special Rules</strong>QFC-registered companies have a 6-month filing window (deadline 30 June). Income tax applies at 10% on net profit regardless of ownership structure. QFC companies are exempt from the Qatarisation Law No. 12 of 2024.</div></div>`:''}
+  ${p.jur==='qfc'?`<div class="alert alert-b"><div class="al-ic">ℹ️</div><div class="al-txt"><strong>QFC Jurisdiction - Special Rules</strong>QFC-registered companies have a 6-month filing window (deadline 30 June). Income tax applies at 10% on net profit regardless of ownership structure. QFC companies are exempt from the Qatarisation Law No. 12 of 2024.</div></div>`:''}
 </div>
 
 <!-- ══ SECTION 3: INCOME TAX ══════════════════════ -->
@@ -667,20 +667,20 @@ function generate(){
   <div class="sec-head"><div class="sec-num">3</div><div class="sec-title">Income Tax Computation</div></div>
   <div class="alert ${R.taxable?'alert-a':'alert-g'}">
     <div class="al-ic">${R.taxable?'⚡':'✅'}</div>
-    <div class="al-txt"><strong>${R.taxable?'Tax Payable — Law No. 24 of 2018, Article 2 & 10':'Tax Exempt — Filing Still Required'}</strong>${R.taxable?`Income tax of ${R.rLbl} applies to the foreign-owned share of net profit. Tax is due upon filing by ${fd(R.rdl)}.`:'This entity qualifies for tax exemption. However, a nil return must still be filed via Dhareeba by '+fd(R.rdl)+' — failure to file incurs penalties regardless of tax-exempt status.'}</div>
+    <div class="al-txt"><strong>${R.taxable?'Tax Payable - Law No. 24 of 2018, Article 2 & 10':'Tax Exempt - Filing Still Required'}</strong>${R.taxable?`Income tax of ${R.rLbl} applies to the foreign-owned share of net profit. Tax is due upon filing by ${fd(R.rdl)}.`:'This entity qualifies for tax exemption. However, a nil return must still be filed via Dhareeba by '+fd(R.rdl)+' - failure to file incurs penalties regardless of tax-exempt status.'}</div>
   </div>
   <table class="tbl">
     <tr><th>Item</th><th>Amount / Rate</th><th>Notes</th></tr>
     <tr><td>Net profit (declared)</td><td>${qar(p.profit)}</td><td>As reported in financial statements</td></tr>
     <tr><td>Foreign-owned share</td><td>${R.fPct}%</td><td>${100-R.fPct}% Qatari/GCC owned, ${R.fPct}% foreign</td></tr>
     <tr><td>Taxable profit</td><td>${qar(R.txP)}</td><td>Net profit × foreign ownership %</td></tr>
-    <tr><td>Applicable tax rate</td><td>${R.rLbl}</td><td>${R.petro?'Petroleum/petrochemical activity — Art. 10(2)':'Standard rate — Law No. 24/2018, Art. 2'}</td></tr>
-    <tr class="total"><td>Estimated income tax due</td><td>${qar(R.txA)}</td><td>Payable upon filing — ${fd(R.rdl)}</td></tr>
+    <tr><td>Applicable tax rate</td><td>${R.rLbl}</td><td>${R.petro?'Petroleum/petrochemical activity - Art. 10(2)':'Standard rate - Law No. 24/2018, Art. 2'}</td></tr>
+    <tr class="total"><td>Estimated income tax due</td><td>${qar(R.txA)}</td><td>Payable upon filing - ${fd(R.rdl)}</td></tr>
   </table>
-  ${R.needsAudit?`<div class="alert alert-a"><div class="al-ic">⚡</div><div class="al-txt"><strong>Audited Financial Statements Required</strong>Revenue exceeds QAR 500,000 or registered capital exceeds QAR 200,000 — audited financial statements prepared by a GTA-registered auditor must accompany the tax return (Law No. 24/2018, Art. 12). XBRL-format financial statements are required for FY 2025 onwards.</div></div>`:''}
-  ${p.wht?`<div class="alert alert-a"><div class="al-ic">⚡</div><div class="al-txt"><strong>Withholding Tax — 5% on Non-Resident Payments</strong>Applies to royalties, interest, commissions, and service fees paid to non-residents. The payer must withhold 5% and remit to GTA before the 16th of the following month (Law No. 24/2018, Art. 14). Check applicable Double Tax Agreements — reduced or zero rates may apply.</div></div>`:''} 
-  ${p.cgt?`<div class="alert alert-r"><div class="al-ic">⚠️</div><div class="al-txt"><strong>Capital Gains Tax — Separate Return Required Within 30 Days</strong>The disposal of real estate, shares, or business assets triggers CGT at ${R.rLbl}. A separate return must be filed within 30 days of the disposal date (Art. 7) — this is independent of the annual income tax return. Missing this window incurs the same QAR 500/day penalty.</div></div>`:''} 
-  ${p.exc?`<div class="alert alert-a"><div class="al-ic">⚡</div><div class="al-txt"><strong>Excise Tax Applies</strong>Tobacco and energy drinks: 100%. Carbonated soft drinks: 50%. Registration with GTA is required before import. Digital Tax Stamps are mandatory for tobacco products since October 2022 — unregistered imports may be seized.</div></div>`:''}
+  ${R.needsAudit?`<div class="alert alert-a"><div class="al-ic">⚡</div><div class="al-txt"><strong>Audited Financial Statements Required</strong>Revenue exceeds QAR 500,000 or registered capital exceeds QAR 200,000 - audited financial statements prepared by a GTA-registered auditor must accompany the tax return (Law No. 24/2018, Art. 12). XBRL-format financial statements are required for FY 2025 onwards.</div></div>`:''}
+  ${p.wht?`<div class="alert alert-a"><div class="al-ic">⚡</div><div class="al-txt"><strong>Withholding Tax - 5% on Non-Resident Payments</strong>Applies to royalties, interest, commissions, and service fees paid to non-residents. The payer must withhold 5% and remit to GTA before the 16th of the following month (Law No. 24/2018, Art. 14). Check applicable Double Tax Agreements - reduced or zero rates may apply.</div></div>`:''} 
+  ${p.cgt?`<div class="alert alert-r"><div class="al-ic">⚠️</div><div class="al-txt"><strong>Capital Gains Tax - Separate Return Required Within 30 Days</strong>The disposal of real estate, shares, or business assets triggers CGT at ${R.rLbl}. A separate return must be filed within 30 days of the disposal date (Art. 7) - this is independent of the annual income tax return. Missing this window incurs the same QAR 500/day penalty.</div></div>`:''} 
+  ${p.exc?`<div class="alert alert-a"><div class="al-ic">⚡</div><div class="al-txt"><strong>Excise Tax Applies</strong>Tobacco and energy drinks: 100%. Carbonated soft drinks: 50%. Registration with GTA is required before import. Digital Tax Stamps are mandatory for tobacco products since October 2022 - unregistered imports may be seized.</div></div>`:''}
 </div>
 
 <!-- ══ SECTION 4: PENALTY EXPOSURE ════════════════ -->
@@ -693,20 +693,20 @@ function generate(){
   </div>
   <table class="tbl">
     <tr><th>Penalty Type</th><th>Amount</th><th>Basis</th><th>Waivable?</th></tr>
-    ${pen.rows.map(r=>`<tr><td>${esc(r.l)}</td><td>${qar(r.a)}</td><td>${r.l.includes('Registration')?'Art. 35 — failure to register':'QAR 500/day × late days, capped QAR 180,000 per return (Art. 36)'}</td><td><span class="badge b-green">Yes</span></td></tr>`).join('')}
+    ${pen.rows.map(r=>`<tr><td>${esc(r.l)}</td><td>${qar(r.a)}</td><td>${r.l.includes('Registration')?'Art. 35 - failure to register':'QAR 500/day × late days, capped QAR 180,000 per return (Art. 36)'}</td><td><span class="badge b-green">Yes</span></td></tr>`).join('')}
     <tr class="total"><td>Total exposure</td><td>${qar(pen.total)}</td><td colspan="2">Subject to GTA penalty exemption application</td></tr>
   </table>
   <div class="sub-head">GTA Financial Penalty Exemption Initiative</div>
   <div class="alert alert-g">
     <div class="al-ic">✅</div>
-    <div class="al-txt"><strong>How to Apply — 100% Waiver Available</strong>The GTA has waived penalties for 7,000+ taxpayers and over QAR 1.6 billion in fines. This client should apply immediately via the Dhareeba portal under "Penalty Exemption Request". Required steps: (1) File all outstanding returns via Dhareeba. (2) Pay the underlying tax due. (3) Submit exemption application with supporting documents. (4) GTA typically processes within 30–90 days.</div>
+    <div class="al-txt"><strong>How to Apply - 100% Waiver Available</strong>The GTA has waived penalties for 7,000+ taxpayers and over QAR 1.6 billion in fines. This client should apply immediately via the Dhareeba portal under "Penalty Exemption Request". Required steps: (1) File all outstanding returns via Dhareeba. (2) Pay the underlying tax due. (3) Submit exemption application with supporting documents. (4) GTA typically processes within 30–90 days.</div>
   </div>`:
   `<div class="alert alert-g"><div class="al-ic">✅</div><div class="al-txt"><strong>No Penalties Accumulated</strong>This entity has no accumulated late filing or registration penalties. Maintain timely filing to preserve this status.</div></div>`}
 </div>
 
 <!-- ══ SECTION 5: COMPLIANCE DIMENSIONS ══════════ -->
 <div class="section">
-  <div class="sec-head"><div class="sec-num">5</div><div class="sec-title">Compliance Dimensions — All 8 Areas</div></div>
+  <div class="sec-head"><div class="sec-num">5</div><div class="sec-title">Compliance Dimensions - All 8 Areas</div></div>
   <div class="dg dg-4">
     <div class="dc ${R.overdue?'red':R.urgent?'amber':'green'}"><div class="dc-lbl">GTA Filing</div><div class="dc-val">${R.overdue?'Overdue':R.urgent?'Due Soon':'On Track'}</div><div class="dc-sub">${fd(R.rdl)}</div></div>
     <div class="dc ${crSt.cls==='b-red'?'red':crSt.cls==='b-amber'?'amber':'green'}"><div class="dc-lbl">Commercial Registration</div><div class="dc-val">${crSt.lbl}</div></div>
@@ -719,8 +719,8 @@ function generate(){
   </div>
   <div class="sub-head">GRSIA & Qatarisation</div>
   <div class="dg dg-2">
-    <div class="dc ${p.qemp>0?'green':'blue'}"><div class="dc-lbl">GRSIA Contributions</div><div class="dc-val">${p.qemp>0?'Required — '+p.qemp+' Qatari employee'+( p.qemp!==1?'s':''):'Not applicable — no Qatari staff declared'}</div><div class="dc-sub">${p.qemp>0?'14% employer + 7% employee — due 5th monthly':''}</div></div>
-    <div class="dc ${p.jur==='qfc'?'blue':p.emp>0&&p.qemp/p.emp<0.02?'amber':'green'}"><div class="dc-lbl">Qatarisation (Law 12/2024)</div><div class="dc-val">${p.jur==='qfc'?'Exempt (QFC entity)':p.emp>0?Math.round((p.qemp/p.emp)*100)+'% Qatarisation rate':'No staff declared'}</div><div class="dc-sub">${p.jur!=='qfc'?'Effective April 2025 — sector-specific ratios apply':''}</div></div>
+    <div class="dc ${p.qemp>0?'green':'blue'}"><div class="dc-lbl">GRSIA Contributions</div><div class="dc-val">${p.qemp>0?'Required - '+p.qemp+' Qatari employee'+( p.qemp!==1?'s':''):'Not applicable - no Qatari staff declared'}</div><div class="dc-sub">${p.qemp>0?'14% employer + 7% employee - due 5th monthly':''}</div></div>
+    <div class="dc ${p.jur==='qfc'?'blue':p.emp>0&&p.qemp/p.emp<0.02?'amber':'green'}"><div class="dc-lbl">Qatarisation (Law 12/2024)</div><div class="dc-val">${p.jur==='qfc'?'Exempt (QFC entity)':p.emp>0?Math.round((p.qemp/p.emp)*100)+'% Qatarisation rate':'No staff declared'}</div><div class="dc-sub">${p.jur!=='qfc'?'Effective April 2025 - sector-specific ratios apply':''}</div></div>
   </div>
   ${p.rp?`<div class="alert alert-a"><div class="al-ic">⚡</div><div class="al-txt"><strong>Related-Party Transactions</strong>Transfer pricing documentation required for transactions with related parties (Art. 20, Law No. 24/2018). GTA may request the master file and local file. Ensure transactions are at arm's length and documented prior to filing.</div></div>`:''}
 </div>
@@ -731,14 +731,14 @@ function generate(){
   <div class="checklist">
     ${ck.map(c=>`<div class="ck-item"><div class="ck-box ${c.ok?'check':'cross'}">${c.ok?'✓':'✗'}</div><div class="ck-lbl"><strong>${esc(c.l)}</strong>${c.s?esc(c.s):''}</div><span class="ck-pri ${c.p==='crit'?'pri-crit':c.p==='high'?'pri-high':'pri-rec'}">${c.p==='crit'?'Critical':c.p==='high'?'High':'Recommended'}</span></div>`).join('')}
   </div>
-  ${R.needsAudit?`<div class="alert alert-b"><div class="al-ic">ℹ️</div><div class="al-txt"><strong>XBRL Financial Statements — FY 2025 Onwards</strong>GTA has announced XBRL-format financial statements are required for tax returns from FY 2025. All audited accounts must be tagged in iXBRL format. Ensure your audit firm is equipped to produce XBRL-compliant reports before the April 2026 deadline.</div></div>`:''}
+  ${R.needsAudit?`<div class="alert alert-b"><div class="al-ic">ℹ️</div><div class="al-txt"><strong>XBRL Financial Statements - FY 2025 Onwards</strong>GTA has announced XBRL-format financial statements are required for tax returns from FY 2025. All audited accounts must be tagged in iXBRL format. Ensure your audit firm is equipped to produce XBRL-compliant reports before the April 2026 deadline.</div></div>`:''}
 </div>
 
 <!-- ══ SECTION 7: 12-MONTH CALENDAR ══════════════ -->
 <div class="page-break"></div>
 <div class="section">
   <div class="page-head"><div class="ph-co">${esc(p.co)}</div><div class="ph-mark">Mizaan ميزان</div></div>
-  <div class="sec-head"><div class="sec-num">7</div><div class="sec-title">12-Month Compliance Calendar — ${today.getFullYear()}</div></div>
+  <div class="sec-head"><div class="sec-num">7</div><div class="sec-title">12-Month Compliance Calendar - ${today.getFullYear()}</div></div>
   <div class="cal-grid">
     ${cal.map(c=>`<div class="cal-m"><div class="cal-mh">${c.m}</div><div class="cal-items">${c.items.map(i=>`<div class="cal-item"><div class="cal-dot ${i.c}"></div>${i.t}</div>`).join('')}</div></div>`).join('')}
   </div>
@@ -749,7 +749,7 @@ function generate(){
   <div class="sec-head"><div class="sec-num">8</div><div class="sec-title">Government Tender Eligibility</div></div>
   <div class="dg dg-2">
     <div class="dc ${!R.overdue&&p.unfiled===0?'green':'red'}"><div class="dc-lbl">GTA Compliance Certificate</div><div class="dc-val">${!R.overdue&&p.unfiled===0?'Obtainable':'Blocked'}</div><div class="dc-sub">${!R.overdue&&p.unfiled===0?'Can request via Dhareeba':'Requires filing of all outstanding returns'}</div></div>
-    <div class="dc ${crSt.cls==='b-red'?'red':'green'}"><div class="dc-lbl">CR Status for Tenders</div><div class="dc-val">${crSt.cls!=='b-red'?'Valid':'CR Expired — blocks bids'}</div></div>
+    <div class="dc ${crSt.cls==='b-red'?'red':'green'}"><div class="dc-lbl">CR Status for Tenders</div><div class="dc-val">${crSt.cls!=='b-red'?'Valid':'CR Expired - blocks bids'}</div></div>
   </div>
   <table class="tbl">
     <tr><th>Tender Requirement</th><th>Status</th><th>Action Required</th></tr>
@@ -764,7 +764,7 @@ function generate(){
 <!-- ══ SECTION 9: ACTION CHECKLIST ═══════════════ -->
 <div class="section avoid-break">
   <div class="sec-head"><div class="sec-num">9</div><div class="sec-title">Prioritised Action Checklist</div></div>
-  ${[['Critical — Action Required Immediately','crit','⚠️'],['High — Action Required Within 30 Days','high','⚡'],['Recommended — Best Practice','rec','ℹ️']].map(([h,lvl,ic])=>{
+  ${[['Critical - Action Required Immediately','crit','⚠️'],['High - Action Required Within 30 Days','high','⚡'],['Recommended - Best Practice','rec','ℹ️']].map(([h,lvl,ic])=>{
     const items=ck.filter(c=>!c.ok&&c.p===lvl);
     if(!items.length)return '';
     return `<div class="sub-head">${ic} ${h}</div><div class="checklist">${items.map(c=>`<div class="ck-item"><div class="ck-box cross">✗</div><div class="ck-lbl"><strong>${esc(c.l)}</strong>${c.s?esc(c.s):''}</div><span class="ck-pri ${c.p==='crit'?'pri-crit':c.p==='high'?'pri-high':'pri-rec'}">${c.p==='crit'?'Critical':c.p==='high'?'High':'Recommended'}</span></div>`).join('')}</div>`;
@@ -779,7 +779,7 @@ function generate(){
   <div class="sec-head"><div class="sec-num">10</div><div class="sec-title">QDB & Financing Readiness</div></div>
   <div class="dg dg-2">
     <div class="dc ${R.finElig==='green'?'green':R.finElig==='amber'?'amber':'red'}"><div class="dc-lbl">QDB Eligibility Status</div><div class="dc-val">${R.finElig==='green'?'Eligible':R.finElig==='amber'?'Borderline':'Not Currently Eligible'}</div><div class="dc-sub">${R.finElig==='green'?'Compliance status supports TAMKEEN application':R.finElig==='amber'?'1 more year clean filing achieves eligibility':'Resolve GTA compliance issues first'}</div></div>
-    <div class="dc ${fmCol}"><div class="dc-lbl">Financial Maturity Score</div><div class="dc-val">${R.qdbFM}/5 — ${fmLbls[R.qdbFM]}</div><div class="dc-sub">QDB internal assessment dimension</div></div>
+    <div class="dc ${fmCol}"><div class="dc-lbl">Financial Maturity Score</div><div class="dc-val">${R.qdbFM}/5 - ${fmLbls[R.qdbFM]}</div><div class="dc-sub">QDB internal assessment dimension</div></div>
   </div>
   <div class="dg dg-2">
     <div class="dc blue"><div class="dc-lbl">Primary Financing Need</div><div class="dc-val">${finNeedLabels[p.finNeed]||p.finNeed}</div></div>
@@ -797,25 +797,25 @@ function generate(){
   <div class="sub-head">QDB Requirements Checklist</div>
   <table class="tbl">
     <tr><th>QDB Requirement</th><th>Status</th></tr>
-    <tr><td>Audited accounts — last 3 years</td><td>${p.yrs!=='u3'?`<span class="badge b-${R.needsAudit&&(p.acct==='firm'||p.acct==='inhouse')?'green':'amber'}">${R.needsAudit&&(p.acct==='firm'||p.acct==='inhouse')?'✓ Likely available':'⚡ Confirm with client'}</span>`:`<span class="badge b-red">✗ Under 3 years — limited history</span>`}</td></tr>
-    <tr><td>Full GTA compliance (no outstanding returns)</td><td>${!R.overdue&&p.unfiled===0?`<span class="badge b-green">✓ Compliant</span>`:`<span class="badge b-red">✗ Outstanding returns — blocks application</span>`}</td></tr>
+    <tr><td>Audited accounts - last 3 years</td><td>${p.yrs!=='u3'?`<span class="badge b-${R.needsAudit&&(p.acct==='firm'||p.acct==='inhouse')?'green':'amber'}">${R.needsAudit&&(p.acct==='firm'||p.acct==='inhouse')?'✓ Likely available':'⚡ Confirm with client'}</span>`:`<span class="badge b-red">✗ Under 3 years - limited history</span>`}</td></tr>
+    <tr><td>Full GTA compliance (no outstanding returns)</td><td>${!R.overdue&&p.unfiled===0?`<span class="badge b-green">✓ Compliant</span>`:`<span class="badge b-red">✗ Outstanding returns - blocks application</span>`}</td></tr>
     <tr><td>Valid CR and trade license</td><td>${crSt.cls!=='b-red'&&tlSt.cls!=='b-red'?`<span class="badge b-green">✓ Valid</span>`:`<span class="badge b-red">✗ Renewal required</span>`}</td></tr>
     <tr><td>Company HQ in Qatar</td><td><span class="badge b-green">✓ Qatar-registered entity</span></td></tr>
-    <tr><td>Majority Qatari/GCC ownership (most programmes)</td><td>${100-R.fPct>=51?`<span class="badge b-green">✓ ${100-R.fPct}% Qatari/GCC</span>`:`<span class="badge b-amber">⚡ ${100-R.fPct}% — check specific programme requirements</span>`}</td></tr>
+    <tr><td>Majority Qatari/GCC ownership (most programmes)</td><td>${100-R.fPct>=51?`<span class="badge b-green">✓ ${100-R.fPct}% Qatari/GCC</span>`:`<span class="badge b-amber">⚡ ${100-R.fPct}% - check specific programme requirements</span>`}</td></tr>
   </table>
-  ${p.acct==='owner'||p.acct==='nobody'?`<div class="alert alert-b"><div class="al-ic">🏦</div><div class="al-txt"><strong>Minha Programme — QDB Pays for Your Accountant</strong>QDB's Minha programme provides free accounting and financial management advisory for qualifying SMEs. The programme covers costs of an approved accounting firm — at no cost to the client. Guardian Consulting is a registered Minha service provider. This client should be referred to the Minha portal at qdb.com.qa/minha as an immediate priority.</div></div>`:''}
+  ${p.acct==='owner'||p.acct==='nobody'?`<div class="alert alert-b"><div class="al-ic">🏦</div><div class="al-txt"><strong>Minha Programme - QDB Pays for Your Accountant</strong>QDB's Minha programme provides free accounting and financial management advisory for qualifying SMEs. The programme covers costs of an approved accounting firm - at no cost to the client. Guardian Consulting can help you with Minha service. This client should be referred to the Minha portal at qdb.com.qa/minha as an immediate priority.</div></div>`:''}
 </div>
 
 <!-- ══ SECTION 11: SERVICE PROPOSAL ══════════════ -->
 <div class="section avoid-break">
-  <div class="sec-head"><div class="sec-num">11</div><div class="sec-title">Guardian Consulting — Service Proposal</div></div>
+  <div class="sec-head"><div class="sec-num">11</div><div class="sec-title">Guardian Consulting - Service Proposal</div></div>
   <div class="proposal-box">
-    <div class="pb-title">${esc(CFG.FIRM)} — Recommended Services</div>
+    <div class="pb-title">${esc(CFG.FIRM)} - Recommended Services</div>
     <p style="font-size:10px;color:var(--ink3);margin-bottom:12px;line-height:1.6">Based on the compliance assessment above, we recommend the following services to bring ${esc(p.co)} to full GTA compliance and QDB eligibility.</p>
     ${[
       ['Tax Return Preparation & Filing','Preparation and submission of all outstanding and current-year tax returns via Dhareeba. Includes full audit liaison and GTA correspondence.'],
       ['GTA Penalty Waiver Application','Preparation and submission of penalty exemption application. Success rate over 90% for clients with a clean audit trail.'],
-      R.needsAudit?['Statutory Audit — FY Financial Statements','Preparation of audited financial statements by a GTA-registered audit firm. Includes iXBRL tagging for FY 2025 compliance.']:null,
+      R.needsAudit?['Statutory Audit - FY Financial Statements','Preparation of audited financial statements by a GTA-registered audit firm. Includes iXBRL tagging for FY 2025 compliance.']:null,
       p.wht?['WHT Compliance Review','Full review of non-resident payments and WHT obligations. Includes DTA analysis and monthly remittance schedule.']:null,
       p.acct==='owner'||p.acct==='nobody'?['Outsourced Accounting Services','Monthly bookkeeping, payroll, WPS processing, and GRSIA contributions. Eligible for QDB Minha programme (no cost to client).']:null,
       (R.finElig!=='red'&&p.finNeed!=='none')?['QDB Financing Application Support','Full preparation of QDB application package including financial projections, business plan, and compliance certificates.']:null,
@@ -823,21 +823,21 @@ function generate(){
   </div>
   <div class="sig-area">
     <div class="sig-box">
-      <div class="sig-lbl">Prepared by — ${esc(CFG.FIRM)}</div>
+      <div class="sig-lbl">Prepared by - ${esc(CFG.FIRM)}</div>
       <div class="sig-name" style="margin-top:40px">${esc(CFG.FIRM)}<br>${esc(CFG.PHONE)} · ${esc(CFG.EMAIL)}</div>
     </div>
     <div class="sig-box">
-      <div class="sig-lbl">Client Acknowledgement — ${esc(p.co)}</div>
+      <div class="sig-lbl">Client Acknowledgement - ${esc(p.co)}</div>
       <div class="sig-name" style="margin-top:40px">${esc(p.attn)}</div>
     </div>
   </div>
   <div class="disclaimer">
-    <strong>Disclaimer:</strong> This report is prepared by ${esc(CFG.FIRM)} for informational purposes only and does not constitute legal or tax advice. Figures are estimates based on information provided and the Qatar Income Tax Law No. 24 of 2018 as amended. Actual tax liability, penalties, and deadlines should be confirmed with a qualified GTA-registered tax consultant. Guardian Consulting accepts no liability for decisions made on the basis of this report without independent professional verification. Powered by Mizaan ميزان — Qatar Compliance Intelligence Platform.
+    <strong>Disclaimer:</strong> This report is prepared by ${esc(CFG.FIRM)} for informational purposes only and does not constitute legal or tax advice. Figures are estimates based on information provided and the Qatar Income Tax Law No. 24 of 2018 as amended. Actual tax liability, penalties, and deadlines should be confirmed with a qualified GTA-registered tax consultant. Guardian Consulting accepts no liability for decisions made on the basis of this report without independent professional verification by Auditors. Powered by Mizaan ميزان - Qatar Compliance Intelligence Platform.
   </div>
 </div>
 
 <div class="page-foot">
-  <div class="pf-txt">Confidential — Prepared by ${esc(CFG.FIRM)} for ${esc(p.co)} · ${fd(today)}</div>
+  <div class="pf-txt">Confidential - Prepared by ${esc(CFG.FIRM)} for ${esc(p.co)} · ${fd(today)}</div>
   <div class="pf-pg">Powered by Mizaan ميزان</div>
 </div>
 `;
