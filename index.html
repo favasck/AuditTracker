@@ -512,7 +512,7 @@ input[type=range].rng::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(124,
     <div class="up-card fade d3">
       <div class="up-top">
         <span class="up-badge" id="up-badge">Full Report</span>
-        <span class="up-price">QAR <span id="up-price">149</span><small> · one-time</small></span>
+        <span style="font-size:12px;color:var(--ink4);font-family:'Syne',sans-serif">Price after details</span>
       </div>
       <div class="up-items">
         <div class="up-item">Print-ready audit report (PDF)</div>
@@ -529,20 +529,20 @@ input[type=range].rng::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(124,
     <div class="inv-card fade d3">
       <div class="inv-top">
         <span class="inv-badge">New</span>
-        <span class="up-price" style="color:var(--gold)">QAR <span id="inv-price">99</span><small style="color:var(--ink3)"> · online score</small></span>
+        <span style="font-size:12px;color:var(--ink4);font-family:'Syne',sans-serif">Price after score</span>
       </div>
       <div class="inv-title" id="inv-title">Investment Readiness Score</div>
       <div class="inv-sub" id="inv-sub">Are you bankable? Score your business across 6 pillars - financial health, governance, operations, leadership, and growth potential. We'll add your profile to the Mizaan investor network and notify you if there's interest.</div>
     </div>
 
     <div class="cta-stack fade d4">
-      <button class="btn-wa" onclick="openM('report')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        <span id="bwa">Get Full Report - QAR 149</span>
+      <button class="btn-wa" style="background:var(--maroon)" onclick="openM('report')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span id="bwa">Get Detailed Report</span>
       </button>
       <button class="btn-inv" onclick="window.location.href='invest.html'">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-        <span id="binv">Check Investment Readiness - QAR 99</span>
+        <span id="binv">Check Investment Readiness</span>
       </button>
       <button class="btn-rerun" onclick="goTo('checker')" id="brerun">← Run another check</button>
     </div>
@@ -557,16 +557,67 @@ input[type=range].rng::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(124,
       <div class="m-mark">م</div>
       <div class="m-firm">Mizaan ميزان<span>Guardian Consulting · Qatar Tax & Audit</span></div>
     </div>
-    <div class="m-title" id="m-title">Connect with Our Team</div>
-    <p class="m-sub" id="m-sub">Leave your details and we'll reach out via WhatsApp within the hour.</p>
-    <div class="fg"><label class="fl" id="mlname">Your Name <em>*</em></label><input class="fi" id="m-name" type="text" placeholder="Ahmed Al-Rashid"></div>
-    <div class="fg"><label class="fl" id="mlphone">WhatsApp Number <em>*</em></label><input class="fi" id="m-phone" type="tel" placeholder="+974 5XXX XXXX"></div>
-    <div class="fg" style="margin-bottom:18px"><label class="fl" id="mlemail">Email <span class="fl-h">(optional)</span></label><input class="fi" id="m-email" type="email" placeholder="ahmed@company.qa"></div>
-    <button class="btn-go" onclick="submitM()" id="m-btn" style="margin-top:0">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      <span id="m-btn-lbl">Send on WhatsApp →</span>
-    </button>
-    <div class="m-note" id="m-note">🔒 Your details are private and used only for this compliance check.</div>
+
+    <!-- STEP 1: form inputs -->
+    <div id="m-step1">
+      <div class="m-title" id="m-title">Get Your Detailed Report</div>
+      <p class="m-sub" id="m-sub">A few quick details so we can prepare your personalised report.</p>
+      <div class="fg"><label class="fl" id="mlcrno">CR Number <em>*</em></label><input class="fi" id="m-crno" type="text" placeholder="1-XXX-XXX"></div>
+      <div class="fi-row fg">
+        <div><label class="fl" id="mlcrexp">CR Expiry Date</label><input class="fi" id="m-crexp" type="date"></div>
+        <div><label class="fl" id="mltlexp">Trade License Expiry</label><input class="fi" id="m-tlexp" type="date"></div>
+      </div>
+      <div class="fi-row fg">
+        <div><label class="fl" id="mlemp">Total Employees</label><input class="fi" id="m-emp" type="number" min="0" placeholder="25"></div>
+        <div><label class="fl" id="mlqemp">Qatari Employees</label><input class="fi" id="m-qemp" type="number" min="0" placeholder="3"></div>
+      </div>
+      <div class="fg"><label class="fl" id="mlcap">Registered Capital (QAR)</label><input class="fi" id="m-cap" type="number" min="0" placeholder="1,000,000"></div>
+      <div class="fg"><label class="fl" id="mlcoll">Collateral Available?</label>
+        <select class="fi" id="m-coll">
+          <option value="none">No available collateral</option>
+          <option value="real">Real estate / Equipment</option>
+          <option value="fin">Financial assets (AR, Deposits)</option>
+          <option value="guar">Guarantees (Personal / Corporate)</option>
+        </select>
+      </div>
+      <div class="fg"><label class="fl" id="mlfineed">Primary Financing Need</label>
+        <select class="fi" id="m-finneed">
+          <option value="working">Working capital</option>
+          <option value="assets">Asset financing</option>
+          <option value="supply">Supply chain financing</option>
+          <option value="export">Export financing</option>
+          <option value="equity">Equity financing</option>
+          <option value="none">No financing need</option>
+        </select>
+      </div>
+      <button class="btn-go" onclick="submitMStep1()" style="margin-top:4px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span id="m-step1-lbl">Continue →</span>
+      </button>
+      <div class="m-note" id="m-note">🔒 Your details are used only to prepare your compliance report.</div>
+    </div>
+
+    <!-- STEP 2: price reveal + WhatsApp send -->
+    <div id="m-step2" style="display:none;animation:mu .3s ease">
+      <div style="text-align:center;padding:8px 0 20px">
+        <div style="font-size:40px;margin-bottom:10px">📋</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--maroon);margin-bottom:6px" id="m2-title">Your report is ready to request</div>
+        <p style="font-size:13px;color:var(--ink3);line-height:1.65;margin-bottom:20px" id="m2-sub">Details saved. Send us a WhatsApp message to confirm your order and we will deliver your personalised PDF report.</p>
+        <div style="background:var(--maroon-bg);border:1px solid var(--maroon-bd);border-radius:12px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
+          <div style="text-align:left">
+            <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:4px" id="m2-prod-lbl">Full Compliance Report</div>
+            <div style="font-size:11px;color:var(--ink3)" id="m2-includes">11 sections · PDF delivered via WhatsApp</div>
+          </div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:var(--maroon)" id="m2-price">QAR 149</div>
+        </div>
+        <button class="btn-wa" onclick="submitMFinal()" style="width:100%">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span id="m2-wa-lbl">Confirm & Send via WhatsApp</span>
+        </button>
+        <button style="width:100%;height:38px;background:transparent;border:1px solid var(--cream3);border-radius:var(--r);font-size:12px;color:var(--ink3);cursor:pointer;margin-top:8px;font-family:'Syne',sans-serif" onclick="document.getElementById('m-step2').style.display='none';document.getElementById('m-step1').style.display='block'">← Edit details</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -609,8 +660,8 @@ en:{
   'up-badge':'Full Report',
   'inv-title':'Investment Readiness Score',
   'inv-sub':'Are you bankable? Score your business across 6 pillars. We\'ll add your profile to the Mizaan investor network.',
-  'bwa':'Get Full Report - QAR 149',
-  'binv':'Check Investment Readiness - QAR 99',
+  'bwa':'Get Detailed Report',
+  'binv':'Check Investment Readiness',
   'brerun':'← Run another check',
   'm-title':'Connect with Our Team',
   'm-sub':'Leave your details and we\'ll reach out via WhatsApp within the hour.',
@@ -652,8 +703,8 @@ ar:{
   'up-badge':'التقرير الكامل',
   'inv-title':'نقاط الجاهزية للاستثمار',
   'inv-sub':'هل أنت مؤهل للتمويل؟ قيّم شركتك في 6 محاور وانضم لشبكة المستثمرين في ميزان.',
-  'bwa':'احصل على التقرير الكامل - 149 ريال',
-  'binv':'تحقق من جاهزية الاستثمار - 99 ريال',
+  'bwa':'احصل على التقرير التفصيلي',
+  'binv':'تحقق من جاهزية الاستثمار',
   'brerun':'فحص جديد ←',
   'm-title':'تواصل مع فريقنا',
   'm-sub':'اترك بياناتك وسنتواصل معك خلال ساعة عبر واتساب.',
@@ -936,8 +987,8 @@ function submitM(){
   closeM();
   const penStr=R&&R.pen.total>0?(a?`. الغرامات: ${qar(R.pen.total)}`:`. Penalties: ${qar(R.pen.total)}`):'';
   const msg=a
-    ?`مرحباً، أنا ${nm} من ${R&&R._company?R._company:'شركتي'}. درجة الامتثال: ${R?R.sc:'-'}/100. الموعد: ${R?fd(R.rdl):'-'}${R&&R.overdue?' (متأخر)':''}. الضريبة: ${R?qar(R.txA):'-'}${penStr}. أرجو المساعدة في ${mMode==='invest'?'تقييم الجاهزية للاستثمار':'التقرير الكامل - 149 ريال'}.`
-    :`Hi ${CFG.FIRM}, I'm ${nm} from ${R&&R._company?R._company:'my company'}. Score: ${R?R.sc:'-'}/100. Deadline: ${R?fd(R.rdl):'-'}${R&&R.overdue?' (OVERDUE)':''}. Tax: ${R?qar(R.txA):'-'}${penStr}. I'd like the ${mMode==='invest'?'Investment Readiness Score - QAR 99':'Full Compliance Report - QAR 149'}.`;
+    ?`مرحباً، أنا ${nm} من ${R&&R._company?R._company:'شركتي'}. درجة الامتثال: ${R?R.sc:'-'}/100. الموعد: ${R?fd(R.rdl):'-'}${R&&R.overdue?' (متأخر)':''}. الضريبة: ${R?qar(R.txA):'-'}${penStr}. أرجو المساعدة في ${mMode==='invest'?'تقييم الجاهزية للاستثمار':'التقرير التفصيلي الكامل'}.`
+    :`Hi ${CFG.FIRM}, I'm ${nm} from ${R&&R._company?R._company:'my company'}. Score: ${R?R.sc:'-'}/100. Deadline: ${R?fd(R.rdl):'-'}${R&&R.overdue?' (OVERDUE)':''}. Tax: ${R?qar(R.txA):'-'}${penStr}. I'd like the ${mMode==='invest'?'Investment Readiness Score':'Full Compliance Report'}.`;
   window.open(`https://wa.me/${CFG.WA}?text=${encodeURIComponent(msg)}`,'_blank');
 }
 
