@@ -659,7 +659,9 @@ function buildLeadsHTML(arr) {
       <td>
         <div style="display:flex;gap:5px">
           ${l.phone ? `<button class="btn btn-wa" style="padding:4px 9px;font-size:10px" onclick="waLead('${esc(l.phone)}','${esc(l.name||'')}')">WA</button>` : ''}
-          <button class="btn btn-ghost" style="padding:4px 9px;font-size:10px;background:#f0fdf4;color:#14532d;border-color:rgba(20,83,45,.2)" onclick="openReport('${esc(l.id)}')">📋 Report</button>
+          ${l.type==='invest'
+            ?`<button class="btn btn-ghost" style="padding:4px 9px;font-size:10px;background:#eff6ff;color:#1e3a5f;border-color:rgba(30,58,95,.2)" onclick="openScorecard('${esc(l.id)}')">📊 Scorecard</button>`
+            :`<button class="btn btn-ghost" style="padding:4px 9px;font-size:10px;background:#f0fdf4;color:#14532d;border-color:rgba(20,83,45,.2)" onclick="openReport('${esc(l.id)}')">📋 Report</button>`}
           <button class="btn btn-ghost" style="padding:4px 9px;font-size:10px" onclick="openDrawer('${esc(l.id)}')">View</button>
         </div>
       </td>
@@ -758,9 +760,13 @@ function openDrawer(id) {
     <div class="drawer-co">${esc(l.company || 'No company provided')}</div>
 
     <div style="display:flex;gap:8px;margin-bottom:1rem">
-      <button class="btn" style="flex:1;justify-content:center;background:#f0fdf4;color:#14532d;border:1px solid rgba(20,83,45,.2);font-size:12px;padding:8px" onclick="openReport('${esc(l.id)}')">
-        📋 Generate & Download Report
-      </button>
+      ${l.type==='invest'
+        ?`<button class="btn" style="flex:1;justify-content:center;background:#eff6ff;color:#1e3a5f;border:1px solid rgba(30,58,95,.2);font-size:12px;padding:8px" onclick="openScorecard('${esc(l.id)}')">
+            📊 Generate & Download Scorecard
+          </button>`
+        :`<button class="btn" style="flex:1;justify-content:center;background:#f0fdf4;color:#14532d;border:1px solid rgba(20,83,45,.2);font-size:12px;padding:8px" onclick="openReport('${esc(l.id)}')">
+            📋 Generate & Download Report
+          </button>`}
     </div>
     ${l.phone ? `<div style="margin-bottom:1rem">
       <button class="btn btn-wa" style="width:100%;justify-content:center" onclick="waLead('${esc(l.phone)}','${esc(l.name||'')}')">
@@ -853,9 +859,17 @@ function openReport(id) {
   const leads = getLeads();
   const lead = leads.find(l => l.id === id);
   if (!lead) { toast('Lead not found.'); return; }
-  // Write selected lead to localStorage so report.html can read it
   localStorage.setItem('mz_report_lead', JSON.stringify(lead));
   window.open('report.html', '_blank');
+}
+
+function openScorecard(id) {
+  const leads = getLeads();
+  const lead = leads.find(l => l.id === id);
+  if (!lead) { toast('Lead not found.'); return; }
+  if (!lead.pillarPcts) { toast('No scorecard data for this lead — they may not have completed the questionnaire.'); return; }
+  localStorage.setItem('mz_scorecard_lead', JSON.stringify(lead));
+  window.open('scorecard.html', '_blank');
 }
 
 function waLead(phone, name) {

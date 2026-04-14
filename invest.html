@@ -91,8 +91,8 @@ body.rtl{direction:rtl;font-family:'Noto Naskh Arabic','Syne',sans-serif}
 .sh-num{font-family:'Cormorant Garamond',serif;font-size:80px;font-weight:500;line-height:1;margin-bottom:4px}
 .sh-grade{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
 .sh-sub{font-size:13px;color:var(--ink3);max-width:340px;margin:0 auto;line-height:1.65}
-.radar-wrap{text-align:center;margin:4px 0 8px}
-.radar-wrap canvas{max-width:300px;width:100%}
+.radar-wrap{display:flex;justify-content:center;align-items:center;margin:8px 0 16px;width:100%}
+.radar-wrap canvas{width:100%!important;max-width:340px}
 .strength-card{background:var(--gbg);border:1px solid var(--gbd);border-radius:var(--rl);padding:14px 18px;margin-bottom:4px;display:flex;align-items:center;gap:12px}
 .sc-ic{font-size:22px;flex-shrink:0}
 .sc-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:3px}
@@ -157,7 +157,7 @@ body.rtl{direction:rtl;font-family:'Noto Naskh Arabic','Syne',sans-serif}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
-const WA='97451715999';
+const WA='97455171999';
 let lang='en',answers={},identity={},currentQ=-1,optIn=false;
 
 const PILLARS=[
@@ -279,23 +279,22 @@ function startAssessment(){
   currentQ=0;renderQuestion(0);window.scrollTo(0,0);
 }
 
+const ROMAN=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI'];
 function renderQuestion(i){
   const q=QS[i];
-  const pillar=PILLARS.find(p=>p.key===q.p);
   const pct=Math.round(((i+1)/TOTAL)*100);
   const sel=answers[i];
   const letters=['A','B','C','D'];
   document.getElementById('wrap').innerHTML=`
   <div class="prog-wrap">
     <div class="prog-meta">
-      <span class="prog-pillar">${pillar.ic} ${t(pillar.en,pillar.ar)}</span>
-      <span style="color:var(--ink4)">${pct}%</span>
+      <span style="font-size:11px;font-weight:600;color:var(--ink3)">${t('Question','سؤال')} ${ROMAN[i]}</span>
+      <span style="font-size:11px;color:var(--ink4)">${pct}%</span>
     </div>
     <div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div>
-    <div class="prog-dots">${QS.map((_,di)=>`<div class="prog-dot ${di<i?'done':di===i?'active':''}"></div>`).join('')}</div>
   </div>
   <div class="q-card">
-    <div class="q-pillar"><span style="font-size:14px">${pillar.ic}</span>${t(pillar.en,pillar.ar)}</div>
+    <div style="font-size:11px;font-weight:600;color:var(--m);margin-bottom:10px;letter-spacing:.04em">${ROMAN[i]}</div>
     <div class="q-text">${t(q.en,q.ar)}</div>
     <div class="opts">
       ${q.opts.map((o,oi)=>`
@@ -384,7 +383,7 @@ function renderFreeResults(){
   <div class="res-free">
 
     <div class="score-hero">
-      <div class="sh-num" style="color:${band.col}">${total}</div>
+      <div class="sh-num" style="color:${band.col}">${total}<span style="font-size:36px;opacity:.4;font-weight:400">/100</span></div>
       <div class="sh-grade" style="color:${band.col}">${t(band.en,band.ar)}</div>
       <div class="sh-sub">${t(band.sub.en,band.sub.ar)}</div>
     </div>
@@ -440,7 +439,7 @@ function renderFreeResults(){
         <div class="pc-item">${t('Step-by-step roadmap PDF','خارطة طريق خطوة بخطوة PDF')}</div>
         <div class="pc-item">${t('Investor network opt-in','الانضمام لشبكة المستثمرين')}</div>
       </div>
-      <div class="pc-price">QAR 99<small> ${t('· PDF via WhatsApp','· PDF عبر واتساب')}</small></div>
+      <div class="pc-price">QAR 99<small style="font-size:13px;color:var(--ink3);font-family:'Syne',sans-serif;font-weight:400"> · ${t('one-time','دفعة واحدة')}</small></div>
 
       <div class="opt-in-box">
         <div class="oi-title">${t('Join the Mizaan Investor Network','انضم لشبكة مستثمري ميزان')}</div>
@@ -467,31 +466,36 @@ function drawRadar(pcts){
   const canvas=document.getElementById('rc');
   if(!canvas||typeof Chart==='undefined')return;
   if(Chart.getChart(canvas))Chart.getChart(canvas).destroy();
+  canvas.style.display='block';
+  canvas.style.margin='0 auto';
   new Chart(canvas,{
     type:'radar',
     data:{
       labels:PILLARS.map(p=>t(p.en,p.ar)),
       datasets:[
-        {label:t('Investment Ready threshold','حد الجاهزية للاستثمار'),
+        {label:t('Investment Ready (80)','حد الجاهزية (80)'),
          data:[80,80,80,80,80,80],
-         borderColor:'rgba(20,83,45,.4)',backgroundColor:'rgba(20,83,45,.04)',
-         borderWidth:1.5,borderDash:[5,4],pointRadius:0,pointHoverRadius:0},
+         borderColor:'rgba(20,83,45,.45)',backgroundColor:'rgba(20,83,45,.05)',
+         borderWidth:1.5,borderDash:[6,4],pointRadius:0,pointHoverRadius:0},
         {label:t('Your score','نتيجتك'),
          data:PILLARS.map(p=>pcts[p.key]),
-         borderColor:'#7c1522',backgroundColor:'rgba(124,21,34,.13)',
+         borderColor:'#7c1522',backgroundColor:'rgba(124,21,34,.14)',
          borderWidth:2.5,pointBackgroundColor:'#7c1522',
          pointRadius:5,pointHoverRadius:7,pointBorderColor:'white',pointBorderWidth:2},
       ]
     },
     options:{
       responsive:true,maintainAspectRatio:true,
-      scales:{r:{min:0,max:100,ticks:{stepSize:25,font:{size:9,family:'Syne'},color:'#9a8e87',backdropColor:'transparent'},
-        grid:{color:'rgba(0,0,0,.06)'},angleLines:{color:'rgba(0,0,0,.07)'},
-        pointLabels:{font:{size:10,family:'Syne',weight:'600'},color:'#6b6058',padding:6}}},
-      plugins:{legend:{display:true,position:'bottom',
-        labels:{font:{size:10,family:'Syne'},color:'#6b6058',boxWidth:12,padding:12,
+      layout:{padding:{top:10,bottom:10,left:10,right:10}},
+      scales:{r:{min:0,max:100,
+        ticks:{stepSize:25,font:{size:9,family:'Syne'},color:'#9a8e87',backdropColor:'rgba(255,255,255,.7)'},
+        grid:{color:'rgba(0,0,0,.07)',circular:false},
+        angleLines:{color:'rgba(0,0,0,.08)'},
+        pointLabels:{font:{size:11,family:'Syne',weight:'600'},color:'#6b6058',padding:10}}},
+      plugins:{legend:{display:true,position:'bottom',align:'center',
+        labels:{font:{size:11,family:'Syne'},color:'#6b6058',boxWidth:14,padding:16,
           usePointStyle:true,pointStyle:'circle'}}},
-      animation:{duration:1000,easing:'easeInOutQuart'}
+      animation:{duration:1100,easing:'easeInOutQuart'}
     }
   });
 }
@@ -499,14 +503,11 @@ function drawRadar(pcts){
 function shareScore(){
   const{pcts,total}=calcScore();
   const band=getBand(total);
-  const sorted=[...PILLARS].map(p=>({...p,pct:pcts[p.key]})).sort((a,b)=>a.pct-b.pct);
-  const gaps=sorted.slice(0,3);
   const a=lang==='ar';
-  const lines=PILLARS.map(p=>`  • ${t(p.en,p.ar)}: ${pcts[p.key]}%`).join('\n');
-  const gapLines=gaps.map((g,i)=>`  ${i+1}. ${t(g.en,g.ar)}: ${g.pct}% — ${t(gapAction(g.key).en,gapAction(g.key).ar)}`).join('\n');
+  // Simple confirmation message — full data already saved in admin localStorage
   const msg=a
-    ?`مرحباً Guardian Consulting،\nأنا ${identity.nm} من ${identity.co}.\n\n📊 نتيجة الجاهزية للاستثمار: ${total}/100 — ${t(band.en,band.ar)}\n\nالنتائج حسب المحاور:\n${lines}\n\nأبرز 3 مجالات للتحسين:\n${gapLines}\n\n⏱ المدة المقدرة للوصول لمستوى 80+: ${etaMonths(total)}\n\n${optIn?'✅ أوافق على إضافة ملفي لشبكة المستثمرين في ميزان.\n':''}أطلب بطاقة النتيجة الكاملة بصيغة PDF — 99 ريال.`
-    :`Hi Guardian Consulting,\nI'm ${identity.nm} from ${identity.co} (${identity.sector}).\n\n📊 Investment Readiness Score: ${total}/100 — ${band.en}\n\nScores by pillar:\n${lines}\n\nTop 3 improvement areas:\n${gapLines}\n\n⏱ Estimated time to 80+: ${etaMonths(total)}\n\n${optIn?'✅ I consent to adding my profile to the Mizaan investor network.\n':''}Requesting full scorecard PDF — QAR 99.`;
+    ?`مرحباً Guardian Consulting،\nأنا ${identity.nm} من ${identity.co}.\nنتيجة الجاهزية للاستثمار: ${total}/100 — ${t(band.en,band.ar)}${optIn?'\n✅ أوافق على إضافة ملفي لشبكة المستثمرين.':''}\nأطلب بطاقة النتيجة الكاملة — 99 ريال.`
+    :`Hi Guardian Consulting, I'm ${identity.nm} from ${identity.co}. My Investment Readiness Score is ${total}/100 — ${band.en}.${optIn?' I consent to adding my profile to the Mizaan investor network.':''} Requesting full scorecard — QAR 99.`;
 
   try{
     const leads=JSON.parse(localStorage.getItem('mz_leads')||'[]');
